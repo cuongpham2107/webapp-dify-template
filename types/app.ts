@@ -109,6 +109,7 @@ export type ConversationItem = {
 export type AppInfo = {
   title: string
   description: string
+  logo?: string
   default_language: Locale
   copyright?: string
   privacy_policy?: string

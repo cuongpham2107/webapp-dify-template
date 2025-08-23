@@ -54,6 +54,43 @@ const Main: FC<IMainProps> = () => {
       document.title = `${APP_INFO.title} - Powered by Dify`
   }, [APP_INFO?.title])
 
+  // Listen for conversation-id-changed event from AppSidebar
+  useEffect(() => {
+    const handleConversationIdChanged = async (e: CustomEvent) => {
+      const { id } = e.detail
+      setCurrConversationId(id, APP_ID, true)
+      if (id === '-1') {
+        setConversationIdChangeBecauseOfNew(true)
+      } else {
+        setConversationIdChangeBecauseOfNew(false)
+        // Update conversation name when switching to existing conversation
+        try {
+          const { data: allConversations }: any = await fetchConversations()
+          const conversation = allConversations.find((conv: any) => conv.id === id)
+          if (conversation) {
+            setExistConversationInfo({
+              name: conversation.name || t('app.chat.newChatDefaultName'),
+              introduction: conversation.introduction || '',
+              suggested_questions: conversation.suggested_questions || []
+            })
+          }
+        } catch (error) {
+          console.error('Failed to update conversation name:', error)
+        }
+      }
+      // Force conversation switch after setting the new ID
+      setTimeout(() => {
+        handleConversationSwitch()
+      }, 0)
+    }
+
+    document.addEventListener('conversation-id-changed', handleConversationIdChanged as unknown as EventListener)
+
+    return () => {
+      document.removeEventListener('conversation-id-changed', handleConversationIdChanged as unknown as EventListener)
+    }
+  }, [])
+
   // onData change thought (the produce obj). https://github.com/immerjs/immer/issues/576
   useEffect(() => {
     setAutoFreeze(false)
@@ -459,13 +496,40 @@ const Main: FC<IMainProps> = () => {
           return
 
         if (getConversationIdChangeBecauseOfNew()) {
-          const { data: allConversations }: any = await fetchConversations()
-          const newItem: any = await generationConversationName(allConversations[0].id)
+          try {
+            // Fetch the latest conversations to get the new conversation ID
+            const { data: allConversations }: any = await fetchConversations()
 
-          const newAllConversations = produce(allConversations, (draft: any) => {
-            draft[0].name = newItem.name
-          })
-          setConversationList(newAllConversations as any)
+            if (!allConversations || allConversations.length === 0) {
+              console.error('No conversations found after creating new conversation')
+              return
+            }
+
+            // Generate a name for the new conversation
+            const newItem: any = await generationConversationName(allConversations[0].id)
+
+            // Update the conversation list with the new name
+            const newAllConversations = produce(allConversations, (draft: any) => {
+              draft[0].name = newItem.name
+            })
+
+            // Update the conversation list in the state
+            setConversationList(newAllConversations as any)
+
+            // Wait a moment to ensure the state is updated before dispatching the event
+            setTimeout(() => {
+
+              const event = new CustomEvent('conversation-name-updated', {
+                detail: {
+                  id: allConversations[0].id,
+                  name: newItem.name
+                }
+              })
+              document.dispatchEvent(event)
+            }, 100)
+          } catch (error) {
+            console.error('Error updating conversation name:', error)
+          }
         }
         setConversationIdChangeBecauseOfNew(false)
         resetNewConversationInputs()
@@ -635,18 +699,7 @@ const Main: FC<IMainProps> = () => {
     notify({ type: 'success', message: t('common.api.success') })
   }
 
-  const renderSidebar = () => {
-    if (!APP_ID || !APP_INFO || !promptConfig)
-      return null
-    return (
-      <Sidebar
-        list={conversationList}
-        onCurrentIdChange={handleConversationIdChange}
-        currentId={currConversationId}
-        copyRight={APP_INFO.copyright || APP_INFO.title}
-      />
-    )
-  }
+  // Sidebar logic moved to app-sidebar.tsx
 
   if (appUnavailable)
     return <AppUnavailable isUnknownReason={isUnknownReason} errMessage={!hasSetAppConfig ? 'Please set APP_ID and API_KEY in config/index.tsx' : ''} />
@@ -656,26 +709,8 @@ const Main: FC<IMainProps> = () => {
 
   return (
     <div className='bg-gray-100'>
-      <Header
-        title={APP_INFO.title}
-        isMobile={isMobile}
-        onShowSideBar={showSidebar}
-        onCreateNewChat={() => handleConversationIdChange('-1')}
-      />
+      {/* main */}
       <div className="flex rounded-t-2xl bg-white overflow-hidden">
-        {/* sidebar */}
-        {!isMobile && renderSidebar()}
-        {isMobile && isShowSidebar && (
-          <div className='fixed inset-0 z-50'
-            style={{ backgroundColor: 'rgba(35, 56, 118, 0.2)' }}
-            onClick={hideSidebar}
-          >
-            <div className='inline-block' onClick={e => e.stopPropagation()}>
-              {renderSidebar()}
-            </div>
-          </div>
-        )}
-        {/* main */}
         <div className='flex-grow flex flex-col h-[calc(100vh_-_3rem)] overflow-y-auto'>
           <ConfigSence
             conversationName={conversationName}
