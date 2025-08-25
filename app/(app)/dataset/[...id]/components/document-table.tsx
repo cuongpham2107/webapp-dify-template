@@ -17,6 +17,7 @@ import { Document } from '@/types/base'
 import { PenBox, Trash2, Download, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { usePermissions } from '@/hooks/use-permissions'
+import { DocumentDownloadButton } from '@/components/ui/document-download'
 
 interface DocumentTableProps {
     documents: Document[]
@@ -46,8 +47,9 @@ export function DocumentTable({ documents, onEdit, onDelete }: DocumentTableProp
     // Permission checks
     const canEditDocuments = userPermissions.isAdmin || userPermissions.isSuperAdmin || canAccess('documents', 'edit')
     const canDeleteDocuments = userPermissions.isAdmin || userPermissions.isSuperAdmin || canAccess('documents', 'delete')
+    const canDownloadDocuments = userPermissions.isAdmin || userPermissions.isSuperAdmin || canAccess('documents', 'view')
 
-    const showActions = canEditDocuments || canDeleteDocuments
+    const showActions = canEditDocuments || canDeleteDocuments || canDownloadDocuments
 
     return (
         <Table className="border border-gray-300 rounded-md overflow-hidden">
@@ -97,7 +99,8 @@ export function DocumentTable({ documents, onEdit, onDelete }: DocumentTableProp
                                 {formatDistanceToNow(new Date(document.createdAt), { addSuffix: true, locale: vi })}
                             </TableCell>
                             {showActions && (
-                                <TableCell className='space-x-2 text-center'>
+                                <TableCell className='flex flex-row space-x-2 text-center'>
+
                                     {canEditDocuments && onEdit && (
                                         <Button
                                             variant="outline"
@@ -109,6 +112,15 @@ export function DocumentTable({ documents, onEdit, onDelete }: DocumentTableProp
                                         >
                                             <PenBox className="w-4 h-4" />
                                         </Button>
+                                    )}
+                                    {canDownloadDocuments && (
+                                        <DocumentDownloadButton
+                                            documentId={document.id}
+                                            datasetId={""} // Will be fetched from database
+                                            documentName={document.name}
+                                            variant="outline"
+                                            size="sm"
+                                        />
                                     )}
                                     {canDeleteDocuments && onDelete && (
                                         <Button
@@ -122,6 +134,7 @@ export function DocumentTable({ documents, onEdit, onDelete }: DocumentTableProp
                                             <Trash2 className="w-4 h-4" color='red' />
                                         </Button>
                                     )}
+
                                 </TableCell>
                             )}
                         </TableRow>

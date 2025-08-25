@@ -69,7 +69,27 @@ export async function createDataset(userId: string, name: string, parent_id: str
   }
 
   // Call Dify API to create remote dataset
-  const res = await datasets.createDataset({ name });
+  const res = await datasets.createDataset(
+    {
+      name,
+      description: "", // Optional description
+      indexing_technique: "high_quality", // Required: high_quality or economy
+      permission: "only_me", // Required: only_me, all_team_members, or partial_members
+      provider: "vendor", // Required: vendor or external
+      embedding_model: "text-embedding-3-large", // Required: name of embedding model
+      embedding_model_provider: "openai", // Required: provider of embedding model
+      retrieval_model: {
+        search_method: "hybrid_search", // hybrid_search, semantic_search, full_text_search, keyword_search
+        reranking_enable: false,
+        reranking_mode: "weighted_score", // Only needed if reranking_enable is true
+        top_k: 4,
+        score_threshold_enabled: false,
+        score_threshold: 0, // Only needed if score_threshold_enabled is true
+        weights: null // Only needed for hybrid_search with custom weights
+      }
+    }
+  );
+  console.log(res);
   if (res.status !== 200) {
     throw new Error(`Failed to create dataset on Dify: ${res.status}`);
   }

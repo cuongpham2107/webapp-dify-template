@@ -23,7 +23,7 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
     const [refreshKey, setRefreshKey] = useState(0);
     const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
     const [deleteDocument, setDeleteDocument] = useState<Document | null>(null);
-    const [activeTab, setActiveTab] = useState<'documents' | 'datasets'>('documents');
+    const [activeTab, setActiveTab] = useState<'documents' | 'datasets'>('datasets');
 
     // Get user permissions
     const { userPermissions, isLoading: permissionsLoading, canAccess } = usePermissions();
@@ -101,16 +101,6 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
             {/* Tab Navigation */}
             <div className="mb-6">
                 <div className="flex gap-2 border-b border-gray-200">
-                    {canViewDocuments && (
-                        <Button
-                            variant={activeTab === 'documents' ? 'default' : 'ghost'}
-                            onClick={() => setActiveTab('documents')}
-                            className="flex items-center gap-2 rounded-b-none"
-                        >
-                            <FileText className="w-4 h-4" />
-                            Tài liệu
-                        </Button>
-                    )}
                     {canViewDatasets && (
                         <Button
                             variant={activeTab === 'datasets' ? 'default' : 'ghost'}
@@ -121,6 +111,17 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
                             Dataset
                         </Button>
                     )}
+                    {canViewDocuments && (
+                        <Button
+                            variant={activeTab === 'documents' ? 'default' : 'ghost'}
+                            onClick={() => setActiveTab('documents')}
+                            className="flex items-center gap-2 rounded-b-none"
+                        >
+                            <FileText className="w-4 h-4" />
+                            Tài liệu
+                        </Button>
+                    )}
+
                 </div>
             </div>
 
@@ -173,7 +174,11 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
                     </div>
 
                     <div className="border border-gray-300 rounded-md">
-                        <DatasetTable datasets={dataset?.children || []} key={refreshKey} />
+                        <DatasetTable
+                            datasets={dataset?.children || []}
+                            handleReloadDatasets={() => fetchDatasets(datasetId)}
+                            key={refreshKey}
+                        />
                     </div>
                 </div>
             )}

@@ -32,6 +32,10 @@ export const documentRoutes = {
     deleteDocument: {
         method: "DELETE" as RequestMethods,
         url: (datasetId: string, documentId: string) => `/datasets/${datasetId}/documents/${documentId}`
+    },
+    getUploadFile: {
+        method: "GET" as RequestMethods,
+        url: (datasetId: string, documentId: string) => `/datasets/${datasetId}/documents/${documentId}/upload-file`
     }
 }
 
@@ -135,6 +139,96 @@ export class DocumentClient extends DifyClient {
         return this.sendRequest(
             documentRoutes.deleteDocument.method,
             documentRoutes.deleteDocument.url(datasetId, documentId)
+        );
+    }
+
+    // Download/fetch file from document using upload-file endpoint
+    async downloadFile(datasetId: string, documentId: string) {
+        try {
+            const endpoint = documentRoutes.getUploadFile.url(datasetId, documentId);
+
+            // Step 1: Get file information and download URL
+            const response = await fetch(`${API_URL}${endpoint}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${APP_KEY_DATA}`,
+                }
+            });
+
+            if (!response.ok) {
+                const errorData = await response.text();
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+
+
+            // Parse the JSON response to get download URL
+            const fileInfo = await response.json();
+
+            if (!fileInfo.download_url) {
+                throw new Error('No download URL provided in response');
+            }
+
+            // Step 2: Download the actual file using the download_url
+            // Note: File URLs are served from the root domain, not /v1 endpoint
+            const baseURL = API_URL.replace('/v1', ''); // Remove /v1 for file downloads
+            const fileDownloadURL = fileInfo.download_url.startsWith('http')
+                ? fileInfo.download_url
+                : `${baseURL}${fileInfo.download_url}`;
+
+            const downloadResponse = await fetch(fileDownloadURL, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${APP_KEY_DATA}`,
+                }
+            });
+
+            if (!downloadResponse.ok) {
+                throw new Error(`Failed to download file: HTTP ${downloadResponse.status}`);
+            }
+
+            // Get the file blob
+            const blob = await downloadResponse.blob();
+            const filename = fileInfo.name || this.getFilenameFromResponse(downloadResponse) || `document_${documentId}`;
+
+            return {
+                data: {
+                    blob: blob,
+                    filename: filename,
+                    size: blob.size,
+                    type: blob.type || fileInfo.mime_type || 'application/octet-stream',
+                    url: URL.createObjectURL(blob),
+                    fileInfo: fileInfo // Include original file info
+                }
+            };
+
+        } catch (error: any) {
+            console.error('Error details:', {
+                message: error?.message || 'Unknown error',
+                datasetId,
+                documentId
+            });
+            throw error;
+        }
+    }
+
+    // Helper method to extract filename from response headers
+    private getFilenameFromResponse(response: Response): string | null {
+        const contentDisposition = response.headers.get('content-disposition');
+        if (contentDisposition) {
+            const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+            if (filenameMatch) {
+                return filenameMatch[1];
+            }
+        }
+        return null;
+    }
+
+    // Alternative method using the sendRequest approach
+    getFileInfo(datasetId: string, documentId: string) {
+        return this.sendRequest(
+            documentRoutes.getUploadFile.method,
+            documentRoutes.getUploadFile.url(datasetId, documentId)
         );
     }
 }

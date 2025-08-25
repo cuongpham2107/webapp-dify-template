@@ -130,7 +130,7 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
                 </Tooltip>
             ) : (
                 <DialogTrigger asChild>
-                    <Button variant="ghost" className="p-0 h-6 w-full flex justify-start" type="button">
+                    <Button variant="secondary" className="!p-1 h-6" type="button">
                         <PenBox className="h-4 w-4" />
                     </Button>
                 </DialogTrigger>
