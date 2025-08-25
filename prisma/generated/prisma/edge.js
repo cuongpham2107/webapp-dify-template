@@ -188,7 +188,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/cuongpham/Deverlop/next-js/webapp-dify-template/prisma/generated/prisma",
+      "value": "/app/prisma/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -197,12 +197,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "linux-musl-arm64-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/cuongpham/Deverlop/next-js/webapp-dify-template/prisma/schema.prisma",
+    "sourceFilePath": "/app/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -216,7 +216,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
-  "postinstall": true,
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

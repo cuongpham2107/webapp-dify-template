@@ -167,6 +167,63 @@ export const adminUserAPI = {
 };
 
 // =============================================
+// DATASET MANAGEMENT API CLIENTS  
+// =============================================
+
+export const adminDatasetAPI = {
+    // Get all datasets (admin only)
+    async getAllDatasets() {
+        const res = await fetch('/api/admin/datasets', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return res.json();
+    },
+
+    // Get dataset by ID (admin only)
+    async getDatasetById(datasetId: string) {
+        const res = await fetch(`/api/admin/datasets/${datasetId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return res.json();
+    }
+};
+
+// =============================================
+// DOCUMENT MANAGEMENT API CLIENTS
+// =============================================
+
+export const adminDocumentAPI = {
+    // Get all documents (admin only)
+    async getAllDocuments() {
+        const res = await fetch('/api/admin/documents', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return res.json();
+    },
+
+    // Get documents by dataset ID (admin only)
+    async getDocumentsByDataset(datasetId: string) {
+        const res = await fetch(`/api/admin/documents?datasetId=${datasetId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return res.json();
+    },
+
+    // Get document by ID (admin only)
+    async getDocumentById(documentId: string) {
+        const res = await fetch(`/api/admin/documents/${documentId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return res.json();
+    }
+};
+
+// =============================================
 // ROLE MANAGEMENT API CLIENTS
 // =============================================
 

@@ -42,8 +42,8 @@ const bulkUpdateAccessSchema = z.object({
 // GET /api/admin/users/[id]/access - Get user access permissions
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
-        // TEMPORARILY DISABLED: Check admin permissions
-        // await requireAdmin(request);
+        // Check admin permissions
+        await requireAdmin(request);
 
         const { id } = params;
         if (!id) {
@@ -77,8 +77,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 // POST /api/admin/users/[id]/access - Grant access permissions
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
     try {
-        // TEMPORARILY DISABLED: Check admin permissions
-        // await requireAdmin(request);
+        // Check admin permissions
+        await requireAdmin(request);
 
         const { id } = params;
         if (!id) {
@@ -145,8 +145,8 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 // PUT /api/admin/users/[id]/access - Bulk update user access permissions
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
     try {
-        // TEMPORARILY DISABLED: Check admin permissions
-        // await requireAdmin(request);
+        // Check admin permissions
+        await requireAdmin(request);
 
         const { id } = params;
         if (!id) {
@@ -191,8 +191,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 // DELETE /api/admin/users/[id]/access - Revoke access permissions
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     try {
-        // TEMPORARILY DISABLED: Check admin permissions
-        // await requireAdmin(request);
+        // Check admin permissions
+        await requireAdmin(request);
 
         const { id } = params;
         if (!id) {

@@ -9,7 +9,7 @@ const protectedRoutes = ['/admin', '/dataset']
 const adminOnlyRoutes = ['/admin']
 
 // Public routes that don't require authentication
-const publicRoutes = ['/auth/login', '/', '/api/auth']
+const publicRoutes = ['/auth/login', '/', '/api/auth', '/api/public']
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
