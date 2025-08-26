@@ -17,7 +17,7 @@ import { Document } from '@/types/base'
 import { PenBox, Trash2, Download, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { usePermissions } from '@/hooks/use-permissions'
-import { DocumentDownloadButton } from '@/components/ui/document-download'
+import { DocumentDownloadButton } from './document-download'
 
 interface DocumentTableProps {
     documents: Document[]

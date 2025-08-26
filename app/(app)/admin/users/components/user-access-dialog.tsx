@@ -356,7 +356,7 @@ export default function UserAccessDialog({
                                     <div className="space-y-3 p-3 border rounded-lg bg-gray-50">
                                         <div className="flex items-center space-x-3">
                                             <Input
-                                                placeholder="Tìm kiếm dataset..."
+                                                placeholder="Tìm kiếm thư mục..."
                                                 value={datasetSearchQuery}
                                                 onChange={(e) => setDatasetSearchQuery(e.target.value)}
                                                 className="flex-1"

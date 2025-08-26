@@ -47,9 +47,9 @@ export function DeleteDocumentDialog({ id, name, onDeleted }: DeleteDocumentDial
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <div className="flex items-center w-full cursor-pointer">
-                    <Trash2 className="mr-2 h-4 w-4" color="red" />
-                </div>
+                <Button variant="outline" size="sm" type="button">
+                    <Trash2 className="h-4 w-4" color="red" />
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

@@ -29,11 +29,14 @@ import { useState, useEffect } from "react"
 import { z } from "zod"
 import { toast } from "sonner"
 import { getDatasetById } from "@/lib/api/dataset"
+import { cn } from "@/lib/utils"
 
 interface AddEditDatasetDialogProps {
     type: "add" | "edit",
     id?: string,
     parentId?: string | null,
+    hidden_label?: boolean | null,
+    hidden_border?: boolean | null,
     handleReloadDatasets?: () => void
 }
 
@@ -42,7 +45,7 @@ const datasetSchema = z.object({
     parent_id: z.string().nullable()
 });
 
-export function AddEditDatasetDialog({ type = "add", id, parentId: initialParentId, handleReloadDatasets }: AddEditDatasetDialogProps) {
+export function AddEditDatasetDialog({ type = "add", id, parentId: initialParentId, hidden_label, hidden_border, handleReloadDatasets }: AddEditDatasetDialogProps) {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState("");
     const [parentId, setParentId] = useState(initialParentId || "");
@@ -119,18 +122,19 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <DialogTrigger asChild>
-                            <Button variant="secondary" className="!p-1 h-6">
+                            <Button variant="secondary" className="!p-2 h-8" >
                                 <PlusIcon className="h-4 w-4" />
+                                {!hidden_label && 'Tạo mới thư mục'}
                             </Button>
                         </DialogTrigger>
                     </TooltipTrigger>
                     <TooltipContent>
-                        <p>Tạo mới dataset</p>
+                        <p>Tạo mới thư mục</p>
                     </TooltipContent>
                 </Tooltip>
             ) : (
                 <DialogTrigger asChild>
-                    <Button variant="secondary" className="!p-1 h-6" type="button">
+                    <Button variant={hidden_border ? 'link' : 'outline'} size="sm" type="button" className={hidden_border ? 'p-0' : ''}>
                         <PenBox className="h-4 w-4" />
                     </Button>
                 </DialogTrigger>
@@ -139,10 +143,10 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
                 <form onSubmit={handleSubmit}>
                     <DialogHeader>
                         <DialogTitle>
-                            {type === "add" ? "Tạo mới dataset" : "Chỉnh sửa dataset"}
+                            {type === "add" ? "Tạo mới thư mục" : "Chỉnh sửa thư mục"}
                         </DialogTitle>
                         <DialogDescription>
-                            {type === "add" ? "Nhập thông tin cho dataset mới." : "Nhập thông tin để chỉnh sửa dataset."}
+                            {type === "add" ? "Nhập thông tin cho thư mục mới." : "Nhập thông tin để chỉnh sửa thư mục."}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 mt-4">

@@ -10,6 +10,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { deleteDataset } from "@/lib/api/dataset"
+import { cn } from "@/lib/utils"
 import { Trash2 } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -17,10 +18,11 @@ import { toast } from "sonner"
 interface DeleteDatasetDialogProps {
     id: string,
     name: string,
+    hidden_border?: boolean | null,
     onDeleted?: () => void
 }
 
-export function DeleteDatasetDialog({ id, name, onDeleted }: DeleteDatasetDialogProps) {
+export function DeleteDatasetDialog({ id, name, hidden_border, onDeleted }: DeleteDatasetDialogProps) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -47,9 +49,9 @@ export function DeleteDatasetDialog({ id, name, onDeleted }: DeleteDatasetDialog
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <div className="flex items-center cursor-pointer">
-                    <Trash2 className="mr-2 h-4 w-4" color="red" />
-                </div>
+                <Button variant={hidden_border ? 'link' : 'outline'} size="sm" type="button" className={hidden_border ? 'p-0 pr-2' : ''}>
+                    <Trash2 className="h-4 w-4" color="red" />
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

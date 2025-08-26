@@ -180,7 +180,7 @@ export function AddEditDocumentDialog({
                 </Tooltip>
             ) : (
                 <DialogTrigger asChild>
-                    <Button variant="ghost" className="p-0 h-6 w-full flex justify-start" type="button">
+                    <Button variant="outline" size="sm" type="button">
                         <PenBox className="h-4 w-4" />
                     </Button>
                 </DialogTrigger>
