@@ -216,7 +216,7 @@ export default function UsersPage() {
                         </CardDescription>
                     </div>
                     <div className="relative max-w-sm">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground mr-3" />
                         <Input
                             placeholder="Tìm kiếm người dùng..."
                             value={searchQuery}
