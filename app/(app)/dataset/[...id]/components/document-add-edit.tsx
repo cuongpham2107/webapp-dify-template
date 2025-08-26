@@ -223,7 +223,7 @@ export function AddEditDocumentDialog({
                                 type="file"
                                 className="hidden"
                                 onChange={handleFileChange}
-                                accept=".txt,.pdf,.doc,.docx,.json,.csv,.md"
+                                accept=".txt,.pdf,.doc,.docx,.json,.csv,.md,.xlsx"
                             />
                         </div>
 
