@@ -51,7 +51,6 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
     const [parentId, setParentId] = useState(initialParentId || "");
     const [loading, setLoading] = useState(false);
     const [parentOptions, setParentOptions] = useState<{ id: string, name: string }[]>([]);
-
     useEffect(() => {
         // Lấy danh sách dataset cha từ API
         if (type === "add" && !id) {
@@ -154,26 +153,29 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
                             <Label htmlFor="name-1">Tên*</Label>
                             <Input id="name-1" name="name" value={name} onChange={e => setName(e.target.value)} />
                         </div>
-                        <div className="grid gap-3">
-                            <Label htmlFor="parent-id">Thuộc</Label>
-                            <Select
-                                value={parentId === "" ? "none" : parentId}
-                                onValueChange={val => setParentId(val === "none" ? "" : val)}
-                                name="parent_id"
-                            >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Không có" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="none">Không có</SelectItem>
-                                    {parentOptions.map(opt => (
-                                        <SelectItem key={opt.id} value={opt.id}>
-                                            {opt.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
+                        {type === "edit" && (
+                            <div className="grid gap-3">
+                                <Label htmlFor="parent-id">Thuộc</Label>
+                                <Select
+                                    value={parentId === "" ? "none" : parentId}
+                                    onValueChange={val => setParentId(val === "none" ? "" : val)}
+                                    name="parent_id"
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Không có" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="none">Không có</SelectItem>
+                                        {parentOptions.map(opt => (
+                                            <SelectItem key={opt.id} value={opt.id}>
+                                                {opt.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        )}
+
                     </div>
                     <DialogFooter className="mt-4">
                         <DialogClose asChild>
