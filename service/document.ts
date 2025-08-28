@@ -73,8 +73,9 @@ export class DocumentClient extends DifyClient {
                             { id: "remove_urls_emails", enabled: true }
                         ],
                         segmentation: {
-                            separator: "###",
-                            max_tokens: 500
+                            separator: "/n/n",
+                            max_tokens: 1024,
+                            chunk_overlap: 50
                         }
                     },
                     mode: "custom"

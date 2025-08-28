@@ -72,20 +72,30 @@ export async function createDataset(userId: string, name: string, parent_id: str
   const res = await datasets.createDataset(
     {
       name,
-      description: "", // Optional description
-      indexing_technique: "high_quality", // Required: high_quality or economy
-      permission: "only_me", // Required: only_me, all_team_members, or partial_members
-      provider: "vendor", // Required: vendor or external
-      embedding_model: "text-embedding-3-large", // Required: name of embedding model
-      embedding_model_provider: "openai", // Required: provider of embedding model
+      description: "",
+      indexing_technique: "high_quality",
+      permission: "only_me",
+      provider: "vendor",
+      embedding_model: "text-embedding-3-large",
+      embedding_model_provider: "openai",
       retrieval_model: {
-        search_method: "hybrid_search", // hybrid_search, semantic_search, full_text_search, keyword_search
+        search_method: "hybrid_search",
         reranking_enable: false,
-        reranking_mode: "weighted_score", // Only needed if reranking_enable is true
+        reranking_mode: "weighted_score",
         top_k: 4,
         score_threshold_enabled: false,
-        score_threshold: 0, // Only needed if score_threshold_enabled is true
-        weights: null // Only needed for hybrid_search with custom weights
+        score_threshold: 0,
+        weights: {
+          weight_type: "customized",
+          keyword_setting: {
+            keyword_weight: 0.3
+          },
+          vector_setting: {
+            vector_weight: 0.7,
+            embedding_model_name: "text-embedding-3-large",
+            embedding_provider_name: "langgenius/openai/openai"
+          }
+        }
       }
     }
   );
