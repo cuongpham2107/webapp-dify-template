@@ -6,9 +6,13 @@ import { getCurrentUserWithPermissions, canAccessDataset, hasPermission } from '
 
 export async function GET(request: NextRequest, { params }: { params: { id: string[] } }) {
     const { id } = params;
-    if (!id) {
+    if (!id || id.length === 0) {
         return NextResponse.json({ error: "Dataset ID is required" }, { status: 400 });
     }
+
+    // Use the last ID in the path as the current dataset ID
+    const currentDatasetId = id[id.length - 1];
+
     try {
         // Get user with permissions
         const userWithPermissions = await getCurrentUserWithPermissions();
@@ -22,12 +26,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         }
 
         // Check view permission using the new permission system
-        const canView = await canAccessDataset(userId, id[0], 'view', userWithPermissions);
+        const canView = await canAccessDataset(userId, currentDatasetId, 'view', userWithPermissions);
         if (!canView) {
             return NextResponse.json({ error: "Bạn không có quyền xem dataset này" }, { status: 403 });
         }
 
-        const dataset = await getTreeDatasetById(id[0]);
+        const dataset = await getTreeDatasetById(currentDatasetId);
 
         return NextResponse.json(dataset, { status: 200 });
     } catch (error) {
@@ -37,11 +41,15 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 export async function PUT(request: NextRequest, { params }: { params: { id: string[] } }) {
     const { id } = params;
-    if (!id) {
+    if (!id || id.length === 0) {
         return NextResponse.json({ error: "Dataset ID is required" }, { status: 400 });
     }
+
+    // Use the last ID in the path as the current dataset ID
+    const currentDatasetId = id[id.length - 1];
+
     try {
-        const dataset = await getDatasetById(id[0]);
+        const dataset = await getDatasetById(currentDatasetId);
         if (!dataset) {
             return NextResponse.json({ error: "Dataset not found" }, { status: 404 });
         }
@@ -60,13 +68,13 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         }
 
         // Check edit permission using the new permission system
-        const canEdit = await canAccessDataset(userId, id[0], 'edit', userWithPermissions);
+        const canEdit = await canAccessDataset(userId, currentDatasetId, 'edit', userWithPermissions);
         if (!canEdit) {
             return NextResponse.json({ error: "Bạn không có quyền chỉnh sửa dataset này" }, { status: 403 });
         }
 
         // Update the dataset with the new data
-        const updatedDataset = await updateDataset(id[0], { ...body });
+        const updatedDataset = await updateDataset(currentDatasetId, { ...body });
 
         return NextResponse.json(updatedDataset, { status: 200 });
     } catch (error) {
@@ -77,9 +85,12 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 export async function DELETE(request: NextRequest, { params }: { params: { id: string[] } }) {
     const { id } = params;
 
-    if (!id) {
+    if (!id || id.length === 0) {
         return NextResponse.json({ error: "Dataset ID is required" }, { status: 400 });
     }
+
+    // Use the last ID in the path as the current dataset ID
+    const currentDatasetId = id[id.length - 1];
 
     try {
         // Get user with permissions
@@ -94,13 +105,13 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
         }
 
         // Check delete permission using the new permission system
-        const canDelete = await canAccessDataset(userId, id[0], 'delete', userWithPermissions);
+        const canDelete = await canAccessDataset(userId, currentDatasetId, 'delete', userWithPermissions);
         if (!canDelete) {
             return NextResponse.json({ error: "Bạn không có quyền xóa dataset này" }, { status: 403 });
         }
 
         // Call the function to delete the dataset by ID
-        await deleteDataset(id[0]);
+        await deleteDataset(currentDatasetId);
 
         return NextResponse.json({ message: "Dataset deleted successfully" }, { status: 200 });
     } catch (error) {

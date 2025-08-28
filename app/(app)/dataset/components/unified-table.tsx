@@ -41,6 +41,7 @@ interface UnifiedTableProps {
     data: TableData[]
     type: 'dataset' | 'document' | 'mixed'
     datasetId?: string
+    currentPath?: string[] // Add current path for nested navigation
     // Callback handlers
     handleReloadDatasets?: () => void
     onEdit?: (document: Document) => void
@@ -70,6 +71,7 @@ export function UnifiedTable({
     data,
     type,
     datasetId,
+    currentPath = [],
     handleReloadDatasets,
     onEdit,
     onDelete,
@@ -283,7 +285,7 @@ export function UnifiedTable({
 
             case 'size_or_count':
                 if (isDataset(item)) {
-                    return `${item.documents?.length || 0} tài liệu`
+                    return `${item.children?.length || 0} thưc mục | ${item.documents?.length || 0} tài liệu`
                 } else if (isDocument(item)) {
                     return formatFileSize(item.size)
                 }
@@ -357,7 +359,9 @@ export function UnifiedTable({
 
     const handleRowClick = (item: TableData) => {
         if (isDataset(item)) {
-            router.push(`/dataset/${item.id}`)
+            // Build nested path: current path + new dataset ID
+            const newPath = [...currentPath, item.id].join('/');
+            router.push(`/dataset/${newPath}`);
         }
         // Documents don't have row click navigation
     }
