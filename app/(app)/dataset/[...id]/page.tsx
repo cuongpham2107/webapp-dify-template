@@ -4,6 +4,7 @@ import { getDatasetById, getAllDatasets } from "@/lib/api/dataset";
 import { AddEditDatasetDialog } from "../components/add-edit";
 import { UnifiedTable } from "../components/unified-table";
 import { AddEditDocumentDialog } from "./components/document-add-edit";
+import { BatchDocumentUploadDialog } from "./components/document-batch-add";
 import { DeleteDocumentDialog } from "./components/document-delete-confirm";
 import { getAllDocuments } from "@/lib/api/document";
 import { useEffect, useState } from "react";
@@ -50,12 +51,9 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
     const fetchDatasets = async (datasetId: string) => {
         try {
             setLoading(true);
-            console.log('Fetching dataset:', datasetId);
-            console.log('Current path:', currentPath);
-            console.log('Parent path:', parentPath);
+
 
             const response = await getDatasetById(datasetId);
-            console.log('Dataset response:', response);
             setDataset(response);
 
             // Build breadcrumb path by fetching each dataset in the hierarchy
@@ -192,11 +190,17 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
                         />
                     )}
                     {canCreateDocuments && (
-                        <AddEditDocumentDialog
-                            type="add"
-                            datasetId={datasetId}
-                            handleReloadDocuments={fetchDocuments}
-                        />
+                        <>
+                            <AddEditDocumentDialog
+                                type="add"
+                                datasetId={datasetId}
+                                handleReloadDocuments={fetchDocuments}
+                            />
+                            <BatchDocumentUploadDialog
+                                datasetId={datasetId}
+                                handleReloadDocuments={fetchDocuments}
+                            />
+                        </>
                     )}
                 </div>
             </div>

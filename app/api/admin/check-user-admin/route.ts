@@ -4,15 +4,8 @@ import { getAdminInfo } from '@/lib/admin'
 // GET /api/admin/check-user-admin - Check if user has admin access
 export async function GET(request: NextRequest) {
     try {
-        console.log('🔍 [check-user-admin] Checking admin access...')
 
         const adminInfo = await getAdminInfo(request)
-
-        console.log('🔍 [check-user-admin] Admin check result:', {
-            isAdmin: adminInfo.isAdmin,
-            userAsglId: adminInfo.user?.asgl_id,
-            error: adminInfo.error
-        })
 
         return NextResponse.json({
             isAdmin: adminInfo.isAdmin,

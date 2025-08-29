@@ -67,7 +67,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         }
 
         const { roleIds } = validation.data;
-        console.log('updateUserRoles', id, roleIds);
         const user = await updateUserRoles(id, roleIds);
 
         return NextResponse.json({

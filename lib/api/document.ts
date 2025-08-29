@@ -69,3 +69,51 @@ export const deleteDocument = async (id: string) => {
     });
     return res;
 };
+
+export const createBatchDocuments = async (
+    files: File[],
+    datasetId: string,
+    onProgress?: (index: number, progress: number) => void
+) => {
+    const results = [];
+    const errors = [];
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        try {
+            onProgress?.(i, 0);
+
+            const formData = new FormData();
+            formData.append('name', file.name);
+            formData.append('type', file.type || getFileExtension(file.name));
+            formData.append('size', file.size.toString());
+            formData.append('datasetId', datasetId);
+            formData.append('file', file);
+
+            const res = await fetch("/api/documents", {
+                method: "POST",
+                body: formData,
+            });
+
+            onProgress?.(i, 100);
+
+            if (res.ok) {
+                const data = await res.json();
+                results.push({ success: true, document: data.document, file: file.name });
+            } else {
+                const errorData = await res.json();
+                errors.push({ file: file.name, error: errorData.error || "Tải lên thất bại" });
+                results.push({ success: false, file: file.name, error: errorData.error });
+            }
+        } catch (error: any) {
+            errors.push({ file: file.name, error: error.message || "Lỗi mạng" });
+            results.push({ success: false, file: file.name, error: error.message });
+        }
+    }
+
+    return { results, errors, totalFiles: files.length };
+};
+
+const getFileExtension = (filename: string): string => {
+    return filename.split('.').pop()?.toLowerCase() || '';
+};

@@ -99,7 +99,6 @@ export async function createDataset(userId: string, name: string, parent_id: str
       }
     }
   );
-  console.log(res);
   if (res.status !== 200) {
     throw new Error(`Failed to create dataset on Dify: ${res.status}`);
   }

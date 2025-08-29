@@ -192,7 +192,7 @@ export function useDocumentDownload() {
                 },
                 onComplete: (filename) => {
                     setProgress(100);
-                    console.log(`Download completed: ${filename}`);
+
                 },
                 onError: (error) => {
                     setError(error);
