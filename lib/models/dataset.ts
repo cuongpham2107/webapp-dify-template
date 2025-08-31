@@ -83,24 +83,24 @@ export async function createDataset(userId: string, name: string, parent_id: str
         reranking_enable: false,
         reranking_mode: "weighted_score",
         reranking_model: {
-            reranking_provider_name: "",
-            reranking_model_name: ""
+          reranking_provider_name: "",
+          reranking_model_name: ""
         },
         weights: {
-            weight_type: "customized",
-            keyword_setting: {
-                keyword_weight: 0.3
-            },
-            vector_setting: {
-                vector_weight: 0.7,
-                embedding_model_name: "text-embedding-3-large",
-                embedding_provider_name: "langgenius/openai/openai"
-            }
+          weight_type: "customized",
+          keyword_setting: {
+            keyword_weight: 0.3
+          },
+          vector_setting: {
+            vector_weight: 0.7,
+            embedding_model_name: "text-embedding-3-large",
+            embedding_provider_name: "langgenius/openai/openai"
+          }
         },
         top_k: 3,
         score_threshold_enabled: true,
         score_threshold: 0.5
-    }
+      }
     }
   );
   if (res.status !== 200) {
@@ -271,7 +271,35 @@ export async function updateDataset(id: string, data: Partial<{ name: string, pa
   try {
     await datasets.updateDataset(dataset.dataset_id, {
       name: data.name || dataset.name,
-      parent_id: data.parent_id !== undefined ? data.parent_id : dataset.parent_id
+      description: "",
+      indexing_technique: "high_quality",
+      permission: "only_me",
+      provider: "vendor",
+      embedding_model: "text-embedding-3-large",
+      embedding_model_provider: "openai",
+      retrieval_model: {
+        search_method: "hybrid_search",
+        reranking_enable: false,
+        reranking_mode: "weighted_score",
+        reranking_model: {
+          reranking_provider_name: "",
+          reranking_model_name: ""
+        },
+        weights: {
+          weight_type: "customized",
+          keyword_setting: {
+            keyword_weight: 0.3
+          },
+          vector_setting: {
+            vector_weight: 0.7,
+            embedding_model_name: "text-embedding-3-large",
+            embedding_provider_name: "langgenius/openai/openai"
+          }
+        },
+        top_k: 3,
+        score_threshold_enabled: true,
+        score_threshold: 0.5
+      }
     });
   } catch (error) {
     console.error("Failed to update dataset on Dify:", error);
