@@ -82,21 +82,25 @@ export async function createDataset(userId: string, name: string, parent_id: str
         search_method: "hybrid_search",
         reranking_enable: false,
         reranking_mode: "weighted_score",
-        top_k: 4,
-        score_threshold_enabled: false,
-        score_threshold: 0,
+        reranking_model: {
+            reranking_provider_name: "",
+            reranking_model_name: ""
+        },
         weights: {
-          weight_type: "customized",
-          keyword_setting: {
-            keyword_weight: 0.3
-          },
-          vector_setting: {
-            vector_weight: 0.7,
-            embedding_model_name: "text-embedding-3-large",
-            embedding_provider_name: "langgenius/openai/openai"
-          }
-        }
-      }
+            weight_type: "customized",
+            keyword_setting: {
+                keyword_weight: 0.3
+            },
+            vector_setting: {
+                vector_weight: 0.7,
+                embedding_model_name: "text-embedding-3-large",
+                embedding_provider_name: "langgenius/openai/openai"
+            }
+        },
+        top_k: 3,
+        score_threshold_enabled: true,
+        score_threshold: 0.5
+    }
     }
   );
   if (res.status !== 200) {
