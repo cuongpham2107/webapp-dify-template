@@ -7,8 +7,8 @@ import Textarea from 'rc-textarea'
 import s from './style.module.css'
 import Answer from './answer'
 import Question from './question'
-import type { FeedbackFunc } from './type'
-import type { ChatItem, VisionFile, VisionSettings } from '@/types/app'
+import type { FeedbackFunc, IChatItem } from './type'
+import type { VisionFile, VisionSettings } from '@/types/app'
 import { TransferMethod } from '@/types/app'
 import Tooltip from '@/app/components/base/tooltip'
 import Toast from '@/app/components/base/toast'
@@ -17,7 +17,7 @@ import ImageList from '@/app/components/base/image-uploader/image-list'
 import { useImageFiles } from '@/app/components/base/image-uploader/hooks'
 
 export type IChatProps = {
-  chatList: ChatItem[]
+  chatList: IChatItem[]
   /**
    * Whether to display the editing area and rating status
    */

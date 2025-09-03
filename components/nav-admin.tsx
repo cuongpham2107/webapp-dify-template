@@ -45,17 +45,22 @@ export function NavAdmin() {
 
     return (
         <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center justify-between ">
+            <SidebarGroupLabel className="flex items-center justify-between text-white/90 font-medium">
                 <span> Quản lý tài khoản</span>
             </SidebarGroupLabel>
             <SidebarMenu>
                 {adminMenuItems.map((item) => (
                     <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild onClick={() => router.push(item.url)}>
-                            <a href={item.url} title={item.description}>
-                                <item.icon className="mr-2 h-4 w-4" />
-                                <span>{item.title}</span>
-                            </a>
+                        <SidebarMenuButton
+                            onClick={(e) => {
+                                e.preventDefault()
+                                router.push(item.url)
+                            }}
+                            className="text-white/90 hover:text-white hover:bg-white/10 active:text-white active:bg-white/15 active:scale-95 transition-all duration-150 cursor-pointer"
+                            title={item.description}
+                        >
+                            <item.icon className="mr-2 h-4 w-4 text-sky-100" />
+                            <span>{item.title}</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 ))}

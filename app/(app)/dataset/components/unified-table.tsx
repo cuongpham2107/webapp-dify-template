@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/table'
 import { formatDistanceToNow } from 'date-fns'
 import { vi } from 'date-fns/locale'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Dataset, Document } from '@/types/base'
 import { PenBox, Trash2, FileText, Folder, FolderOpen, Search, Filter, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -59,12 +59,18 @@ function formatFileSize(bytes: number): string {
 }
 
 // Enhanced helper function to get specific file type icons with hover support
-function getFileTypeIcon(type: string, isHovered: boolean = false) {
+function getFileTypeIcon(type: string, isHovered: boolean = false, isActive: boolean = false) {
     const fileType = type.toLowerCase()
 
-    // Return FileText with hover-aware styling for all document types
+    // Return FileText with hover-aware and active-aware styling for all document types
     // Future enhancement: could add specific icons for different file types
-    return <FileText className={`w-4 h-4 ${isHovered ? 'text-blue-600' : 'text-green-600'}`} />
+    const iconColor = isActive
+        ? 'text-blue-700'
+        : isHovered
+            ? 'text-blue-600'
+            : 'text-green-600';
+
+    return <FileText className={`w-4 h-4 ${iconColor}`} />
 }
 
 export function UnifiedTable({
@@ -78,7 +84,11 @@ export function UnifiedTable({
     onRefresh
 }: UnifiedTableProps) {
     const router = useRouter()
+    const searchParams = useSearchParams()
     const { userPermissions, canAccess } = usePermissions()
+
+    // Get the active document ID from URL parameters
+    const activeDocumentId = searchParams.get('document')
 
     // Search and filter states
     const [searchTerm, setSearchTerm] = useState('')
@@ -140,8 +150,7 @@ export function UnifiedTable({
         const mixedColumns = [
             { key: 'type_indicator', label: 'Loại', width: 'w-1/8' },
             baseColumns.name,
-            { key: 'id_or_type', label: 'ID/Định dạng', width: 'w-1/5' },
-            { key: 'size_or_count', label: 'Kích thước/Số lượng', width: 'w-1/6' },
+            { key: 'size_or_count', label: 'Kích thước/Số lượng', width: 'w-1/4' },
             baseColumns.createdAt,
             ...(showActions ? [baseColumns.actions] : [])
         ]
@@ -200,21 +209,26 @@ export function UnifiedTable({
     }, [])
 
     const renderCell = (item: TableData, columnKey: string) => {
+        // Check if this document is the active one from URL
+        const isActiveDocument = isDocument(item) && activeDocumentId === item.id;
+
         switch (columnKey) {
             case 'type_indicator':
                 return (
                     <div className="flex items-center justify-center">
                         {isDataset(item) ? (
                             hoveredRowId === item.id ? (
-                                <FolderOpen strokeWidth={1.5} className="w-8 h-8 text-blue-600" />
+                                <FolderOpen strokeWidth={1.5} className="w-8 h-8 text-gray-600" />
                             ) : (
-                                <Folder strokeWidth={1.5} className="w-8 h-8 text-gray-600" />
+                                <Folder strokeWidth={1.5} className="w-8 h-8 text-blue-600" />
                             )
                         ) : (
                             hoveredRowId === item.id ? (
-                                <FileText strokeWidth={1.5} className="w-8 h-8 text-green-600" />
+                                <FileText strokeWidth={1.5} className={`w-8 h-8 ${isActiveDocument ? 'text-blue-700' : 'text-gray-600'
+                                    }`} />
                             ) : (
-                                <FileText strokeWidth={1.5} className="w-8 h-8 text-gray-600" />
+                                <FileText strokeWidth={1.5} className={`w-8 h-8 ${isActiveDocument ? 'text-blue-700' : 'text-blue-600'
+                                    }`} />
                             )
                         )}
                     </div>
@@ -230,8 +244,10 @@ export function UnifiedTable({
                 } else if (type === 'document' && isDocument(item)) {
                     return (
                         <div className="flex items-center gap-2">
-                            {getFileTypeIcon(item.type, hoveredRowId === item.id)}
-                            {item.name}
+                            {getFileTypeIcon(item.type, hoveredRowId === item.id, isActiveDocument)}
+                            <span className={isActiveDocument ? 'font-semibold text-blue-700' : ''}>
+                                {item.name}
+                            </span>
                         </div>
                     )
                 } else if (type === 'dataset' && isDataset(item)) {
@@ -256,7 +272,10 @@ export function UnifiedTable({
 
             case 'type':
                 return isDocument(item) ? (
-                    <span className="px-2 py-1 bg-gray-100 rounded-md text-xs font-medium">
+                    <span className={`px-2 py-1 rounded-md text-xs font-medium ${isActiveDocument
+                        ? 'bg-blue-100 text-blue-800 border border-blue-200'
+                        : 'bg-gray-100'
+                        }`}>
                         {item.type.toUpperCase()}
                     </span>
                 ) : ''
@@ -268,20 +287,6 @@ export function UnifiedTable({
                 return isDocument(item) ? (
                     <span className="font-mono text-sm">{item.document_id}</span>
                 ) : ''
-
-            case 'id_or_type':
-                if (isDataset(item)) {
-                    return (
-                        <span className="font-mono text-sm">{item.dataset_id}</span>
-                    )
-                } else if (isDocument(item)) {
-                    return (
-                        <span className="px-2 py-1 bg-gray-100 rounded-md text-xs font-medium">
-                            {item.type.toUpperCase()}
-                        </span>
-                    )
-                }
-                return ''
 
             case 'size_or_count':
                 if (isDataset(item)) {
@@ -348,7 +353,12 @@ export function UnifiedTable({
                         <DeleteDocumentDialog
                             id={item.id}
                             name={item.name}
-                            onDeleted={() => onDelete(item)}
+                            onDeleted={() => {
+                                // Call onRefresh to reload the documents list
+                                onRefresh?.();
+                                // Also call onDelete to update parent state if needed
+                                onDelete(item);
+                            }}
                         />
                     )}
                 </div>
@@ -477,25 +487,40 @@ export function UnifiedTable({
                             </TableCell>
                         </TableRow>
                     ) : (
-                        filteredData.map((item, idx) => (
-                            <TableRow
-                                key={item.id}
-                                className={`${isDataset(item) ? 'cursor-pointer' : ''} hover:bg-gray-50 ${idx !== (filteredData.length - 1) ? 'border-b border-gray-300' : ''}`}
-                                onClick={() => isDataset(item) && handleRowClick(item)}
-                                onMouseEnter={() => setHoveredRowId(item.id)}
-                                onMouseLeave={() => setHoveredRowId(null)}
-                            >
-                                {columns.map((column, colIndex) => (
-                                    <TableCell
-                                        key={column.key}
-                                        className={`${column.key === 'name' ? 'font-medium' : ''} ${colIndex < columns.length - 1 ? 'border-r' : ''} border-gray-300 ${column.key === 'actions' ? 'text-center' : ''}`}
-                                        onClick={column.key === 'actions' ? (e) => e.stopPropagation() : undefined}
-                                    >
-                                        {renderCell(item, column.key)}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))
+                        filteredData.map((item, idx) => {
+                            // Check if this document is the active one from URL
+                            const isActiveDocument = isDocument(item) && activeDocumentId === item.id;
+
+                            return (
+                                <TableRow
+                                    key={item.id}
+                                    className={`${isDataset(item) ? 'cursor-pointer' : ''
+                                        } ${isActiveDocument
+                                            ? 'bg-blue-50 border-blue-200 shadow-sm'
+                                            : 'hover:bg-gray-50'
+                                        } ${idx !== (filteredData.length - 1) ? 'border-b border-gray-300' : ''
+                                        }`}
+                                    onClick={() => isDataset(item) && handleRowClick(item)}
+                                    onMouseEnter={() => setHoveredRowId(item.id)}
+                                    onMouseLeave={() => setHoveredRowId(null)}
+                                >
+                                    {columns.map((column, colIndex) => (
+                                        <TableCell
+                                            key={column.key}
+                                            className={`${column.key === 'name' ? 'font-medium' : ''
+                                                } ${colIndex < columns.length - 1 ? 'border-r' : ''
+                                                } ${isActiveDocument ? 'border-blue-200' : 'border-gray-300'
+                                                } ${column.key === 'actions' ? 'text-center' : ''
+                                                } ${isActiveDocument && column.key === 'name' ? 'text-blue-700 font-semibold' : ''
+                                                }`}
+                                            onClick={column.key === 'actions' ? (e) => e.stopPropagation() : undefined}
+                                        >
+                                            {renderCell(item, column.key)}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            )
+                        })
                     )}
                 </TableBody>
             </Table>

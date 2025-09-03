@@ -48,7 +48,7 @@ export function NavUser() {
           <Button
             onClick={() => signIn()}
             variant="outline"
-            className="w-full"
+            className="w-full bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white active:bg-white/25 active:scale-95 transition-all duration-150"
           >
             Login
           </Button>
@@ -64,17 +64,17 @@ export function NavUser() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="data-[state=open]:bg-white/20 data-[state=open]:text-white text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 active:scale-95 transition-all duration-150"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
+              <Avatar className="h-8 w-8 rounded-lg border-2 border-white/20">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg bg-white/20 text-white font-semibold">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold text-white">{user.name}</span>
+                <span className="truncate text-xs text-sky-100">{user.email}</span>
               </div>
-              <ChevronsUpDown className="ml-auto size-4" />
+              <ChevronsUpDown className="ml-auto size-4 text-sky-100" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent

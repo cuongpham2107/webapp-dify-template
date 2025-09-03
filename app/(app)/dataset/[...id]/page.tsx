@@ -122,7 +122,10 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
     }
 
     if (permissionsLoading || loading) {
-        return <div className="p-4">Đang tải...</div>;
+        return <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900 mx-auto mb-2"></div>
+            <p>Đang tải...</p>
+        </div>;
     }
 
     if (!canViewDatasets && !canViewDocuments) {
@@ -209,7 +212,10 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
             <div className="space-y-4">
                 <div className="border border-gray-300 rounded-md">
                     {(loading || documentsLoading) ? (
-                        <div className="text-center py-8">Đang tải...</div>
+                        <div className="text-center py-8">
+                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900 mx-auto mb-2"></div>
+                            <p>Đang tải...</p>
+                        </div>
                     ) : (
                         <UnifiedTable
                             data={combinedData}
@@ -219,6 +225,7 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
                             handleReloadDatasets={() => fetchDatasets(datasetId)}
                             onEdit={handleEditDocument}
                             onDelete={handleDeleteDocument}
+                            onRefresh={fetchDocuments}
                         />
                     )}
                 </div>

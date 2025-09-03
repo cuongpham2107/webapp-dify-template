@@ -64,9 +64,14 @@ export async function downloadDocumentFile(
         let filename = `document_${documentId}`;
 
         if (contentDisposition) {
-            const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
-            if (filenameMatch) {
-                filename = filenameMatch[1];
+            // Handle both encoded (filename*=UTF-8'') and standard (filename="") formats
+            const encodedMatch = contentDisposition.match(/filename\*=UTF-8''([^;]+)/);
+            const standardMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+
+            if (encodedMatch) {
+                filename = decodeURIComponent(encodedMatch[1]);
+            } else if (standardMatch) {
+                filename = standardMatch[1];
             }
         }
 

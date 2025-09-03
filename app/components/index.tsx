@@ -11,7 +11,15 @@ import Sidebar from '@/app/components/sidebar'
 import ConfigSence from '@/app/components/config-scence'
 import Header from '@/app/components/header'
 import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
-import type { ChatItem, ConversationItem, Feedbacktype, PromptConfig, VisionFile, VisionSettings } from '@/types/app'
+import type { ConversationItem, Feedbacktype, PromptConfig, VisionFile, VisionSettings } from '@/types/app'
+import type { IChatItem } from '@/app/components/chat/type'
+import type { WorkflowProcess } from '@/types/app'
+
+// Extended chat item type that includes workflow properties
+type ExtendedChatItem = IChatItem & {
+  workflow_run_id?: string
+  workflowProcess?: WorkflowProcess
+}
 import { Resolution, TransferMethod, WorkflowRunningStatus } from '@/types/app'
 import Chat from '@/app/components/chat'
 import { setLocaleOnClient } from '@/i18n/client'
@@ -167,7 +175,7 @@ const Main: FC<IMainProps> = () => {
     if (!isNewConversation && !conversationIdChangeBecauseOfNew && !isResponding) {
       fetchChatList(currConversationId).then((res: any) => {
         const { data } = res
-        const newChatList: ChatItem[] = generateNewChatListWithOpenStatement(notSyncToStateIntroduction, notSyncToStateInputs)
+        const newChatList: ExtendedChatItem[] = generateNewChatListWithOpenStatement(notSyncToStateIntroduction, notSyncToStateInputs)
 
         data.forEach((item: any) => {
           newChatList.push({
@@ -184,6 +192,7 @@ const Main: FC<IMainProps> = () => {
             feedback: item.feedback,
             isAnswer: true,
             message_files: item.message_files?.filter((file: any) => file.belongs_to === 'assistant') || [],
+            citation: item.retriever_resources || [],
           })
         })
         setChatList(newChatList)
@@ -211,7 +220,7 @@ const Main: FC<IMainProps> = () => {
   /*
   * chat info. chat is under conversation.
   */
-  const [chatList, setChatList, getChatList] = useGetState<ChatItem[]>([])
+  const [chatList, setChatList, getChatList] = useGetState<ExtendedChatItem[]>([])
   const chatListDomRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     // scroll to bottom
@@ -358,10 +367,10 @@ const Main: FC<IMainProps> = () => {
     placeholderAnswerId,
     questionItem,
   }: {
-    responseItem: ChatItem
+    responseItem: ExtendedChatItem
     questionId: string
     placeholderAnswerId: string
-    questionItem: ChatItem
+    questionItem: ExtendedChatItem
   }) => {
     // closesure new list is outdated.
     const newListWithAnswer = produce(
@@ -444,7 +453,7 @@ const Main: FC<IMainProps> = () => {
     let isAgentMode = false
 
     // answer
-    const responseItem: ChatItem = {
+    const responseItem: ExtendedChatItem = {
       id: `${Date.now()}`,
       content: '',
       agent_thoughts: [],
@@ -605,8 +614,8 @@ const Main: FC<IMainProps> = () => {
           setChatList(newListWithAnswer)
           return
         }
-        // not support show citation
-        // responseItem.citation = messageEnd.retriever_resources
+        // Enable citation support
+        responseItem.citation = messageEnd.metadata?.retriever_resources || []
         const newListWithAnswer = produce(
           getChatList().filter(item => item.id !== responseItem.id && item.id !== placeholderAnswerId),
           (draft) => {

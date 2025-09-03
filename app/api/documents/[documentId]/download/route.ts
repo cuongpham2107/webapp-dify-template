@@ -66,11 +66,14 @@ export async function GET(
             // Convert blob to ArrayBuffer
             const arrayBuffer = await blob.arrayBuffer();
 
+            // Properly encode filename for Content-Disposition header
+            const safeFilename = encodeURIComponent(filename);
+
             // Return file with appropriate headers
             return new NextResponse(arrayBuffer, {
                 headers: {
                     'Content-Type': type || 'application/octet-stream',
-                    'Content-Disposition': `attachment; filename="${filename}"`,
+                    'Content-Disposition': `attachment; filename*=UTF-8''${safeFilename}`,
                     'Content-Length': blob.size.toString(),
                     'Cache-Control': 'no-cache'
                 }

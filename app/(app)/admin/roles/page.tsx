@@ -167,7 +167,7 @@ export default function RolesPage() {
             {/* Roles Table */}
             <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <div>
+                    <div className='flex flex-col gap-2'>
                         <CardTitle>Vai trò</CardTitle>
                         <CardDescription>
                             Quản lý các vai trò hệ thống và quyền của chúng
@@ -185,7 +185,10 @@ export default function RolesPage() {
                 </CardHeader>
                 <CardContent>
                     {loading ? (
-                        <div className="text-center py-6">Đang tải vai trò...</div>
+                        <div className="text-center py-8">
+                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900 mx-auto mb-2"></div>
+                            <p>Đang tải vai trò...</p>
+                        </div>
                     ) : (
                         <Table>
                             <TableHeader>

@@ -209,7 +209,7 @@ export default function UsersPage() {
             {/* Users Table */}
             <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <div>
+                    <div className="flex flex-col gap-2">
                         <CardTitle>Tài khoản người dùng</CardTitle>
                         <CardDescription>
                             Quản lý người dùng hệ thống và quyền truy cập tài khoản

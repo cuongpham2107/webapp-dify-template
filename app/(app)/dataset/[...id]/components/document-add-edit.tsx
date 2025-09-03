@@ -185,7 +185,7 @@ export function AddEditDocumentDialog({
                     </Button>
                 </DialogTrigger>
             )}
-            <DialogContent className="sm:max-w-[500px]">
+            <DialogContent className="sm:max-w-[700px]">
                 <form onSubmit={handleSubmit}>
                     <DialogHeader>
                         <DialogTitle>

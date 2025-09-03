@@ -37,6 +37,7 @@ interface AddEditDatasetDialogProps {
     parentId?: string | null,
     hidden_label?: boolean | null,
     hidden_border?: boolean | null,
+    sidebar?: boolean | null
     handleReloadDatasets?: () => void
 }
 
@@ -45,7 +46,7 @@ const datasetSchema = z.object({
     parent_id: z.string().nullable()
 });
 
-export function AddEditDatasetDialog({ type = "add", id, parentId: initialParentId, hidden_label, hidden_border, handleReloadDatasets }: AddEditDatasetDialogProps) {
+export function AddEditDatasetDialog({ type = "add", id, parentId: initialParentId, hidden_label, hidden_border, sidebar, handleReloadDatasets }: AddEditDatasetDialogProps) {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState("");
     const [parentId, setParentId] = useState(initialParentId || "");
@@ -121,8 +122,8 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <DialogTrigger asChild>
-                            <Button variant="secondary" className="!p-2 h-8" >
-                                <PlusIcon className="h-4 w-4" />
+                            <Button variant="secondary" className={`!p-2 h-8 ${sidebar ? 'bg-white/20 text-white border-white/30 hover:bg-white/30 hover:text-white active:bg-white/35 active:scale-95 transition-all duration-150' : ''} ${hidden_border ? 'border-none' : ''}`} >
+                                <PlusIcon className={`h-4 w-4 ${sidebar ? 'text-sky-100' : ''}`} />
                                 {!hidden_label && 'Tạo mới thư mục'}
                             </Button>
                         </DialogTrigger>
@@ -134,7 +135,7 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
             ) : (
                 <DialogTrigger asChild>
                     <Button variant={hidden_border ? 'link' : 'outline'} size="sm" type="button" className={hidden_border ? 'p-0' : ''}>
-                        <PenBox className="h-4 w-4" />
+                        <PenBox className={`h-4 w-4 ${sidebar ? 'text-white' : ''}`} />
                     </Button>
                 </DialogTrigger>
             )}

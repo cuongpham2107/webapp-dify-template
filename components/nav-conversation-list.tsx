@@ -32,15 +32,19 @@ export function NavConversationList({
   }
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Cuộc trò chuyện</SidebarGroupLabel>
+      <SidebarGroupLabel className="text-white/90 font-medium">Cuộc trò chuyện</SidebarGroupLabel>
       <SidebarMenu>
         {/* New Chat Button */}
         <SidebarMenuItem>
-          <SidebarMenuButton asChild onClick={() => handleChangeCurrent("-1")}>
-            <a href="#" className="flex items-center">
-              <PlusIcon className="mr-3 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500" />
-              <span>New Chat</span>
-            </a>
+          <SidebarMenuButton
+            onClick={(e) => {
+              e.preventDefault()
+              handleChangeCurrent("-1")
+            }}
+            className="text-white/90 hover:text-white hover:bg-white/10 active:text-white active:bg-white/20 active:scale-95 transition-all duration-150 cursor-pointer"
+          >
+            <PlusIcon className="mr-3 h-5 w-5 flex-shrink-0 text-sky-100" />
+            <span>Tạo mới cuộc trò chuyện</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
 
@@ -51,19 +55,26 @@ export function NavConversationList({
             = isCurrent ? ChatBubbleOvalLeftEllipsisSolidIcon : ChatBubbleOvalLeftEllipsisIcon
           return (
             <SidebarMenuItem key={item.id}>
-              <SidebarMenuButton asChild onClick={() => handleChangeCurrent(item.id)}>
-                <a href="#">
-                  <ItemIcon
-                    className={cn(
-                      isCurrent
-                        ? 'text-primary-600'
-                        : 'text-gray-400 group-hover:text-gray-500',
-                      'mr-3 h-5 w-5 flex-shrink-0',
-                    )}
-                    aria-hidden="true"
-                  />
-                  <span>{item.name}</span>
-                </a>
+              <SidebarMenuButton
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleChangeCurrent(item.id)
+                }}
+                className={cn(
+                  "text-white/90 hover:text-white active:scale-95 transition-all duration-150 cursor-pointer",
+                  isCurrent ? "bg-white/20 text-white hover:bg-white/25 active:bg-white/30" : "hover:bg-white/10 active:bg-white/15"
+                )}
+              >
+                <ItemIcon
+                  className={cn(
+                    isCurrent
+                      ? 'text-white'
+                      : 'text-sky-100',
+                    'mr-3 h-5 w-5 flex-shrink-0',
+                  )}
+                  aria-hidden="true"
+                />
+                <span className={isCurrent ? "text-white font-medium" : "text-white/90"}>{item.name}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )

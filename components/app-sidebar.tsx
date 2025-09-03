@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import {
   BookOpen,
   Bot,
@@ -31,6 +32,9 @@ import { useEffect, useState } from "react"
 import { fetchConversations, fetchAppParams } from "@/service"
 import Toast from "@/app/components/base/toast"
 import { setLocaleOnClient } from "@/i18n/client"
+import { useGlobalSearch } from "@/hooks/use-global-search"
+import { GlobalSearch } from "@/app/components/global-search"
+import { SearchButton } from "@/app/components/search-button"
 
 
 export function AppSidebar({
@@ -47,6 +51,7 @@ export function AppSidebar({
   isShowSidebar?: boolean
   hideSidebar?: () => void
 }) {
+  const router = useRouter()
   const { t } = useTranslation()
   const {
     conversationList,
@@ -64,6 +69,7 @@ export function AppSidebar({
   const [inited, setInited] = useState<boolean>(false)
   const conversationIntroduction = currConversationInfo?.introduction || ''
   const suggestedQuestions = currConversationInfo?.suggested_questions || []
+  const { isSearchOpen, openSearch, closeSearch } = useGlobalSearch()
 
   // Init conversations and app params
   useEffect(() => {
@@ -211,25 +217,34 @@ export function AppSidebar({
       return null
 
     return (
-      <Sidebar variant="inset" {...props}>
-        <SidebarHeader>
-          <SidebarMenu>
+      <Sidebar variant="inset" {...props} className="bg-sky-500">
+        <SidebarHeader className="bg-sky-500">
+          <SidebarMenu >
             <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild>
-                <a href="/">
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                    <Brain />
-                  </div>
-                  <div className="grid flex-1 text-left text-sm leading-tight space-y-1">
-                    <span className="truncate font-semibold">{APP_INFO?.title || 'ASGL'}</span>
-                    <span className="truncate text-xs">{APP_INFO?.description || 'Chat AI cho ASGL'}</span>
-                  </div>
-                </a>
+              <SidebarMenuButton
+                size="lg"
+                onClick={(e) => {
+                  e.preventDefault()
+                  router.push('/')
+                }}
+                className="hover:bg-white/10 active:bg-white/15 active:scale-95 transition-all duration-150 cursor-pointer"
+              >
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-white/20 text-white backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                  <Brain className="text-white" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight space-y-1 text-white">
+                  <span className="truncate font-semibold text-white drop-shadow-sm group-hover:text-sky-50 transition-colors">{APP_INFO?.title || 'ASGL'}</span>
+                  <span className="truncate text-xs text-sky-100 drop-shadow-sm group-hover:text-white transition-colors">{APP_INFO?.description || 'Chat AI cho ASGL'}</span>
+                </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
-        <SidebarContent>
+        <SidebarContent className="bg-sky-500">
+          {/* Global Search Button - Fixed */}
+          <div className="px-2 py-1">
+            <SearchButton variant="default" showKeyboardShortcut={true} onSearchOpen={openSearch} />
+          </div>
           <NavDataset />
           <NavAdmin />
           {inited && (
@@ -240,7 +255,7 @@ export function AppSidebar({
             />
           )}
         </SidebarContent>
-        <SidebarFooter>
+        <SidebarFooter className="bg-sky-500">
           <NavUser />
         </SidebarFooter>
       </Sidebar>
@@ -250,22 +265,37 @@ export function AppSidebar({
   // Handle both mobile and desktop views
   if (isMobile && isShowSidebar) {
     return (
-      <div className='fixed inset-0 z-50'
-        style={{ backgroundColor: 'rgba(35, 56, 118, 0.2)' }}
-        onClick={hideSidebar}
-      >
-        <div className='inline-block' onClick={e => e.stopPropagation()}>
-          {renderSidebar()}
+      <>
+        <div className='fixed inset-0 z-50'
+          style={{ backgroundColor: 'rgba(35, 56, 118, 0.2)' }}
+          onClick={hideSidebar}
+        >
+          <div className='inline-block' onClick={e => e.stopPropagation()}>
+            {renderSidebar()}
+          </div>
         </div>
-      </div>
+        {/* Global Search Modal */}
+        <GlobalSearch isOpen={isSearchOpen} onClose={closeSearch} />
+      </>
     )
   }
 
   // For desktop view or when not showing on mobile
   if (!isMobile) {
-    return renderSidebar()
+    return (
+      <>
+        {renderSidebar()}
+        {/* Global Search Modal */}
+        <GlobalSearch isOpen={isSearchOpen} onClose={closeSearch} />
+      </>
+    )
   }
 
   // Default case: don't render anything
-  return null
+  return (
+    <>
+      {/* Global Search Modal */}
+      <GlobalSearch isOpen={isSearchOpen} onClose={closeSearch} />
+    </>
+  )
 }

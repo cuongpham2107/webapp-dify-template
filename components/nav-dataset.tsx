@@ -59,43 +59,45 @@ export function NavDataset() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="flex items-center justify-between ">
+      <SidebarGroupLabel className="flex items-center justify-between text-white/90 font-medium">
         <span> Quản lý tài liệu</span>
         {canCreateDatasets && (
-          <AddEditDatasetDialog type={"add"} hidden_label={true} handleReloadDatasets={getDatasets} />
+          <AddEditDatasetDialog type={"add"} hidden_label={true} sidebar={true} handleReloadDatasets={getDatasets} />
         )}
       </SidebarGroupLabel>
       <SidebarMenu className="mt-2">
         {datasets.map((item) => (
           <Collapsible key={item.name} asChild>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={item.name} className="pr-0">
+              <SidebarMenuButton asChild tooltip={item.name} className="pr-0 text-white/90 hover:text-white hover:bg-white/10 active:text-white active:bg-white/15 active:scale-95 transition-all duration-150">
                 <div
                   className="relative flex items-center w-full"
                   onMouseEnter={() => setHoveredItemId(item.id)}
                   onMouseLeave={() => setHoveredItemId(null)}
                 >
-                  <a
-                    href="#"
-                    onClick={() => router.push(`/dataset/${item.id}`)}
-                    className="flex items-center w-full overflow-hidden text-ellipsis whitespace-nowrap"
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault()
+                      router.push(`/dataset/${item.id}`)
+                    }}
+                    className="flex items-center w-full overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer"
                     title={item.name}
                   >
-                    <FolderKanban className="mr-2 min-w-[16px] w-4 h-4" size={16} />
+                    <FolderKanban className="mr-2 min-w-[16px] w-4 h-4 text-sky-100" size={16} />
                     <span
                       className={`overflow-hidden text-ellipsis whitespace-nowrap transition-all flex-1 pr-0 ${hoveredItemId === item.id && (canEditDatasets || canDeleteDatasets) ? 'pr-16' : ''}`}
                       style={{ transition: 'padding-right 0.2s' }}
                     >
                       {item.name}
                     </span>
-                  </a>
+                  </div>
                   {(canEditDatasets || canDeleteDatasets) && (
                     <div
                       className={`absolute right-0 flex flex-row items-center gap-2 transition-opacity duration-200 dark:bg-background px-1 ${hoveredItemId === item.id ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                       style={{ height: '100%' }}
                     >
                       {canEditDatasets && (
-                        <AddEditDatasetDialog type="edit" id={item.id} hidden_border={true} handleReloadDatasets={getDatasets} />
+                        <AddEditDatasetDialog type="edit" id={item.id} hidden_border={true} sidebar={true} handleReloadDatasets={getDatasets} />
                       )}
                       {canDeleteDatasets && (
                         <DeleteDatasetDialog id={item.id} name={item.name} hidden_border={true} onDeleted={getDatasets} />

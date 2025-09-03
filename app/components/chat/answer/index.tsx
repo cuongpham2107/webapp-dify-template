@@ -1,6 +1,7 @@
 'use client'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
+import { downloadAndSaveCitation } from '@/lib/api/citations'
 import { HandThumbDownIcon, HandThumbUpIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'react-i18next'
 import LoadingAnim from '../loading-anim'
@@ -9,12 +10,14 @@ import s from '../style.module.css'
 import ImageGallery from '../../base/image-gallery'
 import Thought from '../thought'
 import { randomString } from '@/utils/string'
-import type { ChatItem, MessageRating, VisionFile } from '@/types/app'
+import type { MessageRating, VisionFile } from '@/types/app'
+import type { IChatItem, CitationItem } from '../type'
 import Tooltip from '@/app/components/base/tooltip'
 import WorkflowProcess from '@/app/components/workflow/workflow-process'
 import { Markdown } from '@/app/components/base/markdown'
 import Button from '@/app/components/base/button'
 import type { Emoji } from '@/types/tools'
+import { ArrowDownToLine, File, FileDownIcon, FileText } from 'lucide-react'
 
 const OperationBtn = ({ innerContent, onClick, className }: { innerContent: React.ReactNode; onClick?: () => void; className?: string }) => (
   <div
@@ -56,7 +59,7 @@ const IconWrapper: FC<{ children: React.ReactNode | string }> = ({ children }) =
 }
 
 type IAnswerProps = {
-  item: ChatItem
+  item: IChatItem & { workflowProcess?: any }
   feedbackDisabled: boolean
   onFeedback?: FeedbackFunc
   isResponding?: boolean
@@ -73,10 +76,38 @@ const Answer: FC<IAnswerProps> = ({
   allToolIcons,
   suggestionClick = () => { },
 }) => {
-  const { id, content, feedback, agent_thoughts, workflowProcess, suggestedQuestions = [] } = item
+  const { id, content, feedback, agent_thoughts, workflowProcess, suggestedQuestions = [], citation = [] } = item
+  const [selectedCitation, setSelectedCitation] = useState<number | null>(null)
+  const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null)
+  const [downloadingIndex, setDownloadingIndex] = useState<number | null>(null)
   const isAgentMode = !!agent_thoughts && agent_thoughts.length > 0
-
   const { t } = useTranslation()
+
+  const handleCitationClick = (index: number, event: React.MouseEvent) => {
+    const rect = (event.target as HTMLElement).getBoundingClientRect()
+    setPopupPosition({
+      x: rect.right + 10,
+      y: rect.top
+    })
+    setSelectedCitation(index)
+  }
+
+  const closePopup = () => {
+    setSelectedCitation(null)
+    setPopupPosition(null)
+  }
+
+  const downloadFile = async (datasetId: string, documentId: string, index: number) => {
+    try {
+      setDownloadingIndex(index)
+      await downloadAndSaveCitation({ datasetId, documentId })
+    } catch (error) {
+      console.error('Error downloading file:', error)
+      // You can add toast notification here
+    } finally {
+      setDownloadingIndex(null)
+    }
+  }
 
   /**
  * Render feedback results (distinguish between users and administrators)
@@ -95,7 +126,7 @@ const Answer: FC<IAnswerProps> = ({
     return (
       <Tooltip
         selector={`user-feedback-${randomString(16)}`}
-        content={isLike ? '取消赞同' : '取消反对'}
+        content={isLike ? 'Hủy thích' : 'Hủy không thích'}
       >
         <div
           className={'relative box-border flex items-center justify-center h-7 w-7 p-0.5 rounded-lg bg-white cursor-pointer text-gray-500 hover:text-gray-800'}
@@ -178,12 +209,12 @@ const Answer: FC<IAnswerProps> = ({
             </div>
           }
         </div>
-        <div className={`${s.answerWrap}`}>
-          <div className={`${s.answer} relative text-sm text-gray-900`}>
-            <div className={`ml-2 py-3 px-4 bg-gray-100 rounded-tr-2xl rounded-b-2xl ${workflowProcess && 'min-w-[480px]'}`}>
-              {workflowProcess && (
+        <div className={`${s.answerWrap} max-w-full overflow-hidden`}>
+          <div className={`${s.answer} relative text-sm text-gray-900 max-w-full overflow-hidden`}>
+            <div className={`ml-2 py-3 px-4 bg-gray-100 rounded-tr-2xl rounded-b-2xl max-w-full overflow-hidden ${workflowProcess && 'min-w-[480px]'}`}>
+              {/* {workflowProcess && (
                 <WorkflowProcess data={workflowProcess} hideInfo />
-              )}
+              )} */}
               {(isResponding && (isAgentMode ? (!content && (agent_thoughts || []).filter(item => !!item.thought || !!item.tool).length === 0) : !content))
                 ? (
                   <div className='flex items-center justify-center w-6 h-5'>
@@ -193,7 +224,144 @@ const Answer: FC<IAnswerProps> = ({
                 : (isAgentMode
                   ? agentModeAnswer
                   : (
-                    <Markdown content={content} />
+
+                    <div>
+                      <Markdown content={content} />
+                      {citation && citation.length > 0 && (
+                        <div className='mt-4'>
+                          <div className='text-xs font-semibold mb-3 flex items-center text-gray-800 uppercase tracking-wide'>
+                            <span>Tham khảo</span>
+                            <div className="ml-3 h-[1px] flex-grow bg-gradient-to-r from-gray-300 to-transparent"></div>
+                          </div>
+                          {/* Horizontal scrollable citation list */}
+                          <div className='overflow-x-auto overflow-y-hidden w-full scrollbar-hide' style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                            <div className='flex gap-3 pb-2'>
+                              {citation.map((citationItem: CitationItem, index: number) => (
+                                <div
+                                  key={index}
+                                  className='flex-shrink-0 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200 cursor-pointer group'
+                                  onClick={(e) => handleCitationClick(index, e)}
+                                >
+                                  <div className='flex items-center gap-3 p-2 min-w-[200px]'>
+                                    <FileText className='w-5 h-5 text-blue-700' />
+                                    <div className='flex-1 min-w-0'>
+                                      <div className='text-sm font-medium text-gray-900 truncate group-hover:text-blue-900 transition-colors'>
+                                        {citationItem.document_name}
+                                      </div>
+                                      <div className='text-xs text-gray-500 mt-0.5 truncate'>
+                                        {citationItem.dataset_name}
+                                      </div>
+                                    </div>
+                                    <div className='relative group'>
+                                      <div className='px-1 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full group-hover:bg-blue-100 transition-colors cursor-pointer'
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          downloadFile(citationItem.dataset_id, citationItem.document_id, index)
+                                        }}
+                                      >
+                                        <div className='flex items-center justify-center w-5 h-5'>
+                                          {downloadingIndex === index ? (
+                                            <svg className='w-3 h-3 animate-spin' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15' />
+                                            </svg>
+                                          ) : (
+                                            <span className='group-hover:hidden'>#{index + 1}</span>
+                                          )}
+                                          <ArrowDownToLine className='w-4 h-4 hidden group-hover:block' />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Citation popup */}
+                          {selectedCitation !== null && popupPosition && (
+                            <>
+                              {/* Backdrop */}
+                              <div
+                                className='fixed inset-0 z-40'
+                                onClick={closePopup}
+                              />
+
+                              {/* Popup */}
+                              <div
+                                className='fixed z-50 bg-white border border-gray-200 rounded-xl shadow-xl max-w-lg min-w-96'
+                                style={{
+                                  left: `${popupPosition.x}px`,
+                                  top: `${popupPosition.y}px`,
+                                  transform: 'translateY(-50%)'
+                                }}
+                              >
+                                <div className='p-4'>
+                                  {/* Header */}
+                                  <div className='flex items-start justify-between mb-3'>
+                                    <div className='flex items-center gap-3'>
+                                      <div className='flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-full flex items-center justify-center'>
+                                        <svg className='w-5 h-5 text-blue-600' fill='currentColor' viewBox='0 0 20 20'>
+                                          <path fillRule='evenodd' d='M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z' clipRule='evenodd' />
+                                        </svg>
+                                      </div>
+                                      <div className='flex-1 min-w-0'>
+                                        <h4 className='text-sm font-semibold text-gray-900 mb-1'>
+                                          {citation[selectedCitation].document_name}
+                                        </h4>
+                                        <div className='text-xs text-gray-600 flex items-center gap-1'>
+                                          <svg className='w-3 h-3 text-gray-400' fill='currentColor' viewBox='0 0 20 20'>
+                                            <path fillRule='evenodd' d='M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z' clipRule='evenodd' />
+                                          </svg>
+                                          <span>Nguồn: <span className='font-medium text-gray-700'>{citation[selectedCitation].dataset_name}</span></span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <button
+                                      onClick={closePopup}
+                                      className='text-gray-400 hover:text-gray-600 transition-colors'
+                                    >
+                                      <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                                      </svg>
+                                    </button>
+                                  </div>
+
+                                  {/* Content */}
+                                  <div className='text-sm text-gray-700 leading-relaxed mb-4 bg-gray-50 p-3 rounded-lg max-h-68 overflow-y-auto'>
+                                    "{citation[selectedCitation].content}"
+                                  </div>
+
+                                  {/* Metadata */}
+                                  <div className='flex items-center gap-4 text-xs text-gray-500 pt-3 border-t border-gray-100'>
+                                    <div className='flex items-center gap-1'>
+                                      <svg className='w-3 h-3' fill='currentColor' viewBox='0 0 20 20'>
+                                        <path fillRule='evenodd' d='M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z' clipRule='evenodd' />
+                                      </svg>
+                                      <span>Điểm: {citation[selectedCitation].score?.toFixed(2) || 'N/A'}</span>
+                                    </div>
+                                    <div className='flex items-center gap-1'>
+                                      <svg className='w-3 h-3' fill='currentColor' viewBox='0 0 20 20'>
+                                        <path fillRule='evenodd' d='M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z' clipRule='evenodd' />
+                                      </svg>
+                                      <span>{citation[selectedCitation].word_count || 0} từ</span>
+                                    </div>
+                                    {citation[selectedCitation].hit_count > 0 && (
+                                      <div className='flex items-center gap-1'>
+                                        <svg className='w-3 h-3' fill='currentColor' viewBox='0 0 20 20'>
+                                          <path d='M10 12a2 2 0 100-4 2 2 0 000 4z' />
+                                          <path fillRule='evenodd' d='M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z' clipRule='evenodd' />
+                                        </svg>
+                                        <span>{citation[selectedCitation].hit_count} lần xem</span>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   ))}
               {suggestedQuestions.length > 0 && (
                 <div className='mt-3'>

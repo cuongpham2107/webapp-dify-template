@@ -129,6 +129,7 @@ export function DocumentTable({ documents, onEdit, onDelete }: DocumentTableProp
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 onDelete(document);
+
                                             }}
                                         >
                                             <Trash2 className="w-4 h-4" color='red' />
