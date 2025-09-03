@@ -50,4 +50,4 @@ yarn.lock
 # pmpm
 pnpm-lock.yaml
 
-/app/generated/prisma
+/app/prisma
