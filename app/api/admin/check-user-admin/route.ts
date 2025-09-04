@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminInfo } from '@/lib/admin'
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 // GET /api/admin/check-user-admin - Check if user has admin access
 export async function GET(request: NextRequest) {
     try {

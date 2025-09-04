@@ -769,10 +769,6 @@ export namespace Prisma {
             args: Prisma.UserCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
           delete: {
             args: Prisma.UserDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
@@ -788,10 +784,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.UserUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
           }
           upsert: {
             args: Prisma.UserUpsertArgs<ExtArgs>
@@ -843,10 +835,6 @@ export namespace Prisma {
             args: Prisma.RoleCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.RoleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
-          }
           delete: {
             args: Prisma.RoleDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$RolePayload>
@@ -862,10 +850,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.RoleUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.RoleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
           }
           upsert: {
             args: Prisma.RoleUpsertArgs<ExtArgs>
@@ -917,10 +901,6 @@ export namespace Prisma {
             args: Prisma.PermissionCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.PermissionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
-          }
           delete: {
             args: Prisma.PermissionDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
@@ -936,10 +916,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.PermissionUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.PermissionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
           }
           upsert: {
             args: Prisma.PermissionUpsertArgs<ExtArgs>
@@ -991,10 +967,6 @@ export namespace Prisma {
             args: Prisma.UserRoleCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.UserRoleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>[]
-          }
           delete: {
             args: Prisma.UserRoleDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserRolePayload>
@@ -1010,10 +982,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.UserRoleUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UserRoleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>[]
           }
           upsert: {
             args: Prisma.UserRoleUpsertArgs<ExtArgs>
@@ -1065,10 +1033,6 @@ export namespace Prisma {
             args: Prisma.RolePermissionCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.RolePermissionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>[]
-          }
           delete: {
             args: Prisma.RolePermissionDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>
@@ -1084,10 +1048,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.RolePermissionUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.RolePermissionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>[]
           }
           upsert: {
             args: Prisma.RolePermissionUpsertArgs<ExtArgs>
@@ -1139,10 +1099,6 @@ export namespace Prisma {
             args: Prisma.DatasetCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.DatasetCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>[]
-          }
           delete: {
             args: Prisma.DatasetDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DatasetPayload>
@@ -1158,10 +1114,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.DatasetUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.DatasetUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>[]
           }
           upsert: {
             args: Prisma.DatasetUpsertArgs<ExtArgs>
@@ -1213,10 +1165,6 @@ export namespace Prisma {
             args: Prisma.DocumentCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.DocumentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>[]
-          }
           delete: {
             args: Prisma.DocumentDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DocumentPayload>
@@ -1232,10 +1180,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.DocumentUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.DocumentUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>[]
           }
           upsert: {
             args: Prisma.DocumentUpsertArgs<ExtArgs>
@@ -1287,10 +1231,6 @@ export namespace Prisma {
             args: Prisma.DatasetAccessCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.DatasetAccessCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DatasetAccessPayload>[]
-          }
           delete: {
             args: Prisma.DatasetAccessDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DatasetAccessPayload>
@@ -1306,10 +1246,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.DatasetAccessUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.DatasetAccessUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DatasetAccessPayload>[]
           }
           upsert: {
             args: Prisma.DatasetAccessUpsertArgs<ExtArgs>
@@ -1361,10 +1297,6 @@ export namespace Prisma {
             args: Prisma.DocumentAccessCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.DocumentAccessCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>[]
-          }
           delete: {
             args: Prisma.DocumentAccessDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
@@ -1380,10 +1312,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.DocumentAccessUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.DocumentAccessUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>[]
           }
           upsert: {
             args: Prisma.DocumentAccessUpsertArgs<ExtArgs>
@@ -1969,25 +1897,7 @@ export namespace Prisma {
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
-  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    asgl_id?: boolean
-    name?: boolean
-    password?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["user"]>
 
-  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    asgl_id?: boolean
-    name?: boolean
-    password?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
@@ -2006,8 +1916,6 @@ export namespace Prisma {
     documents?: boolean | User$documentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -2142,30 +2050,6 @@ export namespace Prisma {
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Users and returns the data saved in the database.
-     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
-     * @example
-     * // Create many Users
-     * const user = await prisma.user.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a User.
      * @param {UserDeleteArgs} args - Arguments to delete one User.
      * @example
@@ -2228,36 +2112,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users and returns the data updated in the database.
-     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
-     * @example
-     * // Update many Users
-     * const user = await prisma.user.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one User.
@@ -2686,24 +2540,7 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
-  }
-
-  /**
-   * User createManyAndReturn
-   */
-  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * The data used to create many Users.
-     */
-    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -2736,32 +2573,6 @@ export namespace Prisma {
    * User updateMany
    */
   export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Users.
-     */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
-    /**
-     * Filter which Users to update
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * User updateManyAndReturn
-   */
-  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
     /**
      * The data used to update Users.
      */
@@ -3078,15 +2889,7 @@ export namespace Prisma {
     _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["role"]>
 
-  export type RoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["role"]>
 
-  export type RoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["role"]>
 
   export type RoleSelectScalar = {
     id?: boolean
@@ -3099,8 +2902,6 @@ export namespace Prisma {
     users?: boolean | Role$usersArgs<ExtArgs>
     _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type RoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type RoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $RolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Role"
@@ -3229,30 +3030,6 @@ export namespace Prisma {
     createMany<T extends RoleCreateManyArgs>(args?: SelectSubset<T, RoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Roles and returns the data saved in the database.
-     * @param {RoleCreateManyAndReturnArgs} args - Arguments to create many Roles.
-     * @example
-     * // Create many Roles
-     * const role = await prisma.role.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Roles and only return the `id`
-     * const roleWithIdOnly = await prisma.role.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends RoleCreateManyAndReturnArgs>(args?: SelectSubset<T, RoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Role.
      * @param {RoleDeleteArgs} args - Arguments to delete one Role.
      * @example
@@ -3315,36 +3092,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends RoleUpdateManyArgs>(args: SelectSubset<T, RoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Roles and returns the data updated in the database.
-     * @param {RoleUpdateManyAndReturnArgs} args - Arguments to update many Roles.
-     * @example
-     * // Update many Roles
-     * const role = await prisma.role.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Roles and only return the `id`
-     * const roleWithIdOnly = await prisma.role.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends RoleUpdateManyAndReturnArgs>(args: SelectSubset<T, RoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Role.
@@ -3767,24 +3514,7 @@ export namespace Prisma {
      * The data used to create many Roles.
      */
     data: RoleCreateManyInput | RoleCreateManyInput[]
-  }
-
-  /**
-   * Role createManyAndReturn
-   */
-  export type RoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Role
-     */
-    select?: RoleSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Role
-     */
-    omit?: RoleOmit<ExtArgs> | null
-    /**
-     * The data used to create many Roles.
-     */
-    data: RoleCreateManyInput | RoleCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -3817,32 +3547,6 @@ export namespace Prisma {
    * Role updateMany
    */
   export type RoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Roles.
-     */
-    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
-    /**
-     * Filter which Roles to update
-     */
-    where?: RoleWhereInput
-    /**
-     * Limit how many Roles to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Role updateManyAndReturn
-   */
-  export type RoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Role
-     */
-    select?: RoleSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Role
-     */
-    omit?: RoleOmit<ExtArgs> | null
     /**
      * The data used to update Roles.
      */
@@ -4134,15 +3838,7 @@ export namespace Prisma {
     _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["permission"]>
 
-  export type PermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["permission"]>
 
-  export type PermissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["permission"]>
 
   export type PermissionSelectScalar = {
     id?: boolean
@@ -4154,8 +3850,6 @@ export namespace Prisma {
     roles?: boolean | Permission$rolesArgs<ExtArgs>
     _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type PermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type PermissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $PermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Permission"
@@ -4283,30 +3977,6 @@ export namespace Prisma {
     createMany<T extends PermissionCreateManyArgs>(args?: SelectSubset<T, PermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Permissions and returns the data saved in the database.
-     * @param {PermissionCreateManyAndReturnArgs} args - Arguments to create many Permissions.
-     * @example
-     * // Create many Permissions
-     * const permission = await prisma.permission.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Permissions and only return the `id`
-     * const permissionWithIdOnly = await prisma.permission.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends PermissionCreateManyAndReturnArgs>(args?: SelectSubset<T, PermissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Permission.
      * @param {PermissionDeleteArgs} args - Arguments to delete one Permission.
      * @example
@@ -4369,36 +4039,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends PermissionUpdateManyArgs>(args: SelectSubset<T, PermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Permissions and returns the data updated in the database.
-     * @param {PermissionUpdateManyAndReturnArgs} args - Arguments to update many Permissions.
-     * @example
-     * // Update many Permissions
-     * const permission = await prisma.permission.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Permissions and only return the `id`
-     * const permissionWithIdOnly = await prisma.permission.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends PermissionUpdateManyAndReturnArgs>(args: SelectSubset<T, PermissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Permission.
@@ -4820,24 +4460,7 @@ export namespace Prisma {
      * The data used to create many Permissions.
      */
     data: PermissionCreateManyInput | PermissionCreateManyInput[]
-  }
-
-  /**
-   * Permission createManyAndReturn
-   */
-  export type PermissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Permission
-     */
-    select?: PermissionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Permission
-     */
-    omit?: PermissionOmit<ExtArgs> | null
-    /**
-     * The data used to create many Permissions.
-     */
-    data: PermissionCreateManyInput | PermissionCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -4870,32 +4493,6 @@ export namespace Prisma {
    * Permission updateMany
    */
   export type PermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Permissions.
-     */
-    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyInput>
-    /**
-     * Filter which Permissions to update
-     */
-    where?: PermissionWhereInput
-    /**
-     * Limit how many Permissions to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Permission updateManyAndReturn
-   */
-  export type PermissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Permission
-     */
-    select?: PermissionSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Permission
-     */
-    omit?: PermissionOmit<ExtArgs> | null
     /**
      * The data used to update Permissions.
      */
@@ -5163,19 +4760,7 @@ export namespace Prisma {
     role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userRole"]>
 
-  export type UserRoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    roleId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userRole"]>
 
-  export type UserRoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    roleId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userRole"]>
 
   export type UserRoleSelectScalar = {
     userId?: boolean
@@ -5184,14 +4769,6 @@ export namespace Prisma {
 
   export type UserRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "roleId", ExtArgs["result"]["userRole"]>
   export type UserRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }
-  export type UserRoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }
-  export type UserRoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     role?: boolean | RoleDefaultArgs<ExtArgs>
   }
@@ -5323,30 +4900,6 @@ export namespace Prisma {
     createMany<T extends UserRoleCreateManyArgs>(args?: SelectSubset<T, UserRoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many UserRoles and returns the data saved in the database.
-     * @param {UserRoleCreateManyAndReturnArgs} args - Arguments to create many UserRoles.
-     * @example
-     * // Create many UserRoles
-     * const userRole = await prisma.userRole.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many UserRoles and only return the `userId`
-     * const userRoleWithUserIdOnly = await prisma.userRole.createManyAndReturn({
-     *   select: { userId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UserRoleCreateManyAndReturnArgs>(args?: SelectSubset<T, UserRoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a UserRole.
      * @param {UserRoleDeleteArgs} args - Arguments to delete one UserRole.
      * @example
@@ -5409,36 +4962,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends UserRoleUpdateManyArgs>(args: SelectSubset<T, UserRoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more UserRoles and returns the data updated in the database.
-     * @param {UserRoleUpdateManyAndReturnArgs} args - Arguments to update many UserRoles.
-     * @example
-     * // Update many UserRoles
-     * const userRole = await prisma.userRole.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more UserRoles and only return the `userId`
-     * const userRoleWithUserIdOnly = await prisma.userRole.updateManyAndReturn({
-     *   select: { userId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UserRoleUpdateManyAndReturnArgs>(args: SelectSubset<T, UserRoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one UserRole.
@@ -5861,28 +5384,7 @@ export namespace Prisma {
      * The data used to create many UserRoles.
      */
     data: UserRoleCreateManyInput | UserRoleCreateManyInput[]
-  }
-
-  /**
-   * UserRole createManyAndReturn
-   */
-  export type UserRoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserRole
-     */
-    select?: UserRoleSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the UserRole
-     */
-    omit?: UserRoleOmit<ExtArgs> | null
-    /**
-     * The data used to create many UserRoles.
-     */
-    data: UserRoleCreateManyInput | UserRoleCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserRoleIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -5927,36 +5429,6 @@ export namespace Prisma {
      * Limit how many UserRoles to update.
      */
     limit?: number
-  }
-
-  /**
-   * UserRole updateManyAndReturn
-   */
-  export type UserRoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserRole
-     */
-    select?: UserRoleSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the UserRole
-     */
-    omit?: UserRoleOmit<ExtArgs> | null
-    /**
-     * The data used to update UserRoles.
-     */
-    data: XOR<UserRoleUpdateManyMutationInput, UserRoleUncheckedUpdateManyInput>
-    /**
-     * Filter which UserRoles to update
-     */
-    where?: UserRoleWhereInput
-    /**
-     * Limit how many UserRoles to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserRoleIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6188,19 +5660,7 @@ export namespace Prisma {
     permission?: boolean | PermissionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rolePermission"]>
 
-  export type RolePermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    roleId?: boolean
-    permissionId?: boolean
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-    permission?: boolean | PermissionDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["rolePermission"]>
 
-  export type RolePermissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    roleId?: boolean
-    permissionId?: boolean
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-    permission?: boolean | PermissionDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["rolePermission"]>
 
   export type RolePermissionSelectScalar = {
     roleId?: boolean
@@ -6209,14 +5669,6 @@ export namespace Prisma {
 
   export type RolePermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"roleId" | "permissionId", ExtArgs["result"]["rolePermission"]>
   export type RolePermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-    permission?: boolean | PermissionDefaultArgs<ExtArgs>
-  }
-  export type RolePermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-    permission?: boolean | PermissionDefaultArgs<ExtArgs>
-  }
-  export type RolePermissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | RoleDefaultArgs<ExtArgs>
     permission?: boolean | PermissionDefaultArgs<ExtArgs>
   }
@@ -6348,30 +5800,6 @@ export namespace Prisma {
     createMany<T extends RolePermissionCreateManyArgs>(args?: SelectSubset<T, RolePermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many RolePermissions and returns the data saved in the database.
-     * @param {RolePermissionCreateManyAndReturnArgs} args - Arguments to create many RolePermissions.
-     * @example
-     * // Create many RolePermissions
-     * const rolePermission = await prisma.rolePermission.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many RolePermissions and only return the `roleId`
-     * const rolePermissionWithRoleIdOnly = await prisma.rolePermission.createManyAndReturn({
-     *   select: { roleId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends RolePermissionCreateManyAndReturnArgs>(args?: SelectSubset<T, RolePermissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a RolePermission.
      * @param {RolePermissionDeleteArgs} args - Arguments to delete one RolePermission.
      * @example
@@ -6434,36 +5862,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends RolePermissionUpdateManyArgs>(args: SelectSubset<T, RolePermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more RolePermissions and returns the data updated in the database.
-     * @param {RolePermissionUpdateManyAndReturnArgs} args - Arguments to update many RolePermissions.
-     * @example
-     * // Update many RolePermissions
-     * const rolePermission = await prisma.rolePermission.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more RolePermissions and only return the `roleId`
-     * const rolePermissionWithRoleIdOnly = await prisma.rolePermission.updateManyAndReturn({
-     *   select: { roleId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends RolePermissionUpdateManyAndReturnArgs>(args: SelectSubset<T, RolePermissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one RolePermission.
@@ -6886,28 +6284,7 @@ export namespace Prisma {
      * The data used to create many RolePermissions.
      */
     data: RolePermissionCreateManyInput | RolePermissionCreateManyInput[]
-  }
-
-  /**
-   * RolePermission createManyAndReturn
-   */
-  export type RolePermissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RolePermission
-     */
-    select?: RolePermissionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the RolePermission
-     */
-    omit?: RolePermissionOmit<ExtArgs> | null
-    /**
-     * The data used to create many RolePermissions.
-     */
-    data: RolePermissionCreateManyInput | RolePermissionCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RolePermissionIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -6952,36 +6329,6 @@ export namespace Prisma {
      * Limit how many RolePermissions to update.
      */
     limit?: number
-  }
-
-  /**
-   * RolePermission updateManyAndReturn
-   */
-  export type RolePermissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RolePermission
-     */
-    select?: RolePermissionSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the RolePermission
-     */
-    omit?: RolePermissionOmit<ExtArgs> | null
-    /**
-     * The data used to update RolePermissions.
-     */
-    data: XOR<RolePermissionUpdateManyMutationInput, RolePermissionUncheckedUpdateManyInput>
-    /**
-     * Filter which RolePermissions to update
-     */
-    where?: RolePermissionWhereInput
-    /**
-     * Limit how many RolePermissions to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RolePermissionIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7248,25 +6595,7 @@ export namespace Prisma {
     _count?: boolean | DatasetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dataset"]>
 
-  export type DatasetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    dataset_id?: boolean
-    name?: boolean
-    parent_id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    parent?: boolean | Dataset$parentArgs<ExtArgs>
-  }, ExtArgs["result"]["dataset"]>
 
-  export type DatasetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    dataset_id?: boolean
-    name?: boolean
-    parent_id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    parent?: boolean | Dataset$parentArgs<ExtArgs>
-  }, ExtArgs["result"]["dataset"]>
 
   export type DatasetSelectScalar = {
     id?: boolean
@@ -7284,12 +6613,6 @@ export namespace Prisma {
     documents?: boolean | Dataset$documentsArgs<ExtArgs>
     accesses?: boolean | Dataset$accessesArgs<ExtArgs>
     _count?: boolean | DatasetCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type DatasetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parent?: boolean | Dataset$parentArgs<ExtArgs>
-  }
-  export type DatasetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parent?: boolean | Dataset$parentArgs<ExtArgs>
   }
 
   export type $DatasetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7425,30 +6748,6 @@ export namespace Prisma {
     createMany<T extends DatasetCreateManyArgs>(args?: SelectSubset<T, DatasetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Datasets and returns the data saved in the database.
-     * @param {DatasetCreateManyAndReturnArgs} args - Arguments to create many Datasets.
-     * @example
-     * // Create many Datasets
-     * const dataset = await prisma.dataset.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Datasets and only return the `id`
-     * const datasetWithIdOnly = await prisma.dataset.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DatasetCreateManyAndReturnArgs>(args?: SelectSubset<T, DatasetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Dataset.
      * @param {DatasetDeleteArgs} args - Arguments to delete one Dataset.
      * @example
@@ -7511,36 +6810,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DatasetUpdateManyArgs>(args: SelectSubset<T, DatasetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Datasets and returns the data updated in the database.
-     * @param {DatasetUpdateManyAndReturnArgs} args - Arguments to update many Datasets.
-     * @example
-     * // Update many Datasets
-     * const dataset = await prisma.dataset.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Datasets and only return the `id`
-     * const datasetWithIdOnly = await prisma.dataset.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DatasetUpdateManyAndReturnArgs>(args: SelectSubset<T, DatasetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Dataset.
@@ -7969,28 +7238,7 @@ export namespace Prisma {
      * The data used to create many Datasets.
      */
     data: DatasetCreateManyInput | DatasetCreateManyInput[]
-  }
-
-  /**
-   * Dataset createManyAndReturn
-   */
-  export type DatasetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Dataset
-     */
-    select?: DatasetSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Dataset
-     */
-    omit?: DatasetOmit<ExtArgs> | null
-    /**
-     * The data used to create many Datasets.
-     */
-    data: DatasetCreateManyInput | DatasetCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DatasetIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -8035,36 +7283,6 @@ export namespace Prisma {
      * Limit how many Datasets to update.
      */
     limit?: number
-  }
-
-  /**
-   * Dataset updateManyAndReturn
-   */
-  export type DatasetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Dataset
-     */
-    select?: DatasetSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Dataset
-     */
-    omit?: DatasetOmit<ExtArgs> | null
-    /**
-     * The data used to update Datasets.
-     */
-    data: XOR<DatasetUpdateManyMutationInput, DatasetUncheckedUpdateManyInput>
-    /**
-     * Filter which Datasets to update
-     */
-    where?: DatasetWhereInput
-    /**
-     * Limit how many Datasets to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DatasetIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8470,29 +7688,7 @@ export namespace Prisma {
     _count?: boolean | DocumentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
-  export type DocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    document_id?: boolean
-    name?: boolean
-    type?: boolean
-    size?: boolean
-    datasetId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["document"]>
 
-  export type DocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    document_id?: boolean
-    name?: boolean
-    type?: boolean
-    size?: boolean
-    datasetId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectScalar = {
     id?: boolean
@@ -8510,12 +7706,6 @@ export namespace Prisma {
     dataset?: boolean | DatasetDefaultArgs<ExtArgs>
     accesses?: boolean | Document$accessesArgs<ExtArgs>
     _count?: boolean | DocumentCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type DocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }
-  export type DocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
   }
 
   export type $DocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8651,30 +7841,6 @@ export namespace Prisma {
     createMany<T extends DocumentCreateManyArgs>(args?: SelectSubset<T, DocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Documents and returns the data saved in the database.
-     * @param {DocumentCreateManyAndReturnArgs} args - Arguments to create many Documents.
-     * @example
-     * // Create many Documents
-     * const document = await prisma.document.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Documents and only return the `id`
-     * const documentWithIdOnly = await prisma.document.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Document.
      * @param {DocumentDeleteArgs} args - Arguments to delete one Document.
      * @example
@@ -8737,36 +7903,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DocumentUpdateManyArgs>(args: SelectSubset<T, DocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Documents and returns the data updated in the database.
-     * @param {DocumentUpdateManyAndReturnArgs} args - Arguments to update many Documents.
-     * @example
-     * // Update many Documents
-     * const document = await prisma.document.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Documents and only return the `id`
-     * const documentWithIdOnly = await prisma.document.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Document.
@@ -9195,28 +8331,7 @@ export namespace Prisma {
      * The data used to create many Documents.
      */
     data: DocumentCreateManyInput | DocumentCreateManyInput[]
-  }
-
-  /**
-   * Document createManyAndReturn
-   */
-  export type DocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Document
-     */
-    select?: DocumentSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Document
-     */
-    omit?: DocumentOmit<ExtArgs> | null
-    /**
-     * The data used to create many Documents.
-     */
-    data: DocumentCreateManyInput | DocumentCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -9261,36 +8376,6 @@ export namespace Prisma {
      * Limit how many Documents to update.
      */
     limit?: number
-  }
-
-  /**
-   * Document updateManyAndReturn
-   */
-  export type DocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Document
-     */
-    select?: DocumentSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Document
-     */
-    omit?: DocumentOmit<ExtArgs> | null
-    /**
-     * The data used to update Documents.
-     */
-    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyInput>
-    /**
-     * Filter which Documents to update
-     */
-    where?: DocumentWhereInput
-    /**
-     * Limit how many Documents to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9570,25 +8655,7 @@ export namespace Prisma {
     dataset?: boolean | DatasetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["datasetAccess"]>
 
-  export type DatasetAccessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    datasetId?: boolean
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["datasetAccess"]>
 
-  export type DatasetAccessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    datasetId?: boolean
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["datasetAccess"]>
 
   export type DatasetAccessSelectScalar = {
     userId?: boolean
@@ -9600,14 +8667,6 @@ export namespace Prisma {
 
   export type DatasetAccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "datasetId" | "canView" | "canEdit" | "canDelete", ExtArgs["result"]["datasetAccess"]>
   export type DatasetAccessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }
-  export type DatasetAccessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }
-  export type DatasetAccessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     dataset?: boolean | DatasetDefaultArgs<ExtArgs>
   }
@@ -9742,30 +8801,6 @@ export namespace Prisma {
     createMany<T extends DatasetAccessCreateManyArgs>(args?: SelectSubset<T, DatasetAccessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many DatasetAccesses and returns the data saved in the database.
-     * @param {DatasetAccessCreateManyAndReturnArgs} args - Arguments to create many DatasetAccesses.
-     * @example
-     * // Create many DatasetAccesses
-     * const datasetAccess = await prisma.datasetAccess.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many DatasetAccesses and only return the `userId`
-     * const datasetAccessWithUserIdOnly = await prisma.datasetAccess.createManyAndReturn({
-     *   select: { userId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DatasetAccessCreateManyAndReturnArgs>(args?: SelectSubset<T, DatasetAccessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetAccessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a DatasetAccess.
      * @param {DatasetAccessDeleteArgs} args - Arguments to delete one DatasetAccess.
      * @example
@@ -9828,36 +8863,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DatasetAccessUpdateManyArgs>(args: SelectSubset<T, DatasetAccessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more DatasetAccesses and returns the data updated in the database.
-     * @param {DatasetAccessUpdateManyAndReturnArgs} args - Arguments to update many DatasetAccesses.
-     * @example
-     * // Update many DatasetAccesses
-     * const datasetAccess = await prisma.datasetAccess.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more DatasetAccesses and only return the `userId`
-     * const datasetAccessWithUserIdOnly = await prisma.datasetAccess.updateManyAndReturn({
-     *   select: { userId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DatasetAccessUpdateManyAndReturnArgs>(args: SelectSubset<T, DatasetAccessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetAccessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one DatasetAccess.
@@ -10283,28 +9288,7 @@ export namespace Prisma {
      * The data used to create many DatasetAccesses.
      */
     data: DatasetAccessCreateManyInput | DatasetAccessCreateManyInput[]
-  }
-
-  /**
-   * DatasetAccess createManyAndReturn
-   */
-  export type DatasetAccessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DatasetAccess
-     */
-    select?: DatasetAccessSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the DatasetAccess
-     */
-    omit?: DatasetAccessOmit<ExtArgs> | null
-    /**
-     * The data used to create many DatasetAccesses.
-     */
-    data: DatasetAccessCreateManyInput | DatasetAccessCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DatasetAccessIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -10349,36 +9333,6 @@ export namespace Prisma {
      * Limit how many DatasetAccesses to update.
      */
     limit?: number
-  }
-
-  /**
-   * DatasetAccess updateManyAndReturn
-   */
-  export type DatasetAccessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DatasetAccess
-     */
-    select?: DatasetAccessSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the DatasetAccess
-     */
-    omit?: DatasetAccessOmit<ExtArgs> | null
-    /**
-     * The data used to update DatasetAccesses.
-     */
-    data: XOR<DatasetAccessUpdateManyMutationInput, DatasetAccessUncheckedUpdateManyInput>
-    /**
-     * Filter which DatasetAccesses to update
-     */
-    where?: DatasetAccessWhereInput
-    /**
-     * Limit how many DatasetAccesses to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DatasetAccessIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10634,25 +9588,7 @@ export namespace Prisma {
     document?: boolean | DocumentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["documentAccess"]>
 
-  export type DocumentAccessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    documentId?: boolean
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    document?: boolean | DocumentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["documentAccess"]>
 
-  export type DocumentAccessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    documentId?: boolean
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    document?: boolean | DocumentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["documentAccess"]>
 
   export type DocumentAccessSelectScalar = {
     userId?: boolean
@@ -10664,14 +9600,6 @@ export namespace Prisma {
 
   export type DocumentAccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "documentId" | "canView" | "canEdit" | "canDelete", ExtArgs["result"]["documentAccess"]>
   export type DocumentAccessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    document?: boolean | DocumentDefaultArgs<ExtArgs>
-  }
-  export type DocumentAccessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    document?: boolean | DocumentDefaultArgs<ExtArgs>
-  }
-  export type DocumentAccessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     document?: boolean | DocumentDefaultArgs<ExtArgs>
   }
@@ -10806,30 +9734,6 @@ export namespace Prisma {
     createMany<T extends DocumentAccessCreateManyArgs>(args?: SelectSubset<T, DocumentAccessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many DocumentAccesses and returns the data saved in the database.
-     * @param {DocumentAccessCreateManyAndReturnArgs} args - Arguments to create many DocumentAccesses.
-     * @example
-     * // Create many DocumentAccesses
-     * const documentAccess = await prisma.documentAccess.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many DocumentAccesses and only return the `userId`
-     * const documentAccessWithUserIdOnly = await prisma.documentAccess.createManyAndReturn({
-     *   select: { userId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DocumentAccessCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentAccessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a DocumentAccess.
      * @param {DocumentAccessDeleteArgs} args - Arguments to delete one DocumentAccess.
      * @example
@@ -10892,36 +9796,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DocumentAccessUpdateManyArgs>(args: SelectSubset<T, DocumentAccessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more DocumentAccesses and returns the data updated in the database.
-     * @param {DocumentAccessUpdateManyAndReturnArgs} args - Arguments to update many DocumentAccesses.
-     * @example
-     * // Update many DocumentAccesses
-     * const documentAccess = await prisma.documentAccess.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more DocumentAccesses and only return the `userId`
-     * const documentAccessWithUserIdOnly = await prisma.documentAccess.updateManyAndReturn({
-     *   select: { userId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DocumentAccessUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentAccessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one DocumentAccess.
@@ -11347,28 +10221,7 @@ export namespace Prisma {
      * The data used to create many DocumentAccesses.
      */
     data: DocumentAccessCreateManyInput | DocumentAccessCreateManyInput[]
-  }
-
-  /**
-   * DocumentAccess createManyAndReturn
-   */
-  export type DocumentAccessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DocumentAccess
-     */
-    select?: DocumentAccessSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the DocumentAccess
-     */
-    omit?: DocumentAccessOmit<ExtArgs> | null
-    /**
-     * The data used to create many DocumentAccesses.
-     */
-    data: DocumentAccessCreateManyInput | DocumentAccessCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentAccessIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -11413,36 +10266,6 @@ export namespace Prisma {
      * Limit how many DocumentAccesses to update.
      */
     limit?: number
-  }
-
-  /**
-   * DocumentAccess updateManyAndReturn
-   */
-  export type DocumentAccessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DocumentAccess
-     */
-    select?: DocumentAccessSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the DocumentAccess
-     */
-    omit?: DocumentAccessOmit<ExtArgs> | null
-    /**
-     * The data used to update DocumentAccesses.
-     */
-    data: XOR<DocumentAccessUpdateManyMutationInput, DocumentAccessUncheckedUpdateManyInput>
-    /**
-     * Filter which DocumentAccesses to update
-     */
-    where?: DocumentAccessWhereInput
-    /**
-     * Limit how many DocumentAccesses to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentAccessIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -11535,6 +10358,9 @@ export namespace Prisma {
    */
 
   export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
   };
 
@@ -11642,12 +10468,92 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const UserOrderByRelevanceFieldEnum: {
+    id: 'id',
+    email: 'email',
+    asgl_id: 'asgl_id',
+    name: 'name',
+    password: 'password'
+  };
+
+  export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+  export const RoleOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type RoleOrderByRelevanceFieldEnum = (typeof RoleOrderByRelevanceFieldEnum)[keyof typeof RoleOrderByRelevanceFieldEnum]
+
+
+  export const PermissionOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type PermissionOrderByRelevanceFieldEnum = (typeof PermissionOrderByRelevanceFieldEnum)[keyof typeof PermissionOrderByRelevanceFieldEnum]
+
+
+  export const UserRoleOrderByRelevanceFieldEnum: {
+    userId: 'userId',
+    roleId: 'roleId'
+  };
+
+  export type UserRoleOrderByRelevanceFieldEnum = (typeof UserRoleOrderByRelevanceFieldEnum)[keyof typeof UserRoleOrderByRelevanceFieldEnum]
+
+
+  export const RolePermissionOrderByRelevanceFieldEnum: {
+    roleId: 'roleId',
+    permissionId: 'permissionId'
+  };
+
+  export type RolePermissionOrderByRelevanceFieldEnum = (typeof RolePermissionOrderByRelevanceFieldEnum)[keyof typeof RolePermissionOrderByRelevanceFieldEnum]
+
+
   export const NullsOrder: {
     first: 'first',
     last: 'last'
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const DatasetOrderByRelevanceFieldEnum: {
+    id: 'id',
+    dataset_id: 'dataset_id',
+    name: 'name',
+    parent_id: 'parent_id'
+  };
+
+  export type DatasetOrderByRelevanceFieldEnum = (typeof DatasetOrderByRelevanceFieldEnum)[keyof typeof DatasetOrderByRelevanceFieldEnum]
+
+
+  export const DocumentOrderByRelevanceFieldEnum: {
+    id: 'id',
+    document_id: 'document_id',
+    name: 'name',
+    type: 'type',
+    datasetId: 'datasetId'
+  };
+
+  export type DocumentOrderByRelevanceFieldEnum = (typeof DocumentOrderByRelevanceFieldEnum)[keyof typeof DocumentOrderByRelevanceFieldEnum]
+
+
+  export const DatasetAccessOrderByRelevanceFieldEnum: {
+    userId: 'userId',
+    datasetId: 'datasetId'
+  };
+
+  export type DatasetAccessOrderByRelevanceFieldEnum = (typeof DatasetAccessOrderByRelevanceFieldEnum)[keyof typeof DatasetAccessOrderByRelevanceFieldEnum]
+
+
+  export const DocumentAccessOrderByRelevanceFieldEnum: {
+    userId: 'userId',
+    documentId: 'documentId'
+  };
+
+  export type DocumentAccessOrderByRelevanceFieldEnum = (typeof DocumentAccessOrderByRelevanceFieldEnum)[keyof typeof DocumentAccessOrderByRelevanceFieldEnum]
 
 
   /**
@@ -11720,6 +10626,7 @@ export namespace Prisma {
     roles?: UserRoleOrderByRelationAggregateInput
     datasets?: DatasetAccessOrderByRelationAggregateInput
     documents?: DocumentAccessOrderByRelationAggregateInput
+    _relevance?: UserOrderByRelevanceInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11779,6 +10686,7 @@ export namespace Prisma {
     name?: SortOrder
     permissions?: RolePermissionOrderByRelationAggregateInput
     users?: UserRoleOrderByRelationAggregateInput
+    _relevance?: RoleOrderByRelevanceInput
   }
 
   export type RoleWhereUniqueInput = Prisma.AtLeast<{
@@ -11820,6 +10728,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     roles?: RolePermissionOrderByRelationAggregateInput
+    _relevance?: PermissionOrderByRelevanceInput
   }
 
   export type PermissionWhereUniqueInput = Prisma.AtLeast<{
@@ -11862,6 +10771,7 @@ export namespace Prisma {
     roleId?: SortOrder
     user?: UserOrderByWithRelationInput
     role?: RoleOrderByWithRelationInput
+    _relevance?: UserRoleOrderByRelevanceInput
   }
 
   export type UserRoleWhereUniqueInput = Prisma.AtLeast<{
@@ -11906,6 +10816,7 @@ export namespace Prisma {
     permissionId?: SortOrder
     role?: RoleOrderByWithRelationInput
     permission?: PermissionOrderByWithRelationInput
+    _relevance?: RolePermissionOrderByRelevanceInput
   }
 
   export type RolePermissionWhereUniqueInput = Prisma.AtLeast<{
@@ -11962,6 +10873,7 @@ export namespace Prisma {
     children?: DatasetOrderByRelationAggregateInput
     documents?: DocumentOrderByRelationAggregateInput
     accesses?: DatasetAccessOrderByRelationAggregateInput
+    _relevance?: DatasetOrderByRelevanceInput
   }
 
   export type DatasetWhereUniqueInput = Prisma.AtLeast<{
@@ -12031,6 +10943,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     dataset?: DatasetOrderByWithRelationInput
     accesses?: DocumentAccessOrderByRelationAggregateInput
+    _relevance?: DocumentOrderByRelevanceInput
   }
 
   export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -12100,6 +11013,7 @@ export namespace Prisma {
     canDelete?: SortOrder
     user?: UserOrderByWithRelationInput
     dataset?: DatasetOrderByWithRelationInput
+    _relevance?: DatasetAccessOrderByRelevanceInput
   }
 
   export type DatasetAccessWhereUniqueInput = Prisma.AtLeast<{
@@ -12159,6 +11073,7 @@ export namespace Prisma {
     canDelete?: SortOrder
     user?: UserOrderByWithRelationInput
     document?: DocumentOrderByWithRelationInput
+    _relevance?: DocumentAccessOrderByRelevanceInput
   }
 
   export type DocumentAccessWhereUniqueInput = Prisma.AtLeast<{
@@ -12702,6 +11617,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
@@ -12746,6 +11662,12 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type UserOrderByRelevanceInput = {
+    fields: UserOrderByRelevanceFieldEnum | UserOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -12787,6 +11709,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
@@ -12817,6 +11740,12 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type RoleOrderByRelevanceInput = {
+    fields: RoleOrderByRelevanceFieldEnum | RoleOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type RoleCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -12830,6 +11759,12 @@ export namespace Prisma {
   export type RoleMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+  }
+
+  export type PermissionOrderByRelevanceInput = {
+    fields: PermissionOrderByRelevanceFieldEnum | PermissionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type PermissionCountOrderByAggregateInput = {
@@ -12857,6 +11792,12 @@ export namespace Prisma {
     isNot?: RoleWhereInput
   }
 
+  export type UserRoleOrderByRelevanceInput = {
+    fields: UserRoleOrderByRelevanceFieldEnum | UserRoleOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type UserRoleUserIdRoleIdCompoundUniqueInput = {
     userId: string
     roleId: string
@@ -12880,6 +11821,12 @@ export namespace Prisma {
   export type PermissionScalarRelationFilter = {
     is?: PermissionWhereInput
     isNot?: PermissionWhereInput
+  }
+
+  export type RolePermissionOrderByRelevanceInput = {
+    fields: RolePermissionOrderByRelevanceFieldEnum | RolePermissionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type RolePermissionRoleIdPermissionIdCompoundUniqueInput = {
@@ -12913,6 +11860,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
@@ -12944,6 +11892,12 @@ export namespace Prisma {
 
   export type DocumentOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type DatasetOrderByRelevanceInput = {
+    fields: DatasetOrderByRelevanceFieldEnum | DatasetOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type DatasetCountOrderByAggregateInput = {
@@ -12984,6 +11938,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
@@ -13004,6 +11959,12 @@ export namespace Prisma {
   export type DatasetScalarRelationFilter = {
     is?: DatasetWhereInput
     isNot?: DatasetWhereInput
+  }
+
+  export type DocumentOrderByRelevanceInput = {
+    fields: DocumentOrderByRelevanceFieldEnum | DocumentOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type DocumentCountOrderByAggregateInput = {
@@ -13068,6 +12029,12 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type DatasetAccessOrderByRelevanceInput = {
+    fields: DatasetAccessOrderByRelevanceFieldEnum | DatasetAccessOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type DatasetAccessUserIdDatasetIdCompoundUniqueInput = {
     userId: string
     datasetId: string
@@ -13108,6 +12075,12 @@ export namespace Prisma {
   export type DocumentScalarRelationFilter = {
     is?: DocumentWhereInput
     isNot?: DocumentWhereInput
+  }
+
+  export type DocumentAccessOrderByRelevanceInput = {
+    fields: DocumentAccessOrderByRelevanceFieldEnum | DocumentAccessOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type DocumentAccessUserIdDocumentIdCompoundUniqueInput = {
@@ -13736,6 +12709,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
@@ -13761,6 +12735,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
@@ -13803,6 +12778,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
@@ -13817,6 +12793,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
@@ -13889,6 +12866,7 @@ export namespace Prisma {
 
   export type UserRoleCreateManyUserInputEnvelope = {
     data: UserRoleCreateManyUserInput | UserRoleCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type DatasetAccessCreateWithoutUserInput = {
@@ -13912,6 +12890,7 @@ export namespace Prisma {
 
   export type DatasetAccessCreateManyUserInputEnvelope = {
     data: DatasetAccessCreateManyUserInput | DatasetAccessCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type DocumentAccessCreateWithoutUserInput = {
@@ -13935,6 +12914,7 @@ export namespace Prisma {
 
   export type DocumentAccessCreateManyUserInputEnvelope = {
     data: DocumentAccessCreateManyUserInput | DocumentAccessCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserRoleUpsertWithWhereUniqueWithoutUserInput = {
@@ -14030,6 +13010,7 @@ export namespace Prisma {
 
   export type RolePermissionCreateManyRoleInputEnvelope = {
     data: RolePermissionCreateManyRoleInput | RolePermissionCreateManyRoleInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserRoleCreateWithoutRoleInput = {
@@ -14047,6 +13028,7 @@ export namespace Prisma {
 
   export type UserRoleCreateManyRoleInputEnvelope = {
     data: UserRoleCreateManyRoleInput | UserRoleCreateManyRoleInput[]
+    skipDuplicates?: boolean
   }
 
   export type RolePermissionUpsertWithWhereUniqueWithoutRoleInput = {
@@ -14104,6 +13086,7 @@ export namespace Prisma {
 
   export type RolePermissionCreateManyPermissionInputEnvelope = {
     data: RolePermissionCreateManyPermissionInput | RolePermissionCreateManyPermissionInput[]
+    skipDuplicates?: boolean
   }
 
   export type RolePermissionUpsertWithWhereUniqueWithoutPermissionInput = {
@@ -14358,6 +13341,7 @@ export namespace Prisma {
 
   export type DatasetCreateManyParentInputEnvelope = {
     data: DatasetCreateManyParentInput | DatasetCreateManyParentInput[]
+    skipDuplicates?: boolean
   }
 
   export type DocumentCreateWithoutDatasetInput = {
@@ -14389,6 +13373,7 @@ export namespace Prisma {
 
   export type DocumentCreateManyDatasetInputEnvelope = {
     data: DocumentCreateManyDatasetInput | DocumentCreateManyDatasetInput[]
+    skipDuplicates?: boolean
   }
 
   export type DatasetAccessCreateWithoutDatasetInput = {
@@ -14412,6 +13397,7 @@ export namespace Prisma {
 
   export type DatasetAccessCreateManyDatasetInputEnvelope = {
     data: DatasetAccessCreateManyDatasetInput | DatasetAccessCreateManyDatasetInput[]
+    skipDuplicates?: boolean
   }
 
   export type DatasetUpsertWithoutChildrenInput = {
@@ -14569,6 +13555,7 @@ export namespace Prisma {
 
   export type DocumentAccessCreateManyDocumentInputEnvelope = {
     data: DocumentAccessCreateManyDocumentInput | DocumentAccessCreateManyDocumentInput[]
+    skipDuplicates?: boolean
   }
 
   export type DatasetUpsertWithoutDocumentsInput = {

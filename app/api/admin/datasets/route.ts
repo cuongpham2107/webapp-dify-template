@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/admin";
 import { getAllDatasets } from "@/lib/models/dataset";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 // GET /api/admin/datasets - Get all datasets (admin only)
 export async function GET(request: NextRequest) {
     try {

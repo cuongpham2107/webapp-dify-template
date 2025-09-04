@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import { type NextRequest } from 'next/server'
 import { checkDocumentAccess } from '@/lib/models/documentAccess'
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
     try {
         // Lấy các tham số từ URL

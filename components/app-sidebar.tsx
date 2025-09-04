@@ -217,8 +217,8 @@ export function AppSidebar({
       return null
 
     return (
-      <Sidebar variant="inset" {...props} className="bg-sky-500">
-        <SidebarHeader className="bg-sky-500">
+      <Sidebar variant="inset" {...props} className="bg-[#1c5a91]">
+        <SidebarHeader className="bg-[#1c5a91]">
           <SidebarMenu >
             <SidebarMenuItem>
               <SidebarMenuButton
@@ -240,7 +240,7 @@ export function AppSidebar({
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
-        <SidebarContent className="bg-sky-500">
+        <SidebarContent className="bg-[#1c5a91]">
           {/* Global Search Button - Fixed */}
           <div className="px-2 py-1">
             <SearchButton variant="default" showKeyboardShortcut={true} onSearchOpen={openSearch} />
@@ -255,7 +255,7 @@ export function AppSidebar({
             />
           )}
         </SidebarContent>
-        <SidebarFooter className="bg-sky-500">
+        <SidebarFooter className="bg-[#1c5a91]">
           <NavUser />
         </SidebarFooter>
       </Sidebar>

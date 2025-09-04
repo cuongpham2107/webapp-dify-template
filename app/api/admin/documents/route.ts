@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/admin";
 import { getAllDocuments } from "@/lib/models/document";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 // GET /api/admin/documents - Get all documents (admin only)
 export async function GET(request: NextRequest) {
     try {

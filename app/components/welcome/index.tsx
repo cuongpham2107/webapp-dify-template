@@ -10,6 +10,7 @@ import type { AppInfo, PromptConfig } from '@/types/app'
 import Toast from '@/app/components/base/toast'
 import Select from '@/app/components/base/select'
 import { DEFAULT_VALUE_MAX_LEN } from '@/config'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 
 // regex to match the {{}} and replace it with a span
 const regex = /\{\{([^}]+)\}\}/g
@@ -83,7 +84,8 @@ const Welcome: FC<IWelcomeProps> = ({
 
   const renderHeader = () => {
     return (
-      <div className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8 bg-white'>
+      <div className='absolute top-0 left-0 right-0 flex items-center border-b border-gray-100 mobile:h-12 tablet:h-16 px-4 bg-white'>
+        <SidebarTrigger />
         <div className='text-gray-900'>{conversationName}</div>
       </div>
     )

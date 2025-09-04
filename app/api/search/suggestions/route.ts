@@ -1,14 +1,9 @@
-/**
- * Search Suggestions API Route
- * 
- * Provides search suggestions based on existing dataset and document names
- */
-
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { getSearchSuggestionsFromDB } from '@/lib/models/search';
-
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
     try {
         // Get current user session
