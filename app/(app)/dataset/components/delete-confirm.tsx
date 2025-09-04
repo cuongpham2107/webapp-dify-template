@@ -50,7 +50,7 @@ export function DeleteDatasetDialog({ id, name, hidden_border, onDeleted }: Dele
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant={hidden_border ? 'link' : 'outline'} size="sm" type="button" className={hidden_border ? 'p-0 pr-2' : ''}>
-                    <Trash2 className="h-4 w-4 text-red-700" />
+                    <Trash2 className={`h-4 w-4 ${hidden_border ? 'text-white' : 'text-red-500'}`} />
                 </Button>
             </DialogTrigger>
             <DialogContent>

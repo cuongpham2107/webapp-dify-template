@@ -11,6 +11,7 @@ import Sidebar from '@/app/components/sidebar'
 import ConfigSence from '@/app/components/config-scence'
 import Header from '@/app/components/header'
 import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
+import { fetchSuggestedQuestions } from '@/lib/api/suggested'
 import type { ConversationItem, Feedbacktype, PromptConfig, VisionFile, VisionSettings } from '@/types/app'
 import type { IChatItem } from '@/app/components/chat/type'
 import type { WorkflowProcess } from '@/types/app'
@@ -129,6 +130,7 @@ const Main: FC<IMainProps> = () => {
 
   const [conversationIdChangeBecauseOfNew, setConversationIdChangeBecauseOfNew, getConversationIdChangeBecauseOfNew] = useGetState(false)
   const [isChatStarted, { setTrue: setChatStarted, setFalse: setChatNotStarted }] = useBoolean(false)
+  const suggestedQuestionsCache = useRef<Set<string>>(new Set())
   const handleStartChat = (inputs: Record<string, any>) => {
     createNewChat()
     setConversationIdChangeBecauseOfNew(true)
@@ -594,7 +596,7 @@ const Main: FC<IMainProps> = () => {
           questionItem,
         })
       },
-      onMessageEnd: (messageEnd) => {
+      onMessageEnd: async (messageEnd) => {
         if (messageEnd.metadata?.annotation_reply) {
           responseItem.id = messageEnd.id
           responseItem.annotation = ({
@@ -616,6 +618,24 @@ const Main: FC<IMainProps> = () => {
         }
         // Enable citation support
         responseItem.citation = messageEnd.metadata?.retriever_resources || []
+
+        // Fetch suggested questions for UUID messages when message ends (with cache check)
+        if (messageEnd.id &&
+          /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(messageEnd.id) &&
+          !suggestedQuestionsCache.current.has(messageEnd.id)) {
+          try {
+
+            suggestedQuestionsCache.current.add(messageEnd.id) // Add to cache immediately to prevent duplicate calls
+            const suggestedQuestions = await fetchSuggestedQuestions(messageEnd.id)
+            if (suggestedQuestions.length > 0) {
+              responseItem.suggestedQuestions = suggestedQuestions
+            }
+          } catch (error) {
+            // Remove from cache if failed so it can be retried later
+            suggestedQuestionsCache.current.delete(messageEnd.id)
+          }
+        }
+
         const newListWithAnswer = produce(
           getChatList().filter(item => item.id !== responseItem.id && item.id !== placeholderAnswerId),
           (draft) => {
@@ -679,9 +699,30 @@ const Main: FC<IMainProps> = () => {
           }
         }))
       },
-      onNodeFinished: ({ data }) => {
+      onNodeFinished: async ({ data }) => {
         const currentIndex = responseItem.workflowProcess!.tracing!.findIndex(item => item.node_id === data.node_id)
         responseItem.workflowProcess!.tracing[currentIndex] = data as any
+
+
+
+        // Fetch suggested questions when workflow node finishes (with cache check)
+        // Only try for UUID format messages (Dify limitation)
+        if (responseItem.id &&
+          /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(responseItem.id) &&
+          !suggestedQuestionsCache.current.has(responseItem.id)) {
+          try {
+            suggestedQuestionsCache.current.add(responseItem.id) // Add to cache immediately
+            const suggestedQuestions = await fetchSuggestedQuestions(responseItem.id)
+            if (suggestedQuestions.length > 0) {
+              responseItem.suggestedQuestions = suggestedQuestions
+            }
+          } catch (error) {
+            // Remove from cache if failed so it can be retried later
+            suggestedQuestionsCache.current.delete(responseItem.id)
+          }
+        } else if (responseItem.id && !suggestedQuestionsCache.current.has(responseItem.id)) {
+        }
+
         setChatList(produce(getChatList(), (draft) => {
           const currentIndex = draft.findIndex(item => item.id === responseItem.id)
           draft[currentIndex] = {

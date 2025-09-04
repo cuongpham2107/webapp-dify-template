@@ -39,11 +39,12 @@
 }
 
 .answerWrap .itemOperation {
-  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .answerWrap:hover .itemOperation {
-  display: flex;
+  opacity: 1;
 }
 
 .question::before {

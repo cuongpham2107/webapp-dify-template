@@ -86,9 +86,6 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -163,62 +160,9 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  id: 'id',
-  email: 'email',
-  asgl_id: 'asgl_id',
-  name: 'name',
-  password: 'password'
-};
-
-exports.Prisma.RoleOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name'
-};
-
-exports.Prisma.PermissionOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name'
-};
-
-exports.Prisma.UserRoleOrderByRelevanceFieldEnum = {
-  userId: 'userId',
-  roleId: 'roleId'
-};
-
-exports.Prisma.RolePermissionOrderByRelevanceFieldEnum = {
-  roleId: 'roleId',
-  permissionId: 'permissionId'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.DatasetOrderByRelevanceFieldEnum = {
-  id: 'id',
-  dataset_id: 'dataset_id',
-  name: 'name',
-  parent_id: 'parent_id'
-};
-
-exports.Prisma.DocumentOrderByRelevanceFieldEnum = {
-  id: 'id',
-  document_id: 'document_id',
-  name: 'name',
-  type: 'type',
-  datasetId: 'datasetId'
-};
-
-exports.Prisma.DatasetAccessOrderByRelevanceFieldEnum = {
-  userId: 'userId',
-  datasetId: 'datasetId'
-};
-
-exports.Prisma.DocumentAccessOrderByRelevanceFieldEnum = {
-  userId: 'userId',
-  documentId: 'documentId'
 };
 
 
@@ -244,7 +188,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/var/www/webapp-dify-template/prisma/generated/prisma",
+      "value": "/Users/cuongpham/Deverlop/next-js/webapp-dify-template/prisma/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -253,7 +197,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "darwin-arm64",
         "native": true
       },
       {
@@ -262,7 +206,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/var/www/webapp-dify-template/prisma/schema.prisma",
+    "sourceFilePath": "/Users/cuongpham/Deverlop/next-js/webapp-dify-template/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -275,7 +219,7 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "mysql",
+  "activeProvider": "sqlite",
   "inlineDatasources": {
     "db": {
       "url": {
@@ -284,8 +228,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n  output        = \"../prisma/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// ======================\n// USER & AUTH\n// ======================\nmodel User {\n  id        String           @id @default(cuid())\n  email     String           @unique\n  asgl_id   String           @unique\n  name      String\n  password  String\n  roles     UserRole[]\n  datasets  DatasetAccess[]\n  documents DocumentAccess[]\n  createdAt DateTime         @default(now())\n  updatedAt DateTime         @updatedAt\n}\n\nmodel Role {\n  id          String           @id @default(cuid())\n  name        String           @unique\n  permissions RolePermission[]\n  users       UserRole[]\n}\n\nmodel Permission {\n  id    String           @id @default(cuid())\n  name  String           @unique\n  roles RolePermission[]\n}\n\n// ======================\n// RELATION TABLES\n// ======================\nmodel UserRole {\n  userId String\n  roleId String\n\n  user User @relation(fields: [userId], references: [id])\n  role Role @relation(fields: [roleId], references: [id])\n\n  @@id([userId, roleId])\n}\n\nmodel RolePermission {\n  roleId       String\n  permissionId String\n\n  role       Role       @relation(fields: [roleId], references: [id])\n  permission Permission @relation(fields: [permissionId], references: [id])\n\n  @@id([roleId, permissionId])\n}\n\n// ======================\n// DATASET & DOCUMENT\n// ======================\nmodel Dataset {\n  id         String          @id @default(cuid())\n  dataset_id String          @unique\n  name       String          @unique\n  parent_id  String?\n  parent     Dataset?        @relation(\"DatasetToParent\", fields: [parent_id], references: [id])\n  children   Dataset[]       @relation(\"DatasetToParent\")\n  documents  Document[]\n  accesses   DatasetAccess[]\n  createdAt  DateTime        @default(now())\n  updatedAt  DateTime        @updatedAt\n}\n\nmodel Document {\n  id          String           @id @default(cuid())\n  document_id String           @unique\n  name        String\n  type        String\n  size        Int\n  datasetId   String\n  dataset     Dataset          @relation(fields: [datasetId], references: [id])\n  accesses    DocumentAccess[]\n  createdAt   DateTime         @default(now())\n  updatedAt   DateTime         @updatedAt\n}\n\n// ======================\n// ACCESS CONTROL\n// ======================\n// Xác định quyền cụ thể cho từng user trên dataset\nmodel DatasetAccess {\n  userId    String\n  datasetId String\n  canView   Boolean @default(false)\n  canEdit   Boolean @default(false)\n  canDelete Boolean @default(false)\n\n  user    User    @relation(fields: [userId], references: [id])\n  dataset Dataset @relation(fields: [datasetId], references: [id])\n\n  @@id([userId, datasetId])\n}\n\n// Xác định quyền cụ thể cho từng user trên document\nmodel DocumentAccess {\n  userId     String\n  documentId String\n  canView    Boolean @default(false)\n  canEdit    Boolean @default(false)\n  canDelete  Boolean @default(false)\n\n  user     User     @relation(fields: [userId], references: [id])\n  document Document @relation(fields: [documentId], references: [id])\n\n  @@id([userId, documentId])\n}\n",
-  "inlineSchemaHash": "2a9491a977a67c7d94578c09b54824004277369d072cf3db13dafdacb2ea681e",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n  output        = \"../prisma/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// ======================\n// USER & AUTH\n// ======================\nmodel User {\n  id        String           @id @default(cuid())\n  email     String           @unique\n  asgl_id   String           @unique\n  name      String\n  password  String\n  roles     UserRole[]\n  datasets  DatasetAccess[]\n  documents DocumentAccess[]\n  createdAt DateTime         @default(now())\n  updatedAt DateTime         @updatedAt\n}\n\nmodel Role {\n  id          String           @id @default(cuid())\n  name        String           @unique\n  permissions RolePermission[]\n  users       UserRole[]\n}\n\nmodel Permission {\n  id    String           @id @default(cuid())\n  name  String           @unique\n  roles RolePermission[]\n}\n\n// ======================\n// RELATION TABLES\n// ======================\nmodel UserRole {\n  userId String\n  roleId String\n\n  user User @relation(fields: [userId], references: [id])\n  role Role @relation(fields: [roleId], references: [id])\n\n  @@id([userId, roleId])\n}\n\nmodel RolePermission {\n  roleId       String\n  permissionId String\n\n  role       Role       @relation(fields: [roleId], references: [id])\n  permission Permission @relation(fields: [permissionId], references: [id])\n\n  @@id([roleId, permissionId])\n}\n\n// ======================\n// DATASET & DOCUMENT\n// ======================\nmodel Dataset {\n  id         String          @id @default(cuid())\n  dataset_id String          @unique\n  name       String          @unique\n  parent_id  String?\n  parent     Dataset?        @relation(\"DatasetToParent\", fields: [parent_id], references: [id])\n  children   Dataset[]       @relation(\"DatasetToParent\")\n  documents  Document[]\n  accesses   DatasetAccess[]\n  createdAt  DateTime        @default(now())\n  updatedAt  DateTime        @updatedAt\n}\n\nmodel Document {\n  id          String           @id @default(cuid())\n  document_id String           @unique\n  name        String\n  type        String\n  size        Int\n  datasetId   String\n  dataset     Dataset          @relation(fields: [datasetId], references: [id])\n  accesses    DocumentAccess[]\n  createdAt   DateTime         @default(now())\n  updatedAt   DateTime         @updatedAt\n}\n\n// ======================\n// ACCESS CONTROL\n// ======================\n// Xác định quyền cụ thể cho từng user trên dataset\nmodel DatasetAccess {\n  userId    String\n  datasetId String\n  canView   Boolean @default(false)\n  canEdit   Boolean @default(false)\n  canDelete Boolean @default(false)\n\n  user    User    @relation(fields: [userId], references: [id])\n  dataset Dataset @relation(fields: [datasetId], references: [id])\n\n  @@id([userId, datasetId])\n}\n\n// Xác định quyền cụ thể cho từng user trên document\nmodel DocumentAccess {\n  userId     String\n  documentId String\n  canView    Boolean @default(false)\n  canEdit    Boolean @default(false)\n  canDelete  Boolean @default(false)\n\n  user     User     @relation(fields: [userId], references: [id])\n  document Document @relation(fields: [documentId], references: [id])\n\n  @@id([userId, documentId])\n}\n",
+  "inlineSchemaHash": "623dc935891ca36d9239f54cea00c4adfc16db4b9a4160ae4f10b445dab7b5ed",
   "copyEngine": true
 }
 config.dirname = '/'

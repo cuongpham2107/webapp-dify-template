@@ -363,23 +363,29 @@ const Answer: FC<IAnswerProps> = ({
                       )}
                     </div>
                   ))}
-              {suggestedQuestions.length > 0 && (
-                <div className='mt-3'>
-                  <div className='flex gap-1 mt-1 flex-wrap'>
-                    {suggestedQuestions.map((suggestion, index) => (
-                      <div key={index} className='flex items-center gap-1'>
-                        <Button className='text-sm' type='link' onClick={() => suggestionClick(suggestion)}>{suggestion}</Button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+
             </div>
-            <div className='absolute top-[-14px] right-[-14px] flex flex-row justify-end gap-1'>
+            <div className='flex flex-row justify-start gap-1 mt-1 ml-2'>
               {!feedbackDisabled && !item.feedbackDisabled && renderItemOperation()}
               {/* User feedback must be displayed */}
               {!feedbackDisabled && renderFeedbackRating(feedback?.rating)}
             </div>
+            {suggestedQuestions.length > 0 && (
+              <div className='flex flex-col items-center justify-center mt-3'>
+                <div className="mb-2.5 flex items-center justify-between gap-2">
+                  <div className="flex-grow my-2 h-px bg-gradient-to-r from-gray-200 to-transparent rotate-180"></div>
+                  <div className="text-xs font-semibold uppercase text-gray-400 shrink-0">Thử hỏi</div>
+                  <div className="flex-grow my-2 h-px bg-gradient-to-r from-gray-200 to-transparent"></div>
+                </div>
+                <div className='flex gap-1 mt-1 flex-wrap'>
+                  {suggestedQuestions.map((suggestion, index) => (
+                    <div key={index} className='flex items-center gap-1'>
+                      <Button className='text-sm !px-1.5 !py-0.5 h-3' type='link' onClick={() => suggestionClick(suggestion)}>{suggestion}</Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
