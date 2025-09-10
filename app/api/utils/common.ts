@@ -15,7 +15,6 @@ export const getInfo = async (request: NextRequest) => {
 
   let sessionId: string
   let user: string
-
   if (session?.user?.id) {
     // Nếu user đã đăng nhập, sử dụng user ID
     sessionId = session.user.id.toString()
@@ -26,6 +25,7 @@ export const getInfo = async (request: NextRequest) => {
     sessionId = request.cookies.get('session_id')?.value || v4()
     user = userPrefix + sessionId
   }
+
 
   return {
     sessionId,

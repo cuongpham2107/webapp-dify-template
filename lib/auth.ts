@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       // Persist user data in JWT token
       if (user) {
-        token.id = Number(user.id)
+        token.id = user.id
         token.username = user.username
         token.email = user.email
         token.full_name = user.full_name

@@ -18,7 +18,7 @@ export type LoginData = {
 }
 
 export type User = {
-  id: number
+  id: string
   username: string
   email: string
   full_name: string
@@ -65,7 +65,7 @@ export type Company = {
 declare module 'next-auth' {
   interface Session {
     user: {
-      id: number
+      id: string
       username: string
       email: string
       full_name: string
@@ -81,7 +81,7 @@ declare module 'next-auth' {
   }
 
   interface User {
-    id: number
+    id: string
     username: string
     email: string
     full_name: string
@@ -98,7 +98,7 @@ declare module 'next-auth' {
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    id: number
+    id: string
     username: string
     email: string
     full_name: string

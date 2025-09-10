@@ -18,7 +18,7 @@ export const authService = {
           error_code: 0,
           data: {
             user: {
-              id: parseInt(localUser.id), // Convert string to number
+              id: localUser.id, // Keep as string since it's a cuid
               username: localUser.asgl_id,
               email: localUser.email,
               full_name: localUser.name,
