@@ -1,6 +1,6 @@
 'use client'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { downloadAndSaveCitation } from '@/lib/api/citations'
 import { HandThumbDownIcon, HandThumbUpIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'react-i18next'
@@ -80,9 +80,73 @@ const Answer: FC<IAnswerProps> = ({
   const [selectedCitation, setSelectedCitation] = useState<number | null>(null)
   const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null)
   const [downloadingIndex, setDownloadingIndex] = useState<number | null>(null)
+  const [filteredCitation, setFilteredCitation] = useState<CitationItem[]>([])
   const isAgentMode = !!agent_thoughts && agent_thoughts.length > 0
   const { t } = useTranslation()
 
+  // Kiểm tra quyền truy cập tài liệu và lọc citation
+  useEffect(() => {
+    // Tránh gọi API nếu không có citation
+    if (!citation || citation.length === 0) {
+      setFilteredCitation([])
+      return
+    }
+    
+    // Sử dụng biến để theo dõi nếu component vẫn mounted
+    let isMounted = true
+    
+    const checkDocumentAccessRights = async () => {
+      try {
+        // Lấy danh sách document IDs từ citation
+        const documentIds = citation.map(cite => cite.document_id)
+
+        // Gọi API để kiểm tra quyền truy cập
+        const response = await fetch('/api/document-access', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ documentIds }),
+        })
+
+        // Kiểm tra nếu component vẫn mounted trước khi cập nhật state
+        if (!isMounted) return
+
+        if (!response.ok) {
+          console.error('Failed to check document access')
+          setFilteredCitation([])
+          return
+        }
+
+        const { accessResults } = await response.json()
+
+        // Kiểm tra nếu component vẫn mounted trước khi cập nhật state
+        if (!isMounted) return
+
+        // Lọc citation dựa trên kết quả kiểm tra quyền truy cập
+        const filtered = citation.filter(cite => {
+          const accessResult = accessResults.find((result: { documentId: string; hasAccess: boolean }) =>
+            result.documentId === cite.document_id
+          )
+          return accessResult && accessResult.hasAccess
+        })
+
+        setFilteredCitation(filtered)
+      } catch (error) {
+        // Kiểm tra nếu component vẫn mounted trước khi cập nhật state
+        if (!isMounted) return
+        console.error('Error checking document access:', error)
+        setFilteredCitation([])
+      }
+    }
+
+    checkDocumentAccessRights()
+    
+    // Cleanup function để đánh dấu component đã unmounted
+    return () => {
+      isMounted = false
+    }
+  }, [item.citation]) // Sử dụng item.citation thay vì citation để tránh re-render không cần thiết
   const handleCitationClick = (index: number, event: React.MouseEvent) => {
     const rect = (event.target as HTMLElement).getBoundingClientRect()
     setPopupPosition({
@@ -227,7 +291,7 @@ const Answer: FC<IAnswerProps> = ({
 
                     <div>
                       <Markdown content={content} />
-                      {citation && citation.length > 0 && (
+                      {filteredCitation && filteredCitation.length > 0 && (
                         <div className='mt-4'>
                           <div className='text-xs font-semibold mb-3 flex items-center text-gray-800 uppercase tracking-wide'>
                             <span>Tham khảo</span>
@@ -236,7 +300,7 @@ const Answer: FC<IAnswerProps> = ({
                           {/* Horizontal scrollable citation list */}
                           <div className='overflow-x-auto overflow-y-hidden w-full scrollbar-hide' style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                             <div className='flex gap-3 pb-2'>
-                              {citation.map((citationItem: CitationItem, index: number) => (
+                              {filteredCitation.map((citationItem: CitationItem, index: number) => (
                                 <div
                                   key={index}
                                   className='flex-shrink-0 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200 cursor-pointer group'
@@ -278,7 +342,7 @@ const Answer: FC<IAnswerProps> = ({
                           </div>
 
                           {/* Citation popup */}
-                          {selectedCitation !== null && popupPosition && (
+                          {selectedCitation !== null && popupPosition && filteredCitation.length > 0 && (
                             <>
                               {/* Backdrop */}
                               <div
@@ -306,13 +370,13 @@ const Answer: FC<IAnswerProps> = ({
                                       </div>
                                       <div className='flex-1 min-w-0'>
                                         <h4 className='text-sm font-semibold text-gray-900 mb-1'>
-                                          {citation[selectedCitation].document_name}
+                                          {filteredCitation[selectedCitation].document_name}
                                         </h4>
                                         <div className='text-xs text-gray-600 flex items-center gap-1'>
                                           <svg className='w-3 h-3 text-gray-400' fill='currentColor' viewBox='0 0 20 20'>
                                             <path fillRule='evenodd' d='M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z' clipRule='evenodd' />
                                           </svg>
-                                          <span>Nguồn: <span className='font-medium text-gray-700'>{citation[selectedCitation].dataset_name}</span></span>
+                                          <span>Nguồn: <span className='font-medium text-gray-700'>{filteredCitation[selectedCitation].dataset_name}</span></span>
                                         </div>
                                       </div>
                                     </div>
@@ -328,7 +392,7 @@ const Answer: FC<IAnswerProps> = ({
 
                                   {/* Content */}
                                   <div className='text-sm text-gray-700 leading-relaxed mb-4 bg-gray-50 p-3 rounded-lg max-h-68 overflow-y-auto'>
-                                    "{citation[selectedCitation].content}"
+                                    "{filteredCitation[selectedCitation].content}"
                                   </div>
 
                                   {/* Metadata */}
@@ -377,7 +441,7 @@ const Answer: FC<IAnswerProps> = ({
                   <div className="text-xs font-semibold uppercase text-gray-400 shrink-0">Thử hỏi</div>
                   <div className="flex-grow my-2 h-px bg-gradient-to-r from-gray-200 to-transparent"></div>
                 </div>
-                <div className='flex gap-1 mt-1 flex-wrap'>
+                <div className='flex gap-1 mt-1 flex-wrap justify-center'>
                   {suggestedQuestions.map((suggestion, index) => (
                     <div key={index} className='flex items-center gap-1'>
                       <Button className='text-sm !px-1.5 !py-0.5 h-3' type='link' onClick={() => suggestionClick(suggestion)}>{suggestion}</Button>
