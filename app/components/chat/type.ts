@@ -101,6 +101,7 @@ export type IChatItem = {
   log?: { role: string; text: string }[]
   agent_thoughts?: ThoughtItem[]
   message_files?: VisionFile[]
+  created_at?: number
 }
 
 export type MessageEnd = {

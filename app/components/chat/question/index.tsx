@@ -14,12 +14,10 @@ type IQuestionProps = Pick<IChatItem, 'id' | 'content' | 'useCurrentUserAvatar'>
 const Question: FC<IQuestionProps> = ({ id, content, useCurrentUserAvatar, imgSrcs }) => {
   const userName = ''
   return (
-    <div className='flex items-start justify-end' key={id}>
-      <div>
+    <div className='flex items-start justify-end gap-3 mb-6' key={id}>
+      <div className='max-w-[70%]'>
         <div className={`${s.question} relative text-sm text-gray-900`}>
-          <div
-            className={'mr-2 py-3 px-4 bg-blue-500 rounded-tl-2xl rounded-b-2xl'}
-          >
+          <div className='py-3 px-4 bg-gray-100 rounded-2xl border border-gray-200'>
             {imgSrcs && imgSrcs.length > 0 && (
               <ImageGallery srcs={imgSrcs} />
             )}
@@ -29,12 +27,14 @@ const Question: FC<IQuestionProps> = ({ id, content, useCurrentUserAvatar, imgSr
       </div>
       {useCurrentUserAvatar
         ? (
-          <div className='w-10 h-10 shrink-0 leading-10 text-center mr-2 rounded-full bg-primary-600 text-white'>
-            {userName?.[0].toLocaleUpperCase()}
+          <div className='w-8 h-8 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-medium'>
+            {userName?.[0]?.toLocaleUpperCase() || 'U'}
           </div>
         )
         : (
-          <div className={`${s.questionIcon} w-10 h-10 shrink-0 `}></div>
+          <div className='w-8 h-8 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-medium'>
+            U
+          </div>
         )}
     </div>
   )

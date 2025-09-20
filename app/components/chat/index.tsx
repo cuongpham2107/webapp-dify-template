@@ -1,9 +1,10 @@
 'use client'
 import type { FC } from 'react'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
 import Textarea from 'rc-textarea'
+import { Mic, MicOff, Loader } from 'lucide-react'
 import s from './style.module.css'
 import Answer from './answer'
 import Question from './question'
@@ -15,6 +16,7 @@ import Toast from '@/app/components/base/toast'
 import ChatImageUploader from '@/app/components/base/image-uploader/chat-image-uploader'
 import ImageList from '@/app/components/base/image-uploader/image-list'
 import { useImageFiles } from '@/app/components/base/image-uploader/hooks'
+import { convertAudioToText } from '@/service'
 
 export type IChatProps = {
   chatList: IChatItem[]
@@ -33,6 +35,8 @@ export type IChatProps = {
   isResponding?: boolean
   controlClearQuery?: number
   visionConfig?: VisionSettings
+  textToSpeechConfig?: { enabled: boolean }
+  speechToTextConfig?: { enabled: boolean }
 }
 
 const Chat: FC<IChatProps> = ({
@@ -46,6 +50,8 @@ const Chat: FC<IChatProps> = ({
   isResponding,
   controlClearQuery,
   visionConfig,
+  textToSpeechConfig,
+  speechToTextConfig,
 }) => {
   const { t } = useTranslation()
   const { notify } = Toast
@@ -53,6 +59,9 @@ const Chat: FC<IChatProps> = ({
 
   const [query, setQuery] = React.useState('')
   const queryRef = useRef('')
+  const [isRecording, setIsRecording] = useState(false)
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null)
+  const [isProcessingAudio, setIsProcessingAudio] = useState(false)
 
   const handleContentChange = (e: any) => {
     const value = e.target.value
@@ -133,6 +142,64 @@ const Chat: FC<IChatProps> = ({
     handleSend()
   }
 
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
+      const audioChunks: BlobPart[] = []
+
+      recorder.ondataavailable = (event) => {
+        audioChunks.push(event.data)
+      }
+
+      recorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' })
+        const audioFile = new File([audioBlob], 'recording.webm', { type: 'audio/webm' })
+
+        setIsProcessingAudio(true)
+        try {
+          const response = await convertAudioToText(audioFile)
+          if (response && (response as any).text) {
+            const transcribedText = (response as any).text
+            setQuery(transcribedText)
+            queryRef.current = transcribedText
+          }
+        } catch (error) {
+          console.error('Speech to text conversion failed:', error)
+          notify({ type: 'error', message: 'Không thể chuyển đổi giọng nói thành văn bản. Vui lòng thử lại.', duration: 3000 })
+        } finally {
+          setIsProcessingAudio(false)
+        }
+
+        // Stop all tracks to release microphone
+        stream.getTracks().forEach(track => track.stop())
+      }
+
+      recorder.start()
+      setMediaRecorder(recorder)
+      setIsRecording(true)
+    } catch (error) {
+      console.error('Microphone access denied:', error)
+      notify({ type: 'error', message: 'Không thể truy cập microphone. Vui lòng cho phép quyền truy cập microphone.', duration: 3000 })
+    }
+  }
+
+  const stopRecording = () => {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+      mediaRecorder.stop()
+      setIsRecording(false)
+      setMediaRecorder(null)
+    }
+  }
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      stopRecording()
+    } else {
+      startRecording()
+    }
+  }
+
   return (
     <div className={cn(!feedbackDisabled && 'px-3.5', 'h-full')}>
       {/* Chat List */}
@@ -147,6 +214,7 @@ const Chat: FC<IChatProps> = ({
               onFeedback={onFeedback}
               isResponding={isResponding && isLast}
               suggestionClick={suggestionClick}
+              textToSpeechEnabled={textToSpeechConfig?.enabled !== false}
             />
           }
           return (
@@ -196,10 +264,29 @@ const Chat: FC<IChatProps> = ({
                 onChange={handleContentChange}
                 onKeyUp={handleKeyUp}
                 onKeyDown={handleKeyDown}
-                autoSize
+                autoSize={{ minRows: 3 }}
               />
               <div className="absolute bottom-2 right-2 flex items-center h-8">
                 <div className={`${s.count} mr-4 h-5 leading-5 text-sm bg-gray-50 text-gray-500`}>{query.trim().length}</div>
+                {speechToTextConfig?.enabled && (
+                  <Tooltip
+                    selector='mic-tip'
+                    content={isRecording ? 'Dừng ghi âm' : isProcessingAudio ? 'Đang xử lý...' : 'Bắt đầu ghi âm'}
+                  >
+                    <div
+                      className={`w-8 h-8 cursor-pointer rounded-md mr-2 flex items-center justify-center hover:bg-gray-100 ${isRecording ? 'bg-red-100 text-red-600' : isProcessingAudio ? 'opacity-50' : 'text-gray-600'}`}
+                      onClick={toggleRecording}
+                    >
+                      {isProcessingAudio ? (
+                        <Loader className="w-4 h-4 animate-spin" />
+                      ) : isRecording ? (
+                        <MicOff className="w-4 h-4" />
+                      ) : (
+                        <Mic className="w-4 h-4" />
+                      )}
+                    </div>
+                  </Tooltip>
+                )}
                 <Tooltip
                   selector='send-tip'
                   htmlContent={

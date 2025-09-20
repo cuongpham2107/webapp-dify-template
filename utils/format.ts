@@ -56,3 +56,50 @@ export const downloadFile = ({ data, fileName }: { data: Blob; fileName: string 
   a.remove()
   window.URL.revokeObjectURL(url)
 }
+
+/**
+ * Format timestamp to readable date-time string.
+ * @param timestamp Unix timestamp (seconds)
+ * @example formatDateTime(1758289698) will return '20/09/2025 14:30'
+ */
+export const formatDateTime = (timestamp: number) => {
+  if (!timestamp) return ''
+
+  const date = new Date(timestamp * 1000) // Convert seconds to milliseconds
+
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear()
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`
+}
+
+/**
+ * Format timestamp to relative time string (e.g. "2 minutes ago", "1 hour ago")
+ * @param timestamp Unix timestamp (seconds)
+ * @example formatRelativeTime(Date.now()/1000 - 300) will return '5 phút trước'
+ */
+export const formatRelativeTime = (timestamp: number) => {
+  if (!timestamp) return ''
+
+  const now = Date.now() / 1000 // Current time in seconds
+  const diff = now - timestamp // Difference in seconds
+
+  if (diff < 60) {
+    return 'Vừa xong'
+  } else if (diff < 3600) {
+    const minutes = Math.floor(diff / 60)
+    return `${minutes} phút trước`
+  } else if (diff < 86400) {
+    const hours = Math.floor(diff / 3600)
+    return `${hours} giờ trước`
+  } else if (diff < 2592000) {
+    const days = Math.floor(diff / 86400)
+    return `${days} ngày trước`
+  } else {
+    // For older messages, show full date
+    return formatDateTime(timestamp)
+  }
+}

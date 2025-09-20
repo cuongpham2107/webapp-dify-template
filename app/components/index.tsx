@@ -57,6 +57,8 @@ const Main: FC<IMainProps> = () => {
     detail: Resolution.low,
     transfer_methods: [TransferMethod.local_file],
   })
+  const [textToSpeechConfig, setTextToSpeechConfig] = useState<{ enabled: boolean }>({ enabled: true })
+  const [speechToTextConfig, setSpeechToTextConfig] = useState<{ enabled: boolean }>({ enabled: true })
 
   useEffect(() => {
     if (APP_INFO?.title)
@@ -195,6 +197,7 @@ const Main: FC<IMainProps> = () => {
             isAnswer: true,
             message_files: item.message_files?.filter((file: any) => file.belongs_to === 'assistant') || [],
             citation: item.retriever_resources || [],
+            created_at: item.created_at,
           })
         })
         setChatList(newChatList)
@@ -289,7 +292,7 @@ const Main: FC<IMainProps> = () => {
         const isNotNewConversation = !!currentConversation
 
         // fetch new conversation info
-        const { user_input_form, opening_statement: introduction, file_upload, system_parameters, suggested_questions = [] }: any = appParams
+        const { user_input_form, opening_statement: introduction, file_upload, system_parameters, suggested_questions = [], text_to_speech, speech_to_text }: any = appParams
         setLocaleOnClient(APP_INFO.default_language, true)
         setNewConversationInfo({
           name: t('app.chat.newChatDefaultName'),
@@ -311,6 +314,12 @@ const Main: FC<IMainProps> = () => {
         setVisionConfig({
           ...file_upload?.image,
           image_file_size_limit: system_parameters?.system_parameters || 0,
+        })
+        setTextToSpeechConfig({
+          enabled: text_to_speech?.enabled !== false,
+        })
+        setSpeechToTextConfig({
+          enabled: speech_to_text?.enabled === true,
         })
         setConversationList(conversations as ConversationItem[])
 
@@ -440,6 +449,7 @@ const Main: FC<IMainProps> = () => {
       content: message,
       isAnswer: false,
       message_files: files,
+      created_at: Math.floor(Date.now() / 1000),
     }
 
     const placeholderAnswerId = `answer-placeholder-${Date.now()}`
@@ -619,6 +629,9 @@ const Main: FC<IMainProps> = () => {
         // Enable citation support
         responseItem.citation = messageEnd.metadata?.retriever_resources || []
 
+        // Set current timestamp for real-time messages
+        responseItem.created_at = Math.floor(Date.now() / 1000)
+
         // Fetch suggested questions for UUID messages when message ends (with cache check)
         if (messageEnd.id &&
           /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(messageEnd.id) &&
@@ -761,7 +774,7 @@ const Main: FC<IMainProps> = () => {
     <div className='bg-gray-100'>
       {/* main */}
       <div className="flex rounded-t-2xl bg-white overflow-hidden">
-        <div className='flex-grow flex flex-col h-[calc(100vh_-_3rem)] overflow-y-auto'>
+        <div className='flex-grow flex flex-col h-[calc(100vh_-_1rem)] overflow-y-auto'>
           <ConfigSence
             conversationName={conversationName}
             hasSetInputs={hasSetInputs}
@@ -776,8 +789,8 @@ const Main: FC<IMainProps> = () => {
 
           {
             hasSetInputs && (
-              <div className='relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full pb-[66px] mx-auto mb-3.5 overflow-hidden'>
-                <div className='h-full overflow-y-auto' ref={chatListDomRef}>
+              <div className='relative grow h-[200px] pc:w-[1024px] max-w-full mobile:w-full pb-[100px] mx-auto mb-3.5 overflow-hidden'>
+                <div className='h-full overflow-y-auto scrollbar-hide' ref={chatListDomRef}>
                   <Chat
                     chatList={chatList}
                     onSend={handleSend}
@@ -785,6 +798,8 @@ const Main: FC<IMainProps> = () => {
                     isResponding={isResponding}
                     checkCanSend={checkCanSend}
                     visionConfig={visionConfig}
+                    textToSpeechConfig={textToSpeechConfig}
+                    speechToTextConfig={speechToTextConfig}
                   />
                 </div>
               </div>)

@@ -1,3 +1,4 @@
+import { string } from 'zod'
 import type { IOnCompleted, IOnData, IOnError, IOnFile, IOnMessageEnd, IOnMessageReplace, IOnNodeFinished, IOnNodeStarted, IOnThought, IOnWorkflowFinished, IOnWorkflowStarted } from './base'
 import { get, post, ssePost } from './base'
 import type { Feedbacktype } from '@/types/app'
@@ -59,4 +60,38 @@ export const updateFeedback = async ({ url, body }: { url: string; body: Feedbac
 
 export const generationConversationName = async (id: string) => {
   return post(`conversations/${id}/name`, { body: { auto_generate: true } })
+}
+
+
+export const checkDocumentAccess = async (documentIds: string[]) => {
+  return post('/document-access', {
+    body: { documentIds }
+  })
+}
+
+export const convertTextToAudio = async (messageId: string, text: string) => {
+  return post('/api/text-to-audio', {
+    body: {
+      message_id: messageId,
+      text: text
+    }
+  }, { needAllResponseContent: true })
+}
+
+export const convertAudioToText = async (audioFile: File, userId?: string) => {
+  const formData = new FormData()
+  formData.append('file', audioFile)
+  formData.append('user', userId || `user-${Date.now()}`)
+
+  // Use direct fetch for FormData to avoid JSON serialization
+  const response = await fetch('/api/audio-to-text', {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
+
+  return response.json()
 }

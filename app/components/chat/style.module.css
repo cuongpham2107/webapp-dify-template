@@ -39,18 +39,14 @@
 }
 
 .answerWrap .itemOperation {
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.2s ease-in-out;
 }
 
-.answerWrap:hover .itemOperation {
-  opacity: 1;
-}
-
-.question::before {
+/* .question::before {
   right: 0;
   background: url(./icons/question.svg) no-repeat;
-}
+} */
 
 .textArea {
   padding-top: 13px;
