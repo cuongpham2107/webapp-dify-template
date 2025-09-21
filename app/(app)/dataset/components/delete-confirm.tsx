@@ -39,7 +39,6 @@ export function DeleteDatasetDialog({ id, name, hidden_border, onDeleted }: Dele
                 onDeleted?.();
             }
         } catch (error) {
-            console.error("Error deleting dataset:", error);
             toast.error("Không thể xóa dataset. Vui lòng thử lại sau.");
         } finally {
             setLoading(false);

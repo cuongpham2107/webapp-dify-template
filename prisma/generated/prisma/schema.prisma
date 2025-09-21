@@ -19,16 +19,18 @@ datasource db {
 // USER & AUTH
 // ======================
 model User {
-  id        String           @id @default(cuid())
-  email     String           @unique
-  asgl_id   String           @unique
-  name      String
-  password  String
-  roles     UserRole[]
-  datasets  DatasetAccess[]
-  documents DocumentAccess[]
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
+  id           String           @id @default(cuid())
+  email        String           @unique
+  asgl_id      String           @unique
+  name         String
+  password     String
+  roles        UserRole[]
+  datasets     DatasetAccess[]
+  documents    DocumentAccess[]
+  credits      Credit[]
+  creditUsages CreditUsage[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
 }
 
 model Role {
@@ -125,4 +127,41 @@ model DocumentAccess {
   document Document @relation(fields: [documentId], references: [id])
 
   @@id([userId, documentId])
+}
+
+// ======================
+// CREDIT SYSTEM
+// ======================
+model Credit {
+  id               String    @id @default(cuid())
+  userId           String
+  month            Int // Tháng (1-12)
+  year             Int // Năm
+  totalCredits     Int       @default(200) // Tổng credit trong tháng
+  usedCredits      Int       @default(0) // Credit đã sử dụng
+  remainingCredits Int       @default(200) // Credit còn lại
+  lastChatAt       DateTime? // Lần chat cuối cùng
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  creditUsages CreditUsage[]
+
+  @@unique([userId, month, year]) // Đảm bảo mỗi user chỉ có 1 record cho mỗi tháng/năm
+}
+
+// ======================
+// CREDIT USAGE LOG
+// ======================
+model CreditUsage {
+  id        String   @id @default(cuid())
+  userId    String
+  creditId  String
+  amount    Int      @default(1) // Số credit sử dụng (mặc định 1 cho mỗi chat)
+  action    String   @default("chat") // Loại hành động (chat, ...)
+  metadata  String? // Thông tin bổ sung (JSON string)
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  credit Credit @relation(fields: [creditId], references: [id])
 }

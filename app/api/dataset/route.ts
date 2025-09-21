@@ -31,7 +31,6 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ datasets });
   } catch (err: any) {
-    console.error('❌ [Dataset API GET] Error:', err);
     return NextResponse.json({ error: err.message || "Internal server error" }, { status: 500 });
   }
 }
@@ -65,7 +64,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ dataset });
   } catch (err: any) {
-    console.error('❌ [Dataset API POST] Error:', err);
     return NextResponse.json({ error: err.message || "Internal server error" }, { status: 500 });
   }
 }

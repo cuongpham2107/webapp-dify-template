@@ -33,8 +33,6 @@ export function DocumentDownloadButton({
         try {
             await downloadFile(documentId, datasetId);
         } catch (err) {
-            // Error is already handled by the hook
-            console.error('Download failed:', err);
         }
     };
 
@@ -133,7 +131,6 @@ export function DocumentCardWithDownload({
             await downloadFile(document.id, datasetId);
             onDownloadComplete?.(document.name);
         } catch (err) {
-            console.error('Download failed:', err);
         }
     };
 

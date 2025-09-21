@@ -21,7 +21,6 @@ export async function GET(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('❌ [check-user-admin] Error checking admin access:', error);
 
         return NextResponse.json({
             isAdmin: false,

@@ -5,7 +5,8 @@ import { API_KEY, API_URL } from '@/config'
 export async function POST(request: NextRequest) {
     try {
         const { message_id, text } = await request.json()
-        const { user } = await getInfo(request)
+        const { user, userInfo } = await getInfo(request)
+        const userId = userInfo!.id
 
         const difyUrl = `${API_URL || 'https://api.dify.ai/v1'}/text-to-audio`
 
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
                 'Authorization': `Bearer ${API_KEY}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ message_id, text, user }),
+            body: JSON.stringify({ message_id, text, userId }),
         })
 
         const contentType = difyResponse.headers.get('content-type') || 'audio/wav'

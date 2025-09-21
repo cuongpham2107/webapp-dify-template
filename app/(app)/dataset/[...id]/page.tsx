@@ -59,7 +59,6 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
             // Build breadcrumb path by fetching each dataset in the hierarchy
             await buildBreadcrumbPath();
         } catch (err) {
-            console.error('Error in fetchDatasets:', err);
             setError(err instanceof Error ? err.message : 'An error occurred');
         } finally {
             setLoading(false);
@@ -77,7 +76,6 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
                 const pathDataset = await getDatasetById(pathDatasetId);
                 pathItems.push({ id: pathDatasetId, name: pathDataset.name });
             } catch (err) {
-                console.error(`Error fetching dataset ${currentPath[i]}:`, err);
                 // If we can't fetch a dataset, use its ID as name
                 pathItems.push({ id: currentPath[i], name: currentPath[i] });
             }
@@ -92,7 +90,6 @@ export default function DatasetDetailPage({ params }: { params: { id: string[] }
             const response = await getAllDocuments(datasetId);
             setDocuments(response.documents || []);
         } catch (err) {
-            console.error('Error fetching documents:', err);
         } finally {
             setDocumentsLoading(false);
         }

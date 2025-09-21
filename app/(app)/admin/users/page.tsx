@@ -89,7 +89,6 @@ export default function UsersPage() {
                 setStats(response.stats)
             }
         } catch (error: any) {
-            console.error('Error loading users:', error)
             // Show error notification or toast here
         } finally {
             setLoading(false)

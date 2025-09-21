@@ -65,7 +65,6 @@ export default function UserRolesDialog({
             const response = await adminRoleAPI.getRoles()
             setAvailableRoles(response.roles || [])
         } catch (error: any) {
-            console.error('Error fetching roles:', error)
             toast.error("Không thể tải danh sách vai trò")
         } finally {
             setFetchingRoles(false)
@@ -93,7 +92,6 @@ export default function UserRolesDialog({
 
             onSuccess()
         } catch (error: any) {
-            console.error('Error updating user roles:', error)
             toast.error(error.message || "Không thể cập nhật vai trò người dùng")
         } finally {
             setLoading(false)

@@ -48,7 +48,6 @@ export default function UserDeleteDialog({
 
             onSuccess()
         } catch (error: any) {
-            console.error('Error deleting user:', error)
             toast.error("Không thể xóa người dùng")
         } finally {
             setLoading(false)

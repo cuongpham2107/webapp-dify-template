@@ -183,6 +183,29 @@ exports.Prisma.DocumentAccessScalarFieldEnum = {
   canDelete: 'canDelete'
 };
 
+exports.Prisma.CreditScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  month: 'month',
+  year: 'year',
+  totalCredits: 'totalCredits',
+  usedCredits: 'usedCredits',
+  remainingCredits: 'remainingCredits',
+  lastChatAt: 'lastChatAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CreditUsageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  creditId: 'creditId',
+  amount: 'amount',
+  action: 'action',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -203,7 +226,9 @@ exports.Prisma.ModelName = {
   Dataset: 'Dataset',
   Document: 'Document',
   DatasetAccess: 'DatasetAccess',
-  DocumentAccess: 'DocumentAccess'
+  DocumentAccess: 'DocumentAccess',
+  Credit: 'Credit',
+  CreditUsage: 'CreditUsage'
 };
 
 /**

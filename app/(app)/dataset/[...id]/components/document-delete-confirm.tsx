@@ -39,7 +39,6 @@ export function DeleteDocumentDialog({ id, name, onDeleted }: DeleteDocumentDial
             }
             setLoading(false);
         } catch (error) {
-            console.error("Error deleting document:", error);
             toast.error("Không thể xóa tài liệu. Vui lòng thử lại sau.");
         } finally {
             setLoading(false);

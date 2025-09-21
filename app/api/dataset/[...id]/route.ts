@@ -35,7 +35,6 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
         return NextResponse.json(dataset, { status: 200 });
     } catch (error) {
-        console.error("❌ [Dataset Detail API GET] Error fetching dataset:", error);
         return NextResponse.json({ error: "Failed to fetch dataset" }, { status: 500 });
     }
 }
@@ -78,7 +77,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
         return NextResponse.json(updatedDataset, { status: 200 });
     } catch (error) {
-        console.error("❌ [Dataset Detail API PUT] Error updating dataset:", error);
         return NextResponse.json({ error: "Failed to update dataset" }, { status: 500 });
     }
 }
@@ -115,7 +113,6 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
         return NextResponse.json({ message: "Dataset deleted successfully" }, { status: 200 });
     } catch (error) {
-        console.error("❌ [Dataset Detail API DELETE] Error deleting dataset:", error);
         return NextResponse.json({ error: "Failed to delete dataset" }, { status: 500 });
     }
 }

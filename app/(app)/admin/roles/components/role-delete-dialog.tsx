@@ -57,7 +57,6 @@ export default function RoleDeleteDialog({
 
             onSuccess()
         } catch (error: any) {
-            console.error('Error deleting role:', error)
             toast.error(error.message || "Failed to delete role")
         } finally {
             setLoading(false)

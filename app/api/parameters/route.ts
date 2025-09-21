@@ -3,9 +3,10 @@ import { NextResponse } from 'next/server'
 import { client, getInfo, setSession } from '@/app/api/utils/common'
 
 export async function GET(request: NextRequest) {
-  const { sessionId, user } = await getInfo(request)
+  const { sessionId, user, userInfo } = await getInfo(request)
+  const userId = userInfo!.id
   try {
-    const { data } = await client.getApplicationParameters(user)
+    const { data } = await client.getApplicationParameters(userId)
     return NextResponse.json(data as object, {
       headers: setSession(sessionId),
     })

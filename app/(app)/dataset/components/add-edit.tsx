@@ -110,7 +110,6 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
             }
         } catch (err) {
             toast.error("Network error");
-            console.error("[AddEditDatasetDialog] error", err);
         } finally {
             setLoading(false);
         }

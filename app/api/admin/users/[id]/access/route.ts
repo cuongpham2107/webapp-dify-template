@@ -61,7 +61,6 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         });
 
     } catch (error: any) {
-        console.error("Error in GET /api/admin/users/[id]/access:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });
@@ -129,7 +128,6 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
         }
 
     } catch (error: any) {
-        console.error("Error in POST /api/admin/users/[id]/access:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });
@@ -175,7 +173,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         });
 
     } catch (error: any) {
-        console.error("Error in PUT /api/admin/users/[id]/access:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });
@@ -228,7 +225,6 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
         }
 
     } catch (error: any) {
-        console.error("Error in DELETE /api/admin/users/[id]/access:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });

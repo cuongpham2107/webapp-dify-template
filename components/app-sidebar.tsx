@@ -160,7 +160,7 @@ export function AppSidebar({
           if (conversation) {
             conversation.name = name
           } else {
-            console.log('Conversation not found in list:', id)
+            // console.log('Conversation not found in list:', id)
           }
         })
       })

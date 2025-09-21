@@ -47,7 +47,6 @@ export async function POST(request: NextRequest) {
         })
 
     } catch (error: any) {
-        console.error('Audio to text conversion error:', error)
         return Response.json({
             error: 'Error converting audio to text',
             details: error.message,

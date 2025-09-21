@@ -63,7 +63,6 @@ export default function RolePermissionsDialog({
             const response = await adminRoleAPI.getRoles()
             setAvailablePermissions(response.permissions || [])
         } catch (error: any) {
-            console.error('Error fetching permissions:', error)
             toast.error("Không thể tải danh sách quyền")
         } finally {
             setFetchingPermissions(false)
@@ -91,7 +90,6 @@ export default function RolePermissionsDialog({
 
             onSuccess()
         } catch (error: any) {
-            console.error('Error updating role permissions:', error)
             toast.error(error.message || "Không thể cập nhật quyền vai trò")
         } finally {
             setLoading(false)

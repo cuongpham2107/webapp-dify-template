@@ -157,7 +157,6 @@ export default function UserAccessDialog({
             setDatasetAccess(datasetPermissions)
             setDocumentAccess(documentPermissions)
         } catch (error: any) {
-            console.error('Error fetching access data:', error)
             toast.error("Failed to fetch access data")
         } finally {
             setFetchingData(false)
@@ -215,7 +214,6 @@ export default function UserAccessDialog({
 
             onSuccess()
         } catch (error: any) {
-            console.error('Error updating user access:', error)
             toast.error(error.message || "Failed to update user access")
         } finally {
             setLoading(false)

@@ -39,7 +39,6 @@ export async function POST(request: NextRequest) {
         })
 
     } catch (error) {
-        console.error('Error downloading citation file:', error)
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/hooks/use-auth"
-import { Users, Settings } from "lucide-react"
+import { Users, Settings, CreditCard, BarChart3 } from "lucide-react"
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -22,26 +22,48 @@ export function NavAdmin() {
 
     // Simple admin check: only admin or superadmin can access
     const isAdmin = currentUser.asgl_id === 'admin' || currentUser.asgl_id === 'superadmin'
+    const isSuperAdmin = currentUser.asgl_id === 'superadmin'
 
     if (!isAdmin) {
         return null
     }
 
-    // Define admin menu items (all visible for admin/superadmin)
+    // Define admin menu items
     const adminMenuItems = [
         {
             title: "Người dùng",
             icon: Users,
             url: "/admin/users",
-            description: "Manage users, roles, and permissions"
+            description: "Manage users, roles, and permissions",
+            requiredRole: 'admin' // admin or superadmin
         },
         {
             title: "Phân quyền",
             icon: Settings,
             url: "/admin/roles",
-            description: "Manage roles and permissions"
+            description: "Manage roles and permissions",
+            requiredRole: 'admin' // admin or superadmin
         }
     ]
+
+    // Add credit management for superadmin only
+    if (isSuperAdmin) {
+        adminMenuItems.push({
+            title: "Quản lý Credit",
+            icon: CreditCard,
+            url: "/admin/credits",
+            description: "Manage user credits",
+            requiredRole: 'superadmin'
+        })
+
+        adminMenuItems.push({
+            title: "Langfuse Analytics",
+            icon: BarChart3,
+            url: "/admin/langfuse",
+            description: "AI model costs and usage analytics",
+            requiredRole: 'superadmin'
+        })
+    }
 
     return (
         <SidebarGroup>

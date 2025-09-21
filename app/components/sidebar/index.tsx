@@ -7,6 +7,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChatBubbleOvalLeftEllipsisIcon as ChatBubbleOvalLeftEllipsisSolidIcon } from '@heroicons/react/24/solid'
 import Button from '@/app/components/base/button'
+import { CreditDisplay } from '@/app/components/credit-display'
 // import Card from './card'
 import type { ConversationItem } from '@/types/app'
 
@@ -74,6 +75,12 @@ const Sidebar: FC<ISidebarProps> = ({
           )
         })}
       </nav>
+
+      {/* Credit Display */}
+      <div className="flex flex-shrink-0 p-4 !pt-0">
+        <CreditDisplay className="w-full" />
+      </div>
+
       {/* <a className="flex flex-shrink-0 p-4" href="https://langgenius.ai/" target="_blank">
         <Card><div className="flex flex-row items-center"><ChatBubbleOvalLeftEllipsisSolidIcon className="text-primary-600 h-6 w-6 mr-2" /><span>LangGenius</span></div></Card>
       </a> */}

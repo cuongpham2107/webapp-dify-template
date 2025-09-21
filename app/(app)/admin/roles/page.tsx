@@ -71,12 +71,6 @@ export default function RolesPage() {
                 setStats(response.stats)
             }
         } catch (error: any) {
-            console.error('❌ [RolesPage] Error loading roles:', error)
-            console.error('❌ [RolesPage] Error details:', {
-                message: error.message,
-                status: error.status,
-                response: error.response
-            })
             // Don't redirect on API error, just show error state
         } finally {
             setLoading(false)

@@ -33,12 +33,58 @@ export const sendChatMessage = async (
     onWorkflowFinished: IOnWorkflowFinished
   },
 ) => {
-  return ssePost('chat-messages', {
-    body: {
-      ...body,
-      response_mode: 'streaming',
-    },
-  }, { onData, onCompleted, onThought, onFile, onError, getAbortController, onMessageEnd, onMessageReplace, onNodeStarted, onWorkflowStarted, onWorkflowFinished, onNodeFinished })
+  // Check and use credit before sending message
+  try {
+    const creditResponse = await fetch('/api/credits/use', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        amount: 1,
+        action: 'chat',
+        metadata: {
+          conversationId: body.conversation_id,
+          query: body.query?.substring(0, 100) // Store first 100 chars for reference
+        }
+      })
+    })
+
+    const creditData = await creditResponse.json()
+
+    if (!creditData.success) {
+      // If credit check fails, call onError with credit error
+      onError?.(creditData.message || 'Không đủ credit để thực hiện chat')
+      return
+    }
+
+    // If credit is successfully used, proceed with chat
+    return ssePost('chat-messages', {
+      body: {
+        ...body,
+        response_mode: 'streaming',
+      },
+    }, {
+      onData,
+      onCompleted: (data) => {
+        // Call original onCompleted
+        onCompleted?.(data)
+      },
+      onThought,
+      onFile,
+      onError,
+      getAbortController,
+      onMessageEnd,
+      onMessageReplace,
+      onNodeStarted,
+      onWorkflowStarted,
+      onWorkflowFinished,
+      onNodeFinished
+    })
+  } catch (error) {
+    console.error('Error checking credit:', error)
+    onError?.('Có lỗi xảy ra khi kiểm tra credit')
+  }
 }
 
 export const fetchConversations = async () => {

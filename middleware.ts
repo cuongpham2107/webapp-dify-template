@@ -14,8 +14,6 @@ const publicRoutes = ['/auth/login', '/api/auth', '/api/public']
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-
-
   // Allow public routes and API auth routes
   if (publicRoutes.some(route => pathname.startsWith(route))) {
     return NextResponse.next()
@@ -67,7 +65,6 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.next()
 
   } catch (error) {
-    console.error('❌ [Middleware] Error processing request:', error)
 
     // On error, redirect to login
     const loginUrl = new URL('/auth/login', request.url)

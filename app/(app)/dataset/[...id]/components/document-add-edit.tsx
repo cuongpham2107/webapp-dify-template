@@ -139,7 +139,6 @@ export function AddEditDocumentDialog({
             }
         } catch (err) {
             toast.error("Lỗi mạng");
-            console.error("[AddEditDocumentDialog] error", err);
         } finally {
             setLoading(false);
         }

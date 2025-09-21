@@ -77,7 +77,6 @@ export async function GET(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error("Error in GET /api/admin/users:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });
@@ -122,7 +121,6 @@ export async function POST(request: NextRequest) {
         }, { status: 201 });
 
     } catch (error: any) {
-        console.error("Error in POST /api/admin/users:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });

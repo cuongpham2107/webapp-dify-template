@@ -4,13 +4,16 @@ import type { LoginRequest, LoginResponse } from '@/types/auth'
 const ASGL_AUTH_API = 'https://id.asgl.net.vn/api/auth/login'
 
 export const authService = {
-  async login(credentials: LoginRequest): Promise<LoginResponse> {
+  async login(data: LoginRequest): Promise<LoginResponse> {
     try {
-      // First, try to authenticate with local database
-      const localUser = await authenticateLocalUser(credentials.login, credentials.password)
+      console.log('🔐 Login attempt:', { login: data.login })
 
-      if (localUser) {
+      // For local users, authenticate against our database
+      const user = await authenticateLocalUser(data.login, data.password)
+      console.log('👤 User found:', user ? 'Yes' : 'No')
 
+      if (user) {
+        console.log('✅ Local user authenticated:', user.name)
         // Return response in the same format as ASGL API
         return {
           success: true,
@@ -18,11 +21,11 @@ export const authService = {
           error_code: 0,
           data: {
             user: {
-              id: localUser.id, // Keep as string since it's a cuid
-              username: localUser.asgl_id,
-              email: localUser.email,
-              full_name: localUser.name,
-              asgl_id: localUser.asgl_id,
+              id: user.id, // Keep as string since it's a cuid
+              username: user.asgl_id,
+              email: user.email,
+              full_name: user.name,
+              asgl_id: user.asgl_id,
               is_active: 1,
               mobile_phone: '',
               chat_id: null,
@@ -31,7 +34,7 @@ export const authService = {
               positions: []
             },
             token: 'local-token-' + Date.now(), // Generate a local token
-            application_access_permissions: localUser.roles?.map(ur => ur.role.name) || [],
+            application_access_permissions: user.roles?.map(ur => ur.role.name) || [],
             current_company: {
               id: 0,
               code: 'LOCAL',
@@ -44,27 +47,84 @@ export const authService = {
         }
       }
 
+      console.log('❌ Local auth failed, trying ASGL API...')
       // If local authentication fails, try ASGL API
       const response = await fetch(ASGL_AUTH_API, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(credentials),
+        body: JSON.stringify(data),
       })
 
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`)
 
-      const data: LoginResponse = await response.json()
+      const apiResult: LoginResponse = await response.json()
 
-      if (!data.success)
-        throw new Error(data.message || 'Login failed')
+      if (!apiResult.success)
+        throw new Error(apiResult.message || 'Login failed')
 
       // Create/update user in local database from ASGL response
-      await loginUser(data.data.user.asgl_id + '@asgl.net.vn', data.data.user.asgl_id, data.data.user.full_name, credentials.password)
+      const localUser = await loginUser(apiResult.data.user.asgl_id + '@asgl.net.vn', apiResult.data.user.asgl_id, apiResult.data.user.full_name, data.password)
 
-      return data
+      if (!localUser) {
+        return {
+          success: false,
+          message: 'Failed to create or update local user',
+          error_code: 1,
+          data: {
+            user: {
+              id: '',
+              username: '',
+              email: '',
+              full_name: '',
+              asgl_id: '',
+              is_active: 0,
+              mobile_phone: '',
+              chat_id: null,
+              avatar: '',
+              portrait: '',
+              positions: []
+            },
+            token: '',
+            application_access_permissions: [],
+            current_company: {
+              id: 0,
+              code: '',
+              name: '',
+              description: '',
+              created_at: null,
+              updated_at: null
+            }
+          }
+        }
+      }
+
+      // Construct a valid LoginResponse from localUser and apiResult
+      return {
+        success: true,
+        message: apiResult.message,
+        error_code: apiResult.error_code,
+        data: {
+          user: {
+            id: localUser.id,
+            username: localUser.asgl_id,
+            email: localUser.email,
+            full_name: localUser.name,
+            asgl_id: localUser.asgl_id,
+            is_active: 1,
+            mobile_phone: '',
+            chat_id: null,
+            avatar: '',
+            portrait: '',
+            positions: []
+          },
+          token: apiResult.data.token,
+          application_access_permissions: localUser.roles?.map(ur => ur.role.name) || [],
+          current_company: apiResult.data.current_company
+        }
+      }
     }
     catch (error) {
       console.error('Login error:', error)

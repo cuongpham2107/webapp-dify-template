@@ -6,6 +6,8 @@ import { authOptions } from '@/lib/auth'
 import { API_KEY, API_URL, APP_ID, APP_KEY_DATA } from '@/config'
 import { DatasetClient } from '@/service/dataset'
 import { DocumentClient } from '@/service/document'
+import { userInfo } from 'os'
+import { getUserIdByAsglId } from '@/lib/models/user'
 const userPrefix = `user_${APP_ID}:`
 
 
@@ -25,8 +27,6 @@ export const getInfo = async (request: NextRequest) => {
     sessionId = request.cookies.get('session_id')?.value || v4()
     user = userPrefix + sessionId
   }
-
-
   return {
     sessionId,
     user,

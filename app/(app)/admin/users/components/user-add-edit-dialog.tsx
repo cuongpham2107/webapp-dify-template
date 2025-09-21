@@ -103,7 +103,6 @@ export default function UserAddEditDialog({
 
             onSuccess()
         } catch (error: any) {
-            console.error('Error saving user:', error)
             toast.error(error.message || "Không thể lưu người dùng")
         } finally {
             setLoading(false)

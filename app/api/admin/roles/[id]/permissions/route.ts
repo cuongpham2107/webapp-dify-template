@@ -32,7 +32,6 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         return NextResponse.json({ permissions });
 
     } catch (error: any) {
-        console.error("Error in GET /api/admin/roles/[id]/permissions:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });
@@ -75,7 +74,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         });
 
     } catch (error: any) {
-        console.error("Error in PUT /api/admin/roles/[id]/permissions:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });
@@ -118,7 +116,6 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
         });
 
     } catch (error: any) {
-        console.error("Error in POST /api/admin/roles/[id]/permissions:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });
@@ -162,7 +159,6 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
         });
 
     } catch (error: any) {
-        console.error("Error in DELETE /api/admin/roles/[id]/permissions:", error);
 
         if (error.message === 'Admin access required' || error.message === 'Unauthorized') {
             return NextResponse.json({ error: error.message }, { status: 403 });

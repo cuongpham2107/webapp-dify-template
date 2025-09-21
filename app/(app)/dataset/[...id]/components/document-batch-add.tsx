@@ -119,7 +119,6 @@ export function BatchDocumentUploadDialog({
 
         } catch (err) {
             toast.error("Lỗi mạng khi tải lên tài liệu")
-            console.error("[BatchDocumentUpload] error", err)
             // Set all files to error status
             setFiles(prev => prev.map(file => ({
                 ...file,

@@ -75,7 +75,6 @@ export default function RoleAddEditDialog({
 
             onSuccess()
         } catch (error: any) {
-            console.error('Error saving role:', error)
             toast.error(error.message || "Không thể lưu vai trò")
         } finally {
             setLoading(false)
