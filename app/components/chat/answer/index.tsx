@@ -134,7 +134,19 @@ const Answer: FC<IAnswerProps> = ({
           return accessResult && accessResult.hasAccess
         })
 
-        setFilteredCitation(filtered)
+        // Nhóm citation theo dataset_id và document_id, chỉ giữ lại item có score cao nhất
+        const deduplicated = Array.from(filtered.reduce((map, item) => {
+          const key = `${item.dataset_id}_${item.document_id}`
+          const existing = map.get(key)
+
+          if (!existing || item.score > existing.score) {
+            map.set(key, item)
+          }
+
+          return map
+        }, new Map<string, CitationItem>()).values())
+
+        setFilteredCitation(deduplicated)
       } catch (error) {
         // Kiểm tra nếu component vẫn mounted trước khi cập nhật state
         if (!isMounted) return
@@ -249,15 +261,27 @@ const Answer: FC<IAnswerProps> = ({
 
       // Handle different response types from service
       if (response instanceof Response) {
+        // Check if response is ok
+        if (!response.ok) {
+          const errorText = await response.text()
+          throw new Error(`Server error: ${response.status} - ${errorText}`)
+        }
+
         // Check content type for Response objects
         const contentType = response.headers.get('Content-Type') || ''
-        if (!contentType.startsWith('audio/')) {
+        console.log('Response Content-Type:', contentType)
+
+        if (!contentType.startsWith('audio/') && !contentType.includes('octet-stream')) {
+          const responseText = await response.text()
+          console.log('Non-audio response:', responseText)
           throw new Error(`Expected audio data but received: ${contentType}`)
         }
+
         audioBlob = await response.blob()
       } else if (response instanceof Blob) {
         audioBlob = response
       } else {
+        console.log('Unexpected response type:', typeof response, response)
         throw new Error('Unexpected response format from text-to-audio service')
       }
 
@@ -265,8 +289,24 @@ const Answer: FC<IAnswerProps> = ({
         throw new Error('Received empty audio data')
       }
 
-      // Create audio URL
-      const newAudioUrl = URL.createObjectURL(audioBlob)
+      console.log('Audio blob size:', audioBlob.size, 'bytes')
+      console.log('Audio blob type:', audioBlob.type)
+
+      // Validate blob before creating URL
+      if (audioBlob.size === 0) {
+        throw new Error('Received empty audio file')
+      }
+
+      // Create audio URL - this might be where the error occurs
+      let newAudioUrl: string
+      try {
+        newAudioUrl = URL.createObjectURL(audioBlob)
+        console.log('Created audio URL:', newAudioUrl.substring(0, 50) + '...')
+      } catch (urlError: any) {
+        console.error('Error creating object URL:', urlError)
+        throw new Error(`Failed to create audio URL: ${urlError.message}`)
+      }
+
       setAudioUrl(newAudioUrl)
 
       // Create new audio element

@@ -214,7 +214,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/cuongpham/Deverlop/next-js/ui-fork-ai-dify-enterprise/prisma/generated/prisma",
+      "value": "/Users/cuongpham/Deverlop/next-js/ui-dify-enterprise/prisma/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -232,7 +232,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/cuongpham/Deverlop/next-js/ui-fork-ai-dify-enterprise/prisma/schema.prisma",
+    "sourceFilePath": "/Users/cuongpham/Deverlop/next-js/ui-dify-enterprise/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -246,6 +246,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {

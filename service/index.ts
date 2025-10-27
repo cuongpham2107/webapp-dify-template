@@ -116,12 +116,25 @@ export const checkDocumentAccess = async (documentIds: string[]) => {
 }
 
 export const convertTextToAudio = async (messageId: string, text: string) => {
-  return post('/api/text-to-audio', {
-    body: {
-      message_id: messageId,
-      text: text
-    }
-  }, { needAllResponseContent: true })
+  try {
+    // Make direct fetch call for better control over response handling
+    const response = await fetch('/api/text-to-audio', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message_id: messageId,
+        text: text
+      })
+    })
+
+    // Return the response object directly so the component can handle it
+    return response
+  } catch (error) {
+    console.error('Error in convertTextToAudio service:', error)
+    throw error
+  }
 }
 
 export const convertAudioToText = async (audioFile: File, userId?: string) => {
