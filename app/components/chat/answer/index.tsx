@@ -86,6 +86,7 @@ const Answer: FC<IAnswerProps> = ({
   const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null)
   const [downloadingIndex, setDownloadingIndex] = useState<number | null>(null)
   const [filteredCitation, setFilteredCitation] = useState<CitationItem[]>([])
+  const [displayedCitation, setDisplayedCitation] = useState<CitationItem[]>([])
   const [audioState, setAudioState] = useState<'idle' | 'loading' | 'ready' | 'playing' | 'error'>('idle')
   const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
@@ -150,6 +151,35 @@ const Answer: FC<IAnswerProps> = ({
       isMounted = false
     }
   }, [item.citation]) // Sử dụng item.citation thay vì citation để tránh re-render không cần thiết
+
+  // Lọc citation để chỉ hiển thị phần tử có score cao nhất cho mỗi cặp (dataset_id, document_id)
+  useEffect(() => {
+    if (!filteredCitation || filteredCitation.length === 0) {
+      setDisplayedCitation([])
+      return
+    }
+
+    // Tạo map để lưu trữ citation có score cao nhất cho mỗi cặp (dataset_id, document_id)
+    const citationMap = new Map<string, CitationItem>()
+
+    filteredCitation.forEach((citation) => {
+      const key = `${citation.dataset_id}_${citation.document_id}`
+      const existingCitation = citationMap.get(key)
+
+      if (!existingCitation || (citation.score && existingCitation.score && citation.score > existingCitation.score)) {
+        citationMap.set(key, citation)
+      }
+    })
+
+    // Chuyển đổi map thành array và sắp xếp theo score giảm dần
+    const uniqueCitations = Array.from(citationMap.values()).sort((a, b) => {
+      const scoreA = a.score || 0
+      const scoreB = b.score || 0
+      return scoreB - scoreA
+    })
+
+    setDisplayedCitation(uniqueCitations)
+  }, [filteredCitation])
 
   // Cleanup audio when component unmounts
   useEffect(() => {
@@ -532,7 +562,7 @@ const Answer: FC<IAnswerProps> = ({
                   : (
                     <div>
                       <Markdown content={content} />
-                      {filteredCitation && filteredCitation.length > 0 && (
+                      {displayedCitation && displayedCitation.length > 0 && (
                         <div className='mt-4'>
                           <div className='text-xs font-semibold mb-3 flex items-center text-gray-800 uppercase tracking-wide'>
                             <span>Tham khảo</span>
@@ -541,7 +571,7 @@ const Answer: FC<IAnswerProps> = ({
                           {/* Horizontal scrollable citation list */}
                           <div className='overflow-x-auto overflow-y-hidden w-full scrollbar-hide' style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                             <div className='flex gap-3 pb-2'>
-                              {filteredCitation.map((citationItem: CitationItem, index: number) => (
+                              {displayedCitation.map((citationItem: CitationItem, index: number) => (
                                 <div
                                   key={index}
                                   className='flex-shrink-0 bg-gray-50 border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200 cursor-pointer group'
@@ -581,7 +611,7 @@ const Answer: FC<IAnswerProps> = ({
                           </div>
 
                           {/* Citation popup */}
-                          {selectedCitation !== null && popupPosition && filteredCitation.length > 0 && (
+                          {selectedCitation !== null && popupPosition && displayedCitation.length > 0 && (
                             <>
                               {/* Backdrop */}
                               <div
@@ -607,11 +637,11 @@ const Answer: FC<IAnswerProps> = ({
                                       </div>
                                       <div className='flex-1 min-w-0'>
                                         <h4 className='text-sm font-semibold text-gray-900 mb-1'>
-                                          {filteredCitation[selectedCitation].document_name}
+                                          {displayedCitation[selectedCitation].document_name}
                                         </h4>
                                         <div className='text-xs text-gray-600 flex items-center gap-1'>
                                           <div className='w-3 h-3'>▪</div>
-                                          <span>Nguồn: <span className='font-medium text-gray-700'>{filteredCitation[selectedCitation].dataset_name}</span></span>
+                                          <span>Nguồn: <span className='font-medium text-gray-700'>{displayedCitation[selectedCitation].dataset_name}</span></span>
                                         </div>
                                       </div>
                                     </div>
@@ -625,23 +655,23 @@ const Answer: FC<IAnswerProps> = ({
 
                                   {/* Content */}
                                   <div className='text-sm text-gray-700 leading-relaxed mb-4 bg-gray-50 p-3 rounded-lg max-h-68 overflow-y-auto'>
-                                    "{filteredCitation[selectedCitation].content}"
+                                    "{displayedCitation[selectedCitation].content}"
                                   </div>
 
                                   {/* Metadata */}
                                   <div className='flex items-center gap-4 text-xs text-gray-500 pt-3 border-t border-gray-100'>
                                     <div className='flex items-center gap-1'>
                                       <Zap className='w-3 h-3' />
-                                      <span>Điểm: {citation[selectedCitation].score?.toFixed(2) || 'N/A'}</span>
+                                      <span>Điểm: {displayedCitation[selectedCitation].score?.toFixed(2) || 'N/A'}</span>
                                     </div>
                                     <div className='flex items-center gap-1'>
                                       <RotateCcw className='w-3 h-3' />
-                                      <span>{citation[selectedCitation].word_count || 0} từ</span>
+                                      <span>{displayedCitation[selectedCitation].word_count || 0} từ</span>
                                     </div>
-                                    {citation[selectedCitation].hit_count > 0 && (
+                                    {displayedCitation[selectedCitation].hit_count > 0 && (
                                       <div className='flex items-center gap-1'>
                                         <Eye className='w-3 h-3' />
-                                        <span>{citation[selectedCitation].hit_count} lần xem</span>
+                                        <span>{displayedCitation[selectedCitation].hit_count} lần xem</span>
                                       </div>
                                     )}
                                   </div>

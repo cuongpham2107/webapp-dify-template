@@ -114,6 +114,9 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -188,9 +191,62 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  id: 'id',
+  email: 'email',
+  asgl_id: 'asgl_id',
+  name: 'name',
+  password: 'password'
+};
+
+exports.Prisma.RoleOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.PermissionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.UserRoleOrderByRelevanceFieldEnum = {
+  userId: 'userId',
+  roleId: 'roleId'
+};
+
+exports.Prisma.RolePermissionOrderByRelevanceFieldEnum = {
+  roleId: 'roleId',
+  permissionId: 'permissionId'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.DatasetOrderByRelevanceFieldEnum = {
+  id: 'id',
+  dataset_id: 'dataset_id',
+  name: 'name',
+  parent_id: 'parent_id'
+};
+
+exports.Prisma.DocumentOrderByRelevanceFieldEnum = {
+  id: 'id',
+  document_id: 'document_id',
+  name: 'name',
+  type: 'type',
+  datasetId: 'datasetId'
+};
+
+exports.Prisma.DatasetAccessOrderByRelevanceFieldEnum = {
+  userId: 'userId',
+  datasetId: 'datasetId'
+};
+
+exports.Prisma.DocumentAccessOrderByRelevanceFieldEnum = {
+  userId: 'userId',
+  documentId: 'documentId'
 };
 
 

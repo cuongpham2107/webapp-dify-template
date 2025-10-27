@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+  output   = "../prisma/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ======================
+// USER & AUTH
+// ======================
+model User {
+  id        String           @id @default(cuid())
+  email     String           @unique
+  asgl_id   String           @unique
+  name      String
+  password  String
+  roles     UserRole[]
+  datasets  DatasetAccess[]
+  documents DocumentAccess[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  permissions RolePermission[]
+  users       UserRole[]
+}
+
+model Permission {
+  id    String           @id @default(cuid())
+  name  String           @unique
+  roles RolePermission[]
+}
+
+// ======================
+// RELATION TABLES
+// ======================
+model UserRole {
+  userId String
+  roleId String
+
+  user User @relation(fields: [userId], references: [id])
+  role Role @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+
+  role       Role       @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+}
+
+// ======================
+// DATASET & DOCUMENT
+// ======================
+model Dataset {
+  id         String          @id @default(cuid())
+  dataset_id String          @unique
+  name       String          @unique
+  parent_id  String?
+  parent     Dataset?        @relation("DatasetToParent", fields: [parent_id], references: [id])
+  children   Dataset[]       @relation("DatasetToParent")
+  documents  Document[]
+  accesses   DatasetAccess[]
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+model Document {
+  id          String           @id @default(cuid())
+  document_id String           @unique
+  name        String
+  type        String
+  size        Int
+  datasetId   String
+  dataset     Dataset          @relation(fields: [datasetId], references: [id])
+  accesses    DocumentAccess[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+// ======================
+// ACCESS CONTROL
+// ======================
+// Xác định quyền cụ thể cho từng user trên dataset
+model DatasetAccess {
+  userId    String
+  datasetId String
+  canView   Boolean @default(false)
+  canEdit   Boolean @default(false)
+  canDelete Boolean @default(false)
+
+  user    User    @relation(fields: [userId], references: [id])
+  dataset Dataset @relation(fields: [datasetId], references: [id])
+
+  @@id([userId, datasetId])
+}
+
+// Xác định quyền cụ thể cho từng user trên document
+model DocumentAccess {
+  userId     String
+  documentId String
+  canView    Boolean @default(false)
+  canEdit    Boolean @default(false)
+  canDelete  Boolean @default(false)
+
+  user     User     @relation(fields: [userId], references: [id])
+  document Document @relation(fields: [documentId], references: [id])
+
+  @@id([userId, documentId])
+}
