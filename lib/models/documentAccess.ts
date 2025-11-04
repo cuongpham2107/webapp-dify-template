@@ -67,7 +67,21 @@ export async function checkDocumentAccess(
         },
     });
 
-    if (!access) return false;
+    // Nếu không có record nào, kiểm tra xem có bất kỳ quyền nào được cấu hình cho document này không
+    if (!access) {
+        const anyAccess = await prisma.documentAccess.findFirst({
+            where: { documentId },
+        });
+
+        // Nếu không có quyền nào được cấu hình cho document này, cho phép truy cập mặc định
+        if (!anyAccess) {
+            return true;
+        }
+
+        // Nếu có quyền được cấu hình nhưng user này không có, từ chối truy cập
+        return false;
+    }
+
     return !!access[permission];
 }
 

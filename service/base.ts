@@ -196,7 +196,13 @@ const handleStream = (
             }
             if (bufferObj.event === 'message' || bufferObj.event === 'agent_message') {
               // can not use format here. Because message is splited.
-              onData(unicodeToChar(bufferObj.answer), isFirstMessage, {
+              const chunk = unicodeToChar(bufferObj.answer)
+              console.log('[SSE] message chunk:', {
+                chunk: chunk.substring(0, 50),
+                length: chunk.length,
+                isFirstMessage
+              })
+              onData(chunk, isFirstMessage, {
                 conversationId: bufferObj.conversation_id,
                 taskId: bufferObj.task_id,
                 messageId: bufferObj.id,
@@ -210,6 +216,8 @@ const handleStream = (
               onFile?.(bufferObj as VisionFile)
             }
             else if (bufferObj.event === 'message_end') {
+              console.log('[SSE] message_end event received:', bufferObj)
+              console.log('[SSE] retriever_resources:', bufferObj.metadata?.retriever_resources)
               onMessageEnd?.(bufferObj as MessageEnd)
             }
             else if (bufferObj.event === 'message_replace') {

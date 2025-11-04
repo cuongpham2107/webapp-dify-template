@@ -82,6 +82,10 @@ const Answer: FC<IAnswerProps> = ({
 
   // Format the created_at timestamp for display
   const displayTime = created_at ? formatRelativeTime(created_at) : ''
+
+  // Debug logging
+  console.log('[Answer Component] Item:', { id, citation: citation?.length || 0, content: content?.substring(0, 50) })
+  console.log('[Answer Component] Full citation:', citation)
   const [selectedCitation, setSelectedCitation] = useState<number | null>(null)
   const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null)
   const [downloadingIndex, setDownloadingIndex] = useState<number | null>(null)
@@ -110,15 +114,14 @@ const Answer: FC<IAnswerProps> = ({
         // Lấy danh sách document IDs từ citation
         const documentIds = citation.map(cite => cite.document_id)
 
-        // Gọi API để kiểm tra quyền truy cập thông qua service
         const response = await checkDocumentAccess(documentIds)
 
         // Kiểm tra nếu component vẫn mounted trước khi cập nhật state
         if (!isMounted) return
 
         if (!response) {
-          console.error('Failed to check document access')
-          setFilteredCitation([])
+          console.error('Failed to check document access, showing all citations as fallback')
+          setFilteredCitation(citation)
           return
         }
 
@@ -135,12 +138,18 @@ const Answer: FC<IAnswerProps> = ({
           return accessResult && accessResult.hasAccess
         })
 
-        setFilteredCitation(filtered)
+        // Nếu không có citation nào được phép truy cập, hiển thị tất cả (fallback)
+        if (filtered.length === 0 && citation.length > 0) {
+          setFilteredCitation(citation)
+        } else {
+          setFilteredCitation(filtered)
+        }
       } catch (error) {
         // Kiểm tra nếu component vẫn mounted trước khi cập nhật state
         if (!isMounted) return
         console.error('Error checking document access:', error)
-        setFilteredCitation([])
+        // Fallback: hiển thị tất cả citations khi có lỗi
+        setFilteredCitation(citation)
       }
     }
 
@@ -151,7 +160,6 @@ const Answer: FC<IAnswerProps> = ({
       isMounted = false
     }
   }, [item.citation]) // Sử dụng item.citation thay vì citation để tránh re-render không cần thiết
-
   // Lọc citation để chỉ hiển thị phần tử có score cao nhất cho mỗi cặp (dataset_id, document_id)
   useEffect(() => {
     if (!filteredCitation || filteredCitation.length === 0) {
@@ -180,7 +188,6 @@ const Answer: FC<IAnswerProps> = ({
 
     setDisplayedCitation(uniqueCitations)
   }, [filteredCitation])
-
   // Cleanup audio when component unmounts
   useEffect(() => {
     return () => {
