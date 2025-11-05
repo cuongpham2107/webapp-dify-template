@@ -33,30 +33,12 @@ export const sendChatMessage = async (
     onWorkflowFinished: IOnWorkflowFinished
   },
 ) => {
-  // Mặc định luôn dùng streaming mode
   return ssePost('chat-messages', {
     body: {
       ...body,
       response_mode: 'streaming',
     },
-  }, {
-    onData,
-    onCompleted,
-    onThought,
-    onFile,
-    onError,
-    getAbortController,
-    onMessageEnd: (messageEnd) => {
-      console.log('[Streaming Mode] onMessageEnd called:', messageEnd)
-      console.log('[Streaming Mode] Citations:', messageEnd.metadata?.retriever_resources)
-      onMessageEnd?.(messageEnd)
-    },
-    onMessageReplace,
-    onNodeStarted,
-    onWorkflowStarted,
-    onWorkflowFinished,
-    onNodeFinished
-  })
+  }, { onData, onCompleted, onThought, onFile, onError, getAbortController, onMessageEnd, onMessageReplace, onNodeStarted, onWorkflowStarted, onWorkflowFinished, onNodeFinished })
 }
 
 export const fetchConversations = async () => {

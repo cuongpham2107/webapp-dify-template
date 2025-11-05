@@ -477,24 +477,12 @@ const Main: FC<IMainProps> = () => {
     const prevTempNewConversationId = getCurrConversationId() || '-1'
     let tempNewConversationId = ''
 
-    // Throttle UI updates for smoother streaming effect
-    let updateTimeout: NodeJS.Timeout | null = null
-    let pendingUpdate = false
-
     setRespondingTrue()
     sendChatMessage(data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)
       },
       onData: (message: string, isFirstMessage: boolean, { conversationId: newConversationId, messageId, taskId }: any) => {
-        console.log('[Main Component] onData:', {
-          message: message.substring(0, 50),
-          messageLength: message.length,
-          isFirstMessage,
-          currentContentLength: responseItem.content.length,
-          isAgentMode
-        })
-
         if (!isAgentMode) {
           responseItem.content = responseItem.content + message
         }
@@ -517,58 +505,14 @@ const Main: FC<IMainProps> = () => {
           setIsRespondingConCurrCon(false)
           return
         }
-
-        // Clear previous timeout if exists
-        if (updateTimeout) {
-          clearTimeout(updateTimeout)
-        }
-
-        // Mark that we have a pending update
-        pendingUpdate = true
-
-        // Throttle updates to every 50ms for smoother streaming
-        updateTimeout = setTimeout(() => {
-          if (pendingUpdate) {
-            updateCurrentQA({
-              responseItem,
-              questionId,
-              placeholderAnswerId,
-              questionItem,
-            })
-            pendingUpdate = false
-          }
-        }, 50)
-
-        // Always update immediately on first message for better UX
-        if (isFirstMessage) {
-          if (updateTimeout) {
-            clearTimeout(updateTimeout)
-          }
-          updateCurrentQA({
-            responseItem,
-            questionId,
-            placeholderAnswerId,
-            questionItem,
-          })
-          pendingUpdate = false
-        }
+        updateCurrentQA({
+          responseItem,
+          questionId,
+          placeholderAnswerId,
+          questionItem,
+        })
       },
       async onCompleted(hasError?: boolean) {
-        // Clear any pending throttled updates and do final update
-        if (updateTimeout) {
-          clearTimeout(updateTimeout)
-        }
-
-        // Force final update to ensure we have the complete message
-        if (!hasError) {
-          updateCurrentQA({
-            responseItem,
-            questionId,
-            placeholderAnswerId,
-            questionItem,
-          })
-        }
-
         if (hasError)
           return
 
@@ -663,10 +607,6 @@ const Main: FC<IMainProps> = () => {
         })
       },
       onMessageEnd: async (messageEnd) => {
-        console.log('[Main Component] onMessageEnd called:', messageEnd)
-        console.log('[Main Component] messageEnd.metadata:', messageEnd.metadata)
-        console.log('[Main Component] retriever_resources:', messageEnd.metadata?.retriever_resources)
-
         if (messageEnd.metadata?.annotation_reply) {
           responseItem.id = messageEnd.id
           responseItem.annotation = ({
@@ -688,7 +628,6 @@ const Main: FC<IMainProps> = () => {
         }
         // Enable citation support
         responseItem.citation = messageEnd.metadata?.retriever_resources || []
-        console.log('[Main Component] responseItem.citation set to:', responseItem.citation)
 
         // Set current timestamp for real-time messages
         responseItem.created_at = Math.floor(Date.now() / 1000)

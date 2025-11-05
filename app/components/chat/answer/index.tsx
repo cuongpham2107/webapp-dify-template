@@ -82,10 +82,6 @@ const Answer: FC<IAnswerProps> = ({
 
   // Format the created_at timestamp for display
   const displayTime = created_at ? formatRelativeTime(created_at) : ''
-
-  // Debug logging
-  console.log('[Answer Component] Item:', { id, citation: citation?.length || 0, content: content?.substring(0, 50) })
-  console.log('[Answer Component] Full citation:', citation)
   const [selectedCitation, setSelectedCitation] = useState<number | null>(null)
   const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null)
   const [downloadingIndex, setDownloadingIndex] = useState<number | null>(null)
@@ -96,6 +92,9 @@ const Answer: FC<IAnswerProps> = ({
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const [audioError, setAudioError] = useState<string | null>(null)
   const isAgentMode = !!agent_thoughts && agent_thoughts.length > 0
+
+
+
   const { t } = useTranslation()
 
   // Kiểm tra quyền truy cập tài liệu và lọc citation
@@ -558,6 +557,9 @@ const Answer: FC<IAnswerProps> = ({
         <div className='flex-1 max-w-[85%]'>
           <div className='relative text-sm text-gray-900'>
             <div className='py-3 px-4 bg-gray-50 rounded-lg'>
+              {workflowProcess && (
+                <WorkflowProcess data={workflowProcess} hideInfo />
+              )}
               {(isResponding && (isAgentMode ? (!content && (agent_thoughts || []).filter(item => !!item.thought || !!item.tool).length === 0) : !content))
                 ? (
                   <div className='flex items-center justify-center w-6 h-5'>
@@ -568,6 +570,7 @@ const Answer: FC<IAnswerProps> = ({
                   ? agentModeAnswer
                   : (
                     <div>
+                      {/* Text streaming content - always visible */}
                       <Markdown content={content} />
                       {displayedCitation && displayedCitation.length > 0 && (
                         <div className='mt-4'>
