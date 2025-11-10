@@ -11,6 +11,10 @@ import Toast from '@/app/components/base/toast'
 import Select from '@/app/components/base/select'
 import { DEFAULT_VALUE_MAX_LEN } from '@/config'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Label } from '@/components/ui/label'
+import { Card } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 // regex to match the {{}} and replace it with a span
 const regex = /\{\{([^}]+)\}\}/g
@@ -95,18 +99,34 @@ const Welcome: FC<IWelcomeProps> = ({
     return (
       <div className='space-y-3'>
         {promptConfig.prompt_variables.map(item => (
-          <div className='tablet:flex items-start mobile:space-y-2 tablet:space-y-0 mobile:text-xs tablet:text-sm' key={item.key}>
+          <div className='flex flex-col items-start mobile:space-y-2 tablet:space-y-0 mobile:text-xs tablet:text-sm' key={item.key}>
             <label className={`flex-shrink-0 flex items-center tablet:leading-9 mobile:text-gray-700 tablet:text-gray-900 mobile:font-medium pc:font-normal ${s.formLabel}`}>{item.name}</label>
             {item.type === 'select'
               && (
-                <Select
-                  className='w-full'
-                  defaultValue={inputs?.[item.key]}
-                  onSelect={(i) => { setInputs({ ...inputs, [item.key]: i.value }) }}
-                  items={(item.options || []).map(i => ({ name: i, value: i }))}
-                  allowSearch={false}
-                  bgClassName='bg-gray-50'
-                />
+                <RadioGroup
+                  value={inputs?.[item.key] || ''}
+                  onValueChange={(value) => { setInputs({ ...inputs, [item.key]: value }) }}
+                  className='w-full grid grid-cols-3 gap-3'
+                >
+                  {(item.options || []).map((option) => (
+                    <Card
+                      key={option}
+                      className={cn(
+                        'relative flex items-center space-x-3 p-4 cursor-pointer transition-all hover:border-primary',
+                        inputs?.[item.key] === option && 'border-primary bg-primary/5'
+                      )}
+                      onClick={() => setInputs({ ...inputs, [item.key]: option })}
+                    >
+                      <RadioGroupItem value={option} id={`${item.key}-${option}`} />
+                      <Label
+                        htmlFor={`${item.key}-${option}`}
+                        className='flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                      >
+                        {option}
+                      </Label>
+                    </Card>
+                  ))}
+                </RadioGroup>
               )}
             {item.type === 'string' && (
               <input
@@ -241,7 +261,7 @@ const Welcome: FC<IWelcomeProps> = ({
       >
         {renderInputs()}
         <ChatBtn
-          className='mt-3 mobile:ml-0 tablet:ml-[128px]'
+          className='mt-3 mobile:ml-0'
           onClick={handleChat}
         />
       </TemplateVarPanel>
@@ -348,7 +368,7 @@ const Welcome: FC<IWelcomeProps> = ({
   return (
     <div className='relative mobile:min-h-[48px] tablet:min-h-[64px]'>
       {hasSetInputs && renderHeader()}
-      <div className='mx-auto pc:w-[794px] max-w-full mobile:w-full px-3.5'>
+      <div className='mx-auto pc:w-[950px] max-w-full mobile:w-full px-3.5'>
         {/*  Has't set inputs  */}
         {
           !hasSetInputs && (

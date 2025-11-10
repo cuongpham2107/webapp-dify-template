@@ -58,7 +58,7 @@ export const VarOpBtnGroup: FC<{ className?: string; onConfirm: () => void; onCa
   const { t } = useTranslation()
 
   return (
-    <div className={cn(className, 'flex mt-3 space-x-2 mobile:ml-0 tablet:ml-[128px] text-sm')}>
+    <div className={cn(className, 'flex justify-end mt-3 space-x-2 mobile:ml-0 text-sm')}>
       <Button
         className='text-sm'
         type='primary'
