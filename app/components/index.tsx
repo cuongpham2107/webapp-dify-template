@@ -129,7 +129,6 @@ const Main: FC<IMainProps> = () => {
     setNewConversationInfo,
     setExistConversationInfo,
   } = useConversation()
-
   const [conversationIdChangeBecauseOfNew, setConversationIdChangeBecauseOfNew, getConversationIdChangeBecauseOfNew] = useGetState(false)
   const [isChatStarted, { setTrue: setChatStarted, setFalse: setChatNotStarted }] = useBoolean(false)
   const suggestedQuestionsCache = useRef<Set<string>>(new Set())
@@ -404,15 +403,16 @@ const Main: FC<IMainProps> = () => {
     }
   }
 
-  const handleSend = async (message: string, files?: VisionFile[]) => {
+  const handleSend = async (message: string, files?: VisionFile[], inputs?: Record<string, any>) => {
     if (isResponding) {
       notify({ type: 'info', message: t('app.errorMessage.waitForResponse') })
       return
     }
     const toServerInputs: Record<string, any> = {}
-    if (currInputs) {
-      Object.keys(currInputs).forEach((key) => {
-        const value = currInputs[key]
+    const inputsToUse = inputs || currInputs
+    if (inputsToUse) {
+      Object.keys(inputsToUse).forEach((key) => {
+        const value = inputsToUse[key]
         if (value.supportFileType)
           toServerInputs[key] = transformToServerFile(value)
 
@@ -800,6 +800,9 @@ const Main: FC<IMainProps> = () => {
                     visionConfig={visionConfig}
                     textToSpeechConfig={textToSpeechConfig}
                     speechToTextConfig={speechToTextConfig}
+                    promptConfig={promptConfig}
+                    currentInputs={currInputs as Record<string, any>}
+                    onInputsChange={setCurrInputs}
                   />
                 </div>
               </div>)

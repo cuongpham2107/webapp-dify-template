@@ -17,6 +17,8 @@ import ChatImageUploader from '@/app/components/base/image-uploader/chat-image-u
 import ImageList from '@/app/components/base/image-uploader/image-list'
 import { useImageFiles } from '@/app/components/base/image-uploader/hooks'
 import { convertAudioToText } from '@/service'
+import type { PromptConfig } from '@/types/app'
+import InputVariablesPanel from './input-variables-panel'
 
 export type IChatProps = {
   chatList: IChatItem[]
@@ -30,13 +32,16 @@ export type IChatProps = {
   isHideSendInput?: boolean
   onFeedback?: FeedbackFunc
   checkCanSend?: () => boolean
-  onSend?: (message: string, files: VisionFile[]) => void
+  onSend?: (message: string, files: VisionFile[], inputs?: Record<string, any>) => void
   useCurrentUserAvatar?: boolean
   isResponding?: boolean
   controlClearQuery?: number
   visionConfig?: VisionSettings
   textToSpeechConfig?: { enabled: boolean }
   speechToTextConfig?: { enabled: boolean }
+  promptConfig?: PromptConfig
+  currentInputs?: Record<string, any>
+  onInputsChange?: (inputs: Record<string, any>) => void
 }
 
 const Chat: FC<IChatProps> = ({
@@ -52,6 +57,9 @@ const Chat: FC<IChatProps> = ({
   visionConfig,
   textToSpeechConfig,
   speechToTextConfig,
+  promptConfig,
+  currentInputs,
+  onInputsChange,
 }) => {
   const { t } = useTranslation()
   const { notify } = Toast
@@ -62,6 +70,14 @@ const Chat: FC<IChatProps> = ({
   const [isRecording, setIsRecording] = useState(false)
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null)
   const [isProcessingAudio, setIsProcessingAudio] = useState(false)
+  const [localInputs, setLocalInputs] = useState<Record<string, any>>(currentInputs || {})
+
+  // Sync localInputs with currentInputs prop
+  useEffect(() => {
+    if (currentInputs) {
+      setLocalInputs(currentInputs)
+    }
+  }, [currentInputs])
 
   const handleContentChange = (e: any) => {
     const value = e.target.value
@@ -106,7 +122,7 @@ const Chat: FC<IChatProps> = ({
       transfer_method: fileItem.type,
       url: fileItem.url,
       upload_file_id: fileItem.fileId,
-    })))
+    })), localInputs)
     if (!files.find(item => item.type === TransferMethod.local_file && !item.fileId)) {
       if (files.length)
         onClear()
@@ -140,6 +156,13 @@ const Chat: FC<IChatProps> = ({
     setQuery(suggestion)
     queryRef.current = suggestion
     handleSend()
+  }
+
+  const handleInputsChange = (inputs: Record<string, any>) => {
+    setLocalInputs(inputs)
+    if (onInputsChange) {
+      onInputsChange(inputs)
+    }
   }
 
   const startRecording = async () => {
@@ -257,7 +280,7 @@ const Chat: FC<IChatProps> = ({
               }
               <Textarea
                 className={`
-                  block w-full px-2 pr-[118px] py-[7px] leading-5 max-h-none text-sm text-gray-700 outline-none appearance-none resize-none
+                  block w-full px-2 pr-[150px] py-[7px] leading-5 max-h-none text-sm text-gray-700 outline-none appearance-none resize-none
                   ${visionConfig?.enabled && 'pl-12'}
                 `}
                 value={query}
@@ -268,6 +291,16 @@ const Chat: FC<IChatProps> = ({
               />
               <div className="absolute bottom-2 right-2 flex items-center h-8">
                 <div className={`${s.count} mr-4 h-5 leading-5 text-sm bg-gray-50 text-gray-500`}>{query.trim().length}</div>
+
+                {/* Input Variables Panel - Dialog Button */}
+                {promptConfig && (
+                  <InputVariablesPanel
+                    variables={promptConfig.prompt_variables || []}
+                    values={localInputs}
+                    onChange={handleInputsChange}
+                  />
+                )}
+
                 {speechToTextConfig?.enabled && (
                   <Tooltip
                     selector='mic-tip'
