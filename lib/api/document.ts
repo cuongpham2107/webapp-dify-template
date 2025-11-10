@@ -43,6 +43,7 @@ export const updateDocument = async (
     type: string,
     size: number,
     asgl_id: string,
+    datasetId: string,
     file?: File
 ) => {
     const formData = new FormData();
@@ -50,6 +51,7 @@ export const updateDocument = async (
     formData.append('type', type);
     formData.append('size', size.toString());
     formData.append('asgl_id', asgl_id);
+    formData.append('datasetId', datasetId);
 
     if (file) {
         formData.append('file', file);

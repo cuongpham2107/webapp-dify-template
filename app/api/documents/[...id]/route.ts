@@ -76,12 +76,14 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         const name = formData.get('name') as string;
         const type = formData.get('type') as string;
         const size = parseInt(formData.get('size') as string);
+        const datasetId = formData.get('datasetId') as string;
         const file = formData.get('file') as File | null;
 
         const updateData: any = {};
         if (name) updateData.name = name;
         if (type) updateData.type = type;
         if (size) updateData.size = size;
+        if (datasetId) updateData.datasetId = datasetId;
 
         const updatedDocument = await updateDocument(
             id[0],

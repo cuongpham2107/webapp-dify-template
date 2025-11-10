@@ -7,6 +7,15 @@ export const getAllDatasets = async (parent_id?: string) => {
     return res.json();
 };
 
+// Get all datasets as flat list (for dropdown selection)
+export const getAllDatasetsFlat = async () => {
+    const res = await fetch("/api/dataset/all", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    });
+    return res.json();
+};
+
 
 export const createDataset = async (name: string, parent_id: string | null) => {
     const res = await fetch("/api/dataset", {

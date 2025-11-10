@@ -174,7 +174,7 @@ export async function getDocumentsByUserId(userId: string, datasetId?: string) {
 // Update Document: gọi service API trước, sau đó update local
 export async function updateDocument(
     id: string,
-    data: Partial<{ name: string, type: string, size: number }>,
+    data: Partial<{ name: string, type: string, size: number, datasetId: string }>,
     file?: File
 ) {
     const document = await prisma.document.findUnique({
@@ -186,31 +186,34 @@ export async function updateDocument(
         throw new Error("Document not found");
     }
 
-    // Nếu có file, gọi API update với file
-    if (file && document.dataset) {
+    // Chỉ gọi Dify API nếu có file hoặc thay đổi name (không gọi khi chỉ thay đổi datasetId)
+    if ((file || (data.name && data.name !== document.name)) && document.dataset) {
         try {
-            await documents.updateDocumentWithFile(
-                document.dataset.dataset_id,
-                document.document_id,
-                {
-                    name: data.name || document.name,
-                    process_rule: { mode: "automatic" }
-                },
-                file
-            );
+            if (file) {
+                await documents.updateDocumentWithFile(
+                    document.dataset.dataset_id,
+                    document.document_id,
+                    {
+                        name: data.name || document.name,
+                        process_rule: { mode: "automatic" }
+                    },
+                    file
+                );
+            }
         } catch (error) {
             console.error("Error updating document on Dify:", error);
             // Tiếp tục update local nếu API fail
         }
     }
 
-    // Update local
+    // Update local - bao gồm cả datasetId
     return prisma.document.update({
         where: { id },
         data: {
             ...(data.name && { name: data.name }),
             ...(data.type && { type: data.type }),
             ...(data.size && { size: data.size }),
+            ...(data.datasetId && { datasetId: data.datasetId }),
         }
     });
 }

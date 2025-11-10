@@ -204,7 +204,6 @@ export async function getDatasetByUserId(userId: string, parent_id: string | nul
 
   // Filter by parent_id
   const filteredDatasets = accessibleDatasets.filter(dataset => dataset.parent_id === parent_id);
-
   return filteredDatasets;
 }
 
@@ -230,6 +229,37 @@ export async function getAllDatasets() {
 
   // Regular users only see datasets they have access to
   return getUserAccessibleDatasets(userWithPermissions.id, userWithPermissions);
+}
+
+// Get all Datasets as flat list (for dropdown selection) - NEW FUNCTION
+export async function getAllDatasetsFlat() {
+  // Get current user with permissions
+  const userWithPermissions = await getCurrentUserWithPermissions();
+  if (!userWithPermissions) {
+    throw new Error('User not authenticated');
+  }
+
+  // Admin users can see all datasets
+  if (userWithPermissions.isAdmin || userWithPermissions.isSuperAdmin) {
+    return prisma.dataset.findMany({
+      select: {
+        id: true,
+        name: true,
+        parent_id: true
+      },
+      orderBy: {
+        name: 'asc'
+      }
+    });
+  }
+
+  // Regular users only see datasets they have access to
+  const accessibleDatasets = await getUserAccessibleDatasets(userWithPermissions.id, userWithPermissions);
+  return accessibleDatasets.map(ds => ({
+    id: ds.id,
+    name: ds.name,
+    parent_id: ds.parent_id
+  }));
 }
 
 // Get Datasets by Parent ID is null with permission filtering

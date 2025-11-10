@@ -12,19 +12,25 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import {
     Tooltip,
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { getAllDatasets, createDataset, updateDataset } from "@/lib/api/dataset"
-import { PenBox, PlusIcon } from "lucide-react"
+import { getAllDatasetsFlat, createDataset, updateDataset } from "@/lib/api/dataset"
+import { PenBox, PlusIcon, Check, ChevronsUpDown } from "lucide-react"
 import { useState, useEffect } from "react"
 import { z } from "zod"
 import { toast } from "sonner"
@@ -52,15 +58,18 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
     const [parentId, setParentId] = useState(initialParentId || "");
     const [loading, setLoading] = useState(false);
     const [parentOptions, setParentOptions] = useState<{ id: string, name: string }[]>([]);
+    const [comboboxOpen, setComboboxOpen] = useState(false);
     useEffect(() => {
-        // Lấy danh sách dataset cha từ API
-        if (type === "add" && !id) {
-            getAllDatasets().then(data => {
-                if (data.datasets) {
-                    setParentOptions(data.datasets.map((ds: any) => ({ id: ds.id, name: ds.name })));
-                }
-            });
-        }
+        // Lấy danh sách dataset cha từ API - Load cho cả add và edit
+        getAllDatasetsFlat().then(data => {
+            if (data.datasets) {
+                // Lọc bỏ chính dataset hiện tại khỏi danh sách (tránh set parent là chính nó)
+                const filteredDatasets = type === "edit" && id
+                    ? data.datasets.filter((ds: any) => ds.id !== id)
+                    : data.datasets;
+                setParentOptions(filteredDatasets.map((ds: any) => ({ id: ds.id, name: ds.name })));
+            }
+        });
 
         // Nếu là chế độ chỉnh sửa, lấy thông tin dataset hiện tại
         if (type === "edit" && id) {
@@ -157,23 +166,64 @@ export function AddEditDatasetDialog({ type = "add", id, parentId: initialParent
                         {type === "edit" && (
                             <div className="grid gap-3">
                                 <Label htmlFor="parent-id">Thuộc</Label>
-                                <Select
-                                    value={parentId === "" ? "none" : parentId}
-                                    onValueChange={val => setParentId(val === "none" ? "" : val)}
-                                    name="parent_id"
-                                >
-                                    <SelectTrigger className="w-full">
-                                        <SelectValue placeholder="Không có" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="none">Không có</SelectItem>
-                                        {parentOptions.map(opt => (
-                                            <SelectItem key={opt.id} value={opt.id}>
-                                                {opt.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <Popover open={comboboxOpen} onOpenChange={setComboboxOpen}>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            aria-expanded={comboboxOpen}
+                                            className="w-full justify-between"
+                                        >
+                                            {parentId
+                                                ? parentOptions.find((opt) => opt.id === parentId)?.name
+                                                : "Không có"}
+                                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-full p-0" align="start">
+                                        <Command>
+                                            <CommandInput placeholder="Tìm kiếm thư mục..." className="h-9" />
+                                            <CommandList>
+                                                <CommandEmpty>Không tìm thấy thư mục.</CommandEmpty>
+                                                <CommandGroup>
+                                                    <CommandItem
+                                                        value="none"
+                                                        onSelect={() => {
+                                                            setParentId("")
+                                                            setComboboxOpen(false)
+                                                        }}
+                                                    >
+                                                        Không có
+                                                        <Check
+                                                            className={cn(
+                                                                "ml-auto h-4 w-4",
+                                                                parentId === "" ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                    </CommandItem>
+                                                    {parentOptions.map((opt) => (
+                                                        <CommandItem
+                                                            key={opt.id}
+                                                            value={opt.name}
+                                                            onSelect={() => {
+                                                                setParentId(opt.id)
+                                                                setComboboxOpen(false)
+                                                            }}
+                                                        >
+                                                            {opt.name}
+                                                            <Check
+                                                                className={cn(
+                                                                    "ml-auto h-4 w-4",
+                                                                    parentId === opt.id ? "opacity-100" : "opacity-0"
+                                                                )}
+                                                            />
+                                                        </CommandItem>
+                                                    ))}
+                                                </CommandGroup>
+                                            </CommandList>
+                                        </Command>
+                                    </PopoverContent>
+                                </Popover>
                             </div>
                         )}
 

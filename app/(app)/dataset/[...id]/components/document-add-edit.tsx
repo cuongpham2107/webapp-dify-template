@@ -12,16 +12,31 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import {
     Tooltip,
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { createDocument, updateDocument, getDocumentById } from "@/lib/api/document"
-import { PenBox, PlusIcon, Upload } from "lucide-react"
+import { getAllDatasetsFlat } from "@/lib/api/dataset"
+import { PenBox, PlusIcon, Upload, Check, ChevronsUpDown } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import { z } from "zod"
 import { toast } from "sonner"
 import { Document } from "@/types/base"
+import { cn } from "@/lib/utils"
 
 interface AddEditDocumentDialogProps {
     type: "add" | "edit",
@@ -48,22 +63,34 @@ export function AddEditDocumentDialog({
     const [name, setName] = useState("");
     const [docType, setDocType] = useState("");
     const [size, setSize] = useState(0);
+    const [selectedDatasetId, setSelectedDatasetId] = useState(datasetId);
     const [file, setFile] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);
+    const [datasetOptions, setDatasetOptions] = useState<{ id: string, name: string }[]>([]);
+    const [comboboxOpen, setComboboxOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        // Load danh sách datasets
+        getAllDatasetsFlat().then(data => {
+            if (data.datasets) {
+                setDatasetOptions(data.datasets.map((ds: any) => ({ id: ds.id, name: ds.name })));
+            }
+        });
+
         // Nếu là chế độ chỉnh sửa, lấy thông tin document hiện tại
         if (type === "edit" && document) {
             setName(document.name);
             setDocType(document.type);
             setSize(document.size);
+            setSelectedDatasetId(document.datasetId);
         } else if (type === "edit" && id) {
             getDocumentById(id).then(data => {
                 if (data) {
                     setName(data.name);
                     setDocType(data.type);
                     setSize(data.size);
+                    setSelectedDatasetId(data.datasetId);
                 }
             });
         }
@@ -114,7 +141,7 @@ export function AddEditDocumentDialog({
             const asgl_id = localStorage.getItem("asgl_id") || "";
 
             if (type === "edit" && id) {
-                res = await updateDocument(id, name, docType, size, asgl_id, file || undefined);
+                res = await updateDocument(id, name, docType, size, asgl_id, selectedDatasetId, file || undefined);
                 if (!res.ok) {
                     const data = await res.json();
                     toast.error(data.error || "Cập nhật tài liệu thất bại");
@@ -126,7 +153,7 @@ export function AddEditDocumentDialog({
                 }
             } else {
                 // file is required for creation, so we ensure it exists
-                res = await createDocument(name, docType, size, datasetId, file!);
+                res = await createDocument(name, docType, size, selectedDatasetId, file!);
                 if (!res.ok) {
                     const data = await res.json();
                     toast.error(data.error || "Tạo tài liệu thất bại");
@@ -265,6 +292,55 @@ export function AddEditDocumentDialog({
                                 </span>
                             )}
                         </div>
+
+                        {type === "edit" && (
+                            <div className="grid gap-3">
+                                <Label htmlFor="dataset-id">Thuộc thư mục</Label>
+                                <Popover open={comboboxOpen} onOpenChange={setComboboxOpen}>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            aria-expanded={comboboxOpen}
+                                            className="w-full justify-between"
+                                        >
+                                            {selectedDatasetId
+                                                ? datasetOptions.find((opt) => opt.id === selectedDatasetId)?.name || "Chọn thư mục"
+                                                : "Chọn thư mục"}
+                                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-full p-0" align="start">
+                                        <Command>
+                                            <CommandInput placeholder="Tìm kiếm thư mục..." className="h-9" />
+                                            <CommandList>
+                                                <CommandEmpty>Không tìm thấy thư mục.</CommandEmpty>
+                                                <CommandGroup>
+                                                    {datasetOptions.map((opt) => (
+                                                        <CommandItem
+                                                            key={opt.id}
+                                                            value={opt.name}
+                                                            onSelect={() => {
+                                                                setSelectedDatasetId(opt.id)
+                                                                setComboboxOpen(false)
+                                                            }}
+                                                        >
+                                                            {opt.name}
+                                                            <Check
+                                                                className={cn(
+                                                                    "ml-auto h-4 w-4",
+                                                                    selectedDatasetId === opt.id ? "opacity-100" : "opacity-0"
+                                                                )}
+                                                            />
+                                                        </CommandItem>
+                                                    ))}
+                                                </CommandGroup>
+                                            </CommandList>
+                                        </Command>
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
+                        )}
                     </div>
                     <DialogFooter className="mt-4">
                         <DialogClose asChild>
