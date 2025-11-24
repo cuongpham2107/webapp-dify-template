@@ -20,6 +20,7 @@ interface User {
     email: string
     asgl_id: string
     name: string
+    tokensUsed?: number
     createdAt: string
     updatedAt: string
     roles: Array<{
@@ -239,6 +240,7 @@ export default function UsersPage() {
                                     <TableHead>Email</TableHead>
                                     <TableHead>ASGL ID</TableHead>
                                     <TableHead>Vai trò</TableHead>
+                                    <TableHead>Token đã sử dụng</TableHead>
                                     <TableHead>Ngày tạo</TableHead>
                                     <TableHead className="w-[120px]">Thao tác</TableHead>
                                 </TableRow>
@@ -264,6 +266,11 @@ export default function UsersPage() {
                                                     <Badge variant="outline">Không có vai trò</Badge>
                                                 )}
                                             </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Badge variant="outline">
+                                                {(user.tokensUsed || 0).toLocaleString('vi-VN')}
+                                            </Badge>
                                         </TableCell>
                                         <TableCell>
                                             {new Date(user.createdAt).toLocaleDateString('vi-VN')}

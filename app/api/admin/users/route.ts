@@ -53,7 +53,6 @@ export async function GET(request: NextRequest) {
             // Get all users
             users = await getAllUsers();
         }
-
         // Get user statistics
         const stats = await getUserStats();
 

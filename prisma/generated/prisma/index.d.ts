@@ -58,6 +58,16 @@ export type DatasetAccess = $Result.DefaultSelection<Prisma.$DatasetAccessPayloa
  * 
  */
 export type DocumentAccess = $Result.DefaultSelection<Prisma.$DocumentAccessPayload>
+/**
+ * Model Credit
+ * 
+ */
+export type Credit = $Result.DefaultSelection<Prisma.$CreditPayload>
+/**
+ * Model CreditUsage
+ * 
+ */
+export type CreditUsage = $Result.DefaultSelection<Prisma.$CreditUsagePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -266,6 +276,26 @@ export class PrismaClient<
     * ```
     */
   get documentAccess(): Prisma.DocumentAccessDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.credit`: Exposes CRUD operations for the **Credit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Credits
+    * const credits = await prisma.credit.findMany()
+    * ```
+    */
+  get credit(): Prisma.CreditDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.creditUsage`: Exposes CRUD operations for the **CreditUsage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CreditUsages
+    * const creditUsages = await prisma.creditUsage.findMany()
+    * ```
+    */
+  get creditUsage(): Prisma.CreditUsageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -714,7 +744,9 @@ export namespace Prisma {
     Dataset: 'Dataset',
     Document: 'Document',
     DatasetAccess: 'DatasetAccess',
-    DocumentAccess: 'DocumentAccess'
+    DocumentAccess: 'DocumentAccess',
+    Credit: 'Credit',
+    CreditUsage: 'CreditUsage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -733,7 +765,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "userRole" | "rolePermission" | "dataset" | "document" | "datasetAccess" | "documentAccess"
+      modelProps: "user" | "role" | "permission" | "userRole" | "rolePermission" | "dataset" | "document" | "datasetAccess" | "documentAccess" | "credit" | "creditUsage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -769,10 +801,6 @@ export namespace Prisma {
             args: Prisma.UserCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
           delete: {
             args: Prisma.UserDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
@@ -788,10 +816,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.UserUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
           }
           upsert: {
             args: Prisma.UserUpsertArgs<ExtArgs>
@@ -843,10 +867,6 @@ export namespace Prisma {
             args: Prisma.RoleCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.RoleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
-          }
           delete: {
             args: Prisma.RoleDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$RolePayload>
@@ -862,10 +882,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.RoleUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.RoleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
           }
           upsert: {
             args: Prisma.RoleUpsertArgs<ExtArgs>
@@ -917,10 +933,6 @@ export namespace Prisma {
             args: Prisma.PermissionCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.PermissionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
-          }
           delete: {
             args: Prisma.PermissionDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
@@ -936,10 +948,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.PermissionUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.PermissionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
           }
           upsert: {
             args: Prisma.PermissionUpsertArgs<ExtArgs>
@@ -991,10 +999,6 @@ export namespace Prisma {
             args: Prisma.UserRoleCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.UserRoleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>[]
-          }
           delete: {
             args: Prisma.UserRoleDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserRolePayload>
@@ -1010,10 +1014,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.UserRoleUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UserRoleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>[]
           }
           upsert: {
             args: Prisma.UserRoleUpsertArgs<ExtArgs>
@@ -1065,10 +1065,6 @@ export namespace Prisma {
             args: Prisma.RolePermissionCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.RolePermissionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>[]
-          }
           delete: {
             args: Prisma.RolePermissionDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>
@@ -1084,10 +1080,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.RolePermissionUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.RolePermissionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>[]
           }
           upsert: {
             args: Prisma.RolePermissionUpsertArgs<ExtArgs>
@@ -1139,10 +1131,6 @@ export namespace Prisma {
             args: Prisma.DatasetCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.DatasetCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>[]
-          }
           delete: {
             args: Prisma.DatasetDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DatasetPayload>
@@ -1158,10 +1146,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.DatasetUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.DatasetUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>[]
           }
           upsert: {
             args: Prisma.DatasetUpsertArgs<ExtArgs>
@@ -1213,10 +1197,6 @@ export namespace Prisma {
             args: Prisma.DocumentCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.DocumentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>[]
-          }
           delete: {
             args: Prisma.DocumentDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DocumentPayload>
@@ -1232,10 +1212,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.DocumentUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.DocumentUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>[]
           }
           upsert: {
             args: Prisma.DocumentUpsertArgs<ExtArgs>
@@ -1287,10 +1263,6 @@ export namespace Prisma {
             args: Prisma.DatasetAccessCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.DatasetAccessCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DatasetAccessPayload>[]
-          }
           delete: {
             args: Prisma.DatasetAccessDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DatasetAccessPayload>
@@ -1306,10 +1278,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.DatasetAccessUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.DatasetAccessUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DatasetAccessPayload>[]
           }
           upsert: {
             args: Prisma.DatasetAccessUpsertArgs<ExtArgs>
@@ -1361,10 +1329,6 @@ export namespace Prisma {
             args: Prisma.DocumentAccessCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.DocumentAccessCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>[]
-          }
           delete: {
             args: Prisma.DocumentAccessDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
@@ -1381,10 +1345,6 @@ export namespace Prisma {
             args: Prisma.DocumentAccessUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          updateManyAndReturn: {
-            args: Prisma.DocumentAccessUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>[]
-          }
           upsert: {
             args: Prisma.DocumentAccessUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
@@ -1400,6 +1360,138 @@ export namespace Prisma {
           count: {
             args: Prisma.DocumentAccessCountArgs<ExtArgs>
             result: $Utils.Optional<DocumentAccessCountAggregateOutputType> | number
+          }
+        }
+      }
+      Credit: {
+        payload: Prisma.$CreditPayload<ExtArgs>
+        fields: Prisma.CreditFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CreditFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CreditFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload>
+          }
+          findFirst: {
+            args: Prisma.CreditFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CreditFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload>
+          }
+          findMany: {
+            args: Prisma.CreditFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload>[]
+          }
+          create: {
+            args: Prisma.CreditCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload>
+          }
+          createMany: {
+            args: Prisma.CreditCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.CreditDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload>
+          }
+          update: {
+            args: Prisma.CreditUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload>
+          }
+          deleteMany: {
+            args: Prisma.CreditDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CreditUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CreditUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditPayload>
+          }
+          aggregate: {
+            args: Prisma.CreditAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCredit>
+          }
+          groupBy: {
+            args: Prisma.CreditGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CreditGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CreditCountArgs<ExtArgs>
+            result: $Utils.Optional<CreditCountAggregateOutputType> | number
+          }
+        }
+      }
+      CreditUsage: {
+        payload: Prisma.$CreditUsagePayload<ExtArgs>
+        fields: Prisma.CreditUsageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CreditUsageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CreditUsageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload>
+          }
+          findFirst: {
+            args: Prisma.CreditUsageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CreditUsageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload>
+          }
+          findMany: {
+            args: Prisma.CreditUsageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload>[]
+          }
+          create: {
+            args: Prisma.CreditUsageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload>
+          }
+          createMany: {
+            args: Prisma.CreditUsageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.CreditUsageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload>
+          }
+          update: {
+            args: Prisma.CreditUsageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload>
+          }
+          deleteMany: {
+            args: Prisma.CreditUsageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CreditUsageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CreditUsageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditUsagePayload>
+          }
+          aggregate: {
+            args: Prisma.CreditUsageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCreditUsage>
+          }
+          groupBy: {
+            args: Prisma.CreditUsageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CreditUsageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CreditUsageCountArgs<ExtArgs>
+            result: $Utils.Optional<CreditUsageCountAggregateOutputType> | number
           }
         }
       }
@@ -1504,6 +1596,8 @@ export namespace Prisma {
     document?: DocumentOmit
     datasetAccess?: DatasetAccessOmit
     documentAccess?: DocumentAccessOmit
+    credit?: CreditOmit
+    creditUsage?: CreditUsageOmit
   }
 
   /* Types for Logging */
@@ -1584,15 +1678,19 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    roles: number
+    Credit: number
+    CreditUsage: number
     datasets: number
     documents: number
+    roles: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    roles?: boolean | UserCountOutputTypeCountRolesArgs
+    Credit?: boolean | UserCountOutputTypeCountCreditArgs
+    CreditUsage?: boolean | UserCountOutputTypeCountCreditUsageArgs
     datasets?: boolean | UserCountOutputTypeCountDatasetsArgs
     documents?: boolean | UserCountOutputTypeCountDocumentsArgs
+    roles?: boolean | UserCountOutputTypeCountRolesArgs
   }
 
   // Custom InputTypes
@@ -1609,8 +1707,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserRoleWhereInput
+  export type UserCountOutputTypeCountCreditArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreditWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreditUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreditUsageWhereInput
   }
 
   /**
@@ -1625,6 +1730,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DocumentAccessWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserRoleWhereInput
   }
 
 
@@ -1705,14 +1817,14 @@ export namespace Prisma {
 
   export type DatasetCountOutputType = {
     children: number
-    documents: number
     accesses: number
+    documents: number
   }
 
   export type DatasetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     children?: boolean | DatasetCountOutputTypeCountChildrenArgs
-    documents?: boolean | DatasetCountOutputTypeCountDocumentsArgs
     accesses?: boolean | DatasetCountOutputTypeCountAccessesArgs
+    documents?: boolean | DatasetCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -1736,15 +1848,15 @@ export namespace Prisma {
   /**
    * DatasetCountOutputType without action
    */
-  export type DatasetCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DocumentWhereInput
+  export type DatasetCountOutputTypeCountAccessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DatasetAccessWhereInput
   }
 
   /**
    * DatasetCountOutputType without action
    */
-  export type DatasetCountOutputTypeCountAccessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DatasetAccessWhereInput
+  export type DatasetCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentWhereInput
   }
 
 
@@ -1780,6 +1892,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CreditCountOutputType
+   */
+
+  export type CreditCountOutputType = {
+    CreditUsage: number
+  }
+
+  export type CreditCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    CreditUsage?: boolean | CreditCountOutputTypeCountCreditUsageArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CreditCountOutputType without action
+   */
+  export type CreditCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditCountOutputType
+     */
+    select?: CreditCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CreditCountOutputType without action
+   */
+  export type CreditCountOutputTypeCountCreditUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreditUsageWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -1789,8 +1932,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    tokensUsed: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    tokensUsed: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1799,6 +1952,7 @@ export namespace Prisma {
     asgl_id: string | null
     name: string | null
     password: string | null
+    tokensUsed: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1809,6 +1963,7 @@ export namespace Prisma {
     asgl_id: string | null
     name: string | null
     password: string | null
+    tokensUsed: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1819,11 +1974,20 @@ export namespace Prisma {
     asgl_id: number
     name: number
     password: number
+    tokensUsed: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    tokensUsed?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    tokensUsed?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -1831,6 +1995,7 @@ export namespace Prisma {
     asgl_id?: true
     name?: true
     password?: true
+    tokensUsed?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1841,6 +2006,7 @@ export namespace Prisma {
     asgl_id?: true
     name?: true
     password?: true
+    tokensUsed?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1851,6 +2017,7 @@ export namespace Prisma {
     asgl_id?: true
     name?: true
     password?: true
+    tokensUsed?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1894,6 +2061,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -1924,6 +2103,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -1934,9 +2115,12 @@ export namespace Prisma {
     asgl_id: string
     name: string
     password: string
+    tokensUsed: number
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -1961,33 +2145,18 @@ export namespace Prisma {
     asgl_id?: boolean
     name?: boolean
     password?: boolean
+    tokensUsed?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    roles?: boolean | User$rolesArgs<ExtArgs>
+    Credit?: boolean | User$CreditArgs<ExtArgs>
+    CreditUsage?: boolean | User$CreditUsageArgs<ExtArgs>
     datasets?: boolean | User$datasetsArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
+    roles?: boolean | User$rolesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
-  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    asgl_id?: boolean
-    name?: boolean
-    password?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["user"]>
 
-  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    asgl_id?: boolean
-    name?: boolean
-    password?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
@@ -1995,26 +2164,29 @@ export namespace Prisma {
     asgl_id?: boolean
     name?: boolean
     password?: boolean
+    tokensUsed?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "asgl_id" | "name" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "asgl_id" | "name" | "password" | "tokensUsed" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    roles?: boolean | User$rolesArgs<ExtArgs>
+    Credit?: boolean | User$CreditArgs<ExtArgs>
+    CreditUsage?: boolean | User$CreditUsageArgs<ExtArgs>
     datasets?: boolean | User$datasetsArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
+    roles?: boolean | User$rolesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      roles: Prisma.$UserRolePayload<ExtArgs>[]
+      Credit: Prisma.$CreditPayload<ExtArgs>[]
+      CreditUsage: Prisma.$CreditUsagePayload<ExtArgs>[]
       datasets: Prisma.$DatasetAccessPayload<ExtArgs>[]
       documents: Prisma.$DocumentAccessPayload<ExtArgs>[]
+      roles: Prisma.$UserRolePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2022,6 +2194,7 @@ export namespace Prisma {
       asgl_id: string
       name: string
       password: string
+      tokensUsed: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2142,30 +2315,6 @@ export namespace Prisma {
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Users and returns the data saved in the database.
-     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
-     * @example
-     * // Create many Users
-     * const user = await prisma.user.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a User.
      * @param {UserDeleteArgs} args - Arguments to delete one User.
      * @example
@@ -2228,36 +2377,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users and returns the data updated in the database.
-     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
-     * @example
-     * // Update many Users
-     * const user = await prisma.user.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one User.
@@ -2418,9 +2537,11 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    roles<T extends User$rolesArgs<ExtArgs> = {}>(args?: Subset<T, User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Credit<T extends User$CreditArgs<ExtArgs> = {}>(args?: Subset<T, User$CreditArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    CreditUsage<T extends User$CreditUsageArgs<ExtArgs> = {}>(args?: Subset<T, User$CreditUsageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     datasets<T extends User$datasetsArgs<ExtArgs> = {}>(args?: Subset<T, User$datasetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends User$documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roles<T extends User$rolesArgs<ExtArgs> = {}>(args?: Subset<T, User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2455,6 +2576,7 @@ export namespace Prisma {
     readonly asgl_id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly tokensUsed: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -2686,24 +2808,7 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
-  }
-
-  /**
-   * User createManyAndReturn
-   */
-  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * The data used to create many Users.
-     */
-    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -2736,32 +2841,6 @@ export namespace Prisma {
    * User updateMany
    */
   export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Users.
-     */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
-    /**
-     * Filter which Users to update
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * User updateManyAndReturn
-   */
-  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
     /**
      * The data used to update Users.
      */
@@ -2843,27 +2922,51 @@ export namespace Prisma {
   }
 
   /**
-   * User.roles
+   * User.Credit
    */
-  export type User$rolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$CreditArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserRole
+     * Select specific fields to fetch from the Credit
      */
-    select?: UserRoleSelect<ExtArgs> | null
+    select?: CreditSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserRole
+     * Omit specific fields from the Credit
      */
-    omit?: UserRoleOmit<ExtArgs> | null
+    omit?: CreditOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserRoleInclude<ExtArgs> | null
-    where?: UserRoleWhereInput
-    orderBy?: UserRoleOrderByWithRelationInput | UserRoleOrderByWithRelationInput[]
-    cursor?: UserRoleWhereUniqueInput
+    include?: CreditInclude<ExtArgs> | null
+    where?: CreditWhereInput
+    orderBy?: CreditOrderByWithRelationInput | CreditOrderByWithRelationInput[]
+    cursor?: CreditWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UserRoleScalarFieldEnum | UserRoleScalarFieldEnum[]
+    distinct?: CreditScalarFieldEnum | CreditScalarFieldEnum[]
+  }
+
+  /**
+   * User.CreditUsage
+   */
+  export type User$CreditUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    where?: CreditUsageWhereInput
+    orderBy?: CreditUsageOrderByWithRelationInput | CreditUsageOrderByWithRelationInput[]
+    cursor?: CreditUsageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CreditUsageScalarFieldEnum | CreditUsageScalarFieldEnum[]
   }
 
   /**
@@ -2912,6 +3015,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DocumentAccessScalarFieldEnum | DocumentAccessScalarFieldEnum[]
+  }
+
+  /**
+   * User.roles
+   */
+  export type User$rolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    where?: UserRoleWhereInput
+    orderBy?: UserRoleOrderByWithRelationInput | UserRoleOrderByWithRelationInput[]
+    cursor?: UserRoleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserRoleScalarFieldEnum | UserRoleScalarFieldEnum[]
   }
 
   /**
@@ -3078,15 +3205,7 @@ export namespace Prisma {
     _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["role"]>
 
-  export type RoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["role"]>
 
-  export type RoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["role"]>
 
   export type RoleSelectScalar = {
     id?: boolean
@@ -3099,8 +3218,6 @@ export namespace Prisma {
     users?: boolean | Role$usersArgs<ExtArgs>
     _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type RoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type RoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $RolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Role"
@@ -3229,30 +3346,6 @@ export namespace Prisma {
     createMany<T extends RoleCreateManyArgs>(args?: SelectSubset<T, RoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Roles and returns the data saved in the database.
-     * @param {RoleCreateManyAndReturnArgs} args - Arguments to create many Roles.
-     * @example
-     * // Create many Roles
-     * const role = await prisma.role.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Roles and only return the `id`
-     * const roleWithIdOnly = await prisma.role.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends RoleCreateManyAndReturnArgs>(args?: SelectSubset<T, RoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Role.
      * @param {RoleDeleteArgs} args - Arguments to delete one Role.
      * @example
@@ -3315,36 +3408,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends RoleUpdateManyArgs>(args: SelectSubset<T, RoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Roles and returns the data updated in the database.
-     * @param {RoleUpdateManyAndReturnArgs} args - Arguments to update many Roles.
-     * @example
-     * // Update many Roles
-     * const role = await prisma.role.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Roles and only return the `id`
-     * const roleWithIdOnly = await prisma.role.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends RoleUpdateManyAndReturnArgs>(args: SelectSubset<T, RoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Role.
@@ -3767,24 +3830,7 @@ export namespace Prisma {
      * The data used to create many Roles.
      */
     data: RoleCreateManyInput | RoleCreateManyInput[]
-  }
-
-  /**
-   * Role createManyAndReturn
-   */
-  export type RoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Role
-     */
-    select?: RoleSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Role
-     */
-    omit?: RoleOmit<ExtArgs> | null
-    /**
-     * The data used to create many Roles.
-     */
-    data: RoleCreateManyInput | RoleCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -3817,32 +3863,6 @@ export namespace Prisma {
    * Role updateMany
    */
   export type RoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Roles.
-     */
-    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
-    /**
-     * Filter which Roles to update
-     */
-    where?: RoleWhereInput
-    /**
-     * Limit how many Roles to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Role updateManyAndReturn
-   */
-  export type RoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Role
-     */
-    select?: RoleSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Role
-     */
-    omit?: RoleOmit<ExtArgs> | null
     /**
      * The data used to update Roles.
      */
@@ -4134,15 +4154,7 @@ export namespace Prisma {
     _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["permission"]>
 
-  export type PermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["permission"]>
 
-  export type PermissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["permission"]>
 
   export type PermissionSelectScalar = {
     id?: boolean
@@ -4154,8 +4166,6 @@ export namespace Prisma {
     roles?: boolean | Permission$rolesArgs<ExtArgs>
     _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type PermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type PermissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $PermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Permission"
@@ -4283,30 +4293,6 @@ export namespace Prisma {
     createMany<T extends PermissionCreateManyArgs>(args?: SelectSubset<T, PermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Permissions and returns the data saved in the database.
-     * @param {PermissionCreateManyAndReturnArgs} args - Arguments to create many Permissions.
-     * @example
-     * // Create many Permissions
-     * const permission = await prisma.permission.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Permissions and only return the `id`
-     * const permissionWithIdOnly = await prisma.permission.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends PermissionCreateManyAndReturnArgs>(args?: SelectSubset<T, PermissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Permission.
      * @param {PermissionDeleteArgs} args - Arguments to delete one Permission.
      * @example
@@ -4369,36 +4355,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends PermissionUpdateManyArgs>(args: SelectSubset<T, PermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Permissions and returns the data updated in the database.
-     * @param {PermissionUpdateManyAndReturnArgs} args - Arguments to update many Permissions.
-     * @example
-     * // Update many Permissions
-     * const permission = await prisma.permission.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Permissions and only return the `id`
-     * const permissionWithIdOnly = await prisma.permission.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends PermissionUpdateManyAndReturnArgs>(args: SelectSubset<T, PermissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Permission.
@@ -4820,24 +4776,7 @@ export namespace Prisma {
      * The data used to create many Permissions.
      */
     data: PermissionCreateManyInput | PermissionCreateManyInput[]
-  }
-
-  /**
-   * Permission createManyAndReturn
-   */
-  export type PermissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Permission
-     */
-    select?: PermissionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Permission
-     */
-    omit?: PermissionOmit<ExtArgs> | null
-    /**
-     * The data used to create many Permissions.
-     */
-    data: PermissionCreateManyInput | PermissionCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -4870,32 +4809,6 @@ export namespace Prisma {
    * Permission updateMany
    */
   export type PermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Permissions.
-     */
-    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyInput>
-    /**
-     * Filter which Permissions to update
-     */
-    where?: PermissionWhereInput
-    /**
-     * Limit how many Permissions to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Permission updateManyAndReturn
-   */
-  export type PermissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Permission
-     */
-    select?: PermissionSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Permission
-     */
-    omit?: PermissionOmit<ExtArgs> | null
     /**
      * The data used to update Permissions.
      */
@@ -5159,23 +5072,11 @@ export namespace Prisma {
   export type UserRoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     roleId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     role?: boolean | RoleDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userRole"]>
 
-  export type UserRoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    roleId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userRole"]>
 
-  export type UserRoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    roleId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userRole"]>
 
   export type UserRoleSelectScalar = {
     userId?: boolean
@@ -5184,23 +5085,15 @@ export namespace Prisma {
 
   export type UserRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "roleId", ExtArgs["result"]["userRole"]>
   export type UserRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     role?: boolean | RoleDefaultArgs<ExtArgs>
-  }
-  export type UserRoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }
-  export type UserRoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
   }
 
   export type $UserRolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserRole"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       role: Prisma.$RolePayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       userId: string
@@ -5323,30 +5216,6 @@ export namespace Prisma {
     createMany<T extends UserRoleCreateManyArgs>(args?: SelectSubset<T, UserRoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many UserRoles and returns the data saved in the database.
-     * @param {UserRoleCreateManyAndReturnArgs} args - Arguments to create many UserRoles.
-     * @example
-     * // Create many UserRoles
-     * const userRole = await prisma.userRole.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many UserRoles and only return the `userId`
-     * const userRoleWithUserIdOnly = await prisma.userRole.createManyAndReturn({
-     *   select: { userId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UserRoleCreateManyAndReturnArgs>(args?: SelectSubset<T, UserRoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a UserRole.
      * @param {UserRoleDeleteArgs} args - Arguments to delete one UserRole.
      * @example
@@ -5409,36 +5278,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends UserRoleUpdateManyArgs>(args: SelectSubset<T, UserRoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more UserRoles and returns the data updated in the database.
-     * @param {UserRoleUpdateManyAndReturnArgs} args - Arguments to update many UserRoles.
-     * @example
-     * // Update many UserRoles
-     * const userRole = await prisma.userRole.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more UserRoles and only return the `userId`
-     * const userRoleWithUserIdOnly = await prisma.userRole.updateManyAndReturn({
-     *   select: { userId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UserRoleUpdateManyAndReturnArgs>(args: SelectSubset<T, UserRoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one UserRole.
@@ -5599,8 +5438,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserRoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5861,28 +5700,7 @@ export namespace Prisma {
      * The data used to create many UserRoles.
      */
     data: UserRoleCreateManyInput | UserRoleCreateManyInput[]
-  }
-
-  /**
-   * UserRole createManyAndReturn
-   */
-  export type UserRoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserRole
-     */
-    select?: UserRoleSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the UserRole
-     */
-    omit?: UserRoleOmit<ExtArgs> | null
-    /**
-     * The data used to create many UserRoles.
-     */
-    data: UserRoleCreateManyInput | UserRoleCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserRoleIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -5927,36 +5745,6 @@ export namespace Prisma {
      * Limit how many UserRoles to update.
      */
     limit?: number
-  }
-
-  /**
-   * UserRole updateManyAndReturn
-   */
-  export type UserRoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserRole
-     */
-    select?: UserRoleSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the UserRole
-     */
-    omit?: UserRoleOmit<ExtArgs> | null
-    /**
-     * The data used to update UserRoles.
-     */
-    data: XOR<UserRoleUpdateManyMutationInput, UserRoleUncheckedUpdateManyInput>
-    /**
-     * Filter which UserRoles to update
-     */
-    where?: UserRoleWhereInput
-    /**
-     * Limit how many UserRoles to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserRoleIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6184,23 +5972,11 @@ export namespace Prisma {
   export type RolePermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     roleId?: boolean
     permissionId?: boolean
-    role?: boolean | RoleDefaultArgs<ExtArgs>
     permission?: boolean | PermissionDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rolePermission"]>
 
-  export type RolePermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    roleId?: boolean
-    permissionId?: boolean
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-    permission?: boolean | PermissionDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["rolePermission"]>
 
-  export type RolePermissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    roleId?: boolean
-    permissionId?: boolean
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-    permission?: boolean | PermissionDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["rolePermission"]>
 
   export type RolePermissionSelectScalar = {
     roleId?: boolean
@@ -6209,23 +5985,15 @@ export namespace Prisma {
 
   export type RolePermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"roleId" | "permissionId", ExtArgs["result"]["rolePermission"]>
   export type RolePermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    role?: boolean | RoleDefaultArgs<ExtArgs>
     permission?: boolean | PermissionDefaultArgs<ExtArgs>
-  }
-  export type RolePermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | RoleDefaultArgs<ExtArgs>
-    permission?: boolean | PermissionDefaultArgs<ExtArgs>
-  }
-  export type RolePermissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-    permission?: boolean | PermissionDefaultArgs<ExtArgs>
   }
 
   export type $RolePermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "RolePermission"
     objects: {
-      role: Prisma.$RolePayload<ExtArgs>
       permission: Prisma.$PermissionPayload<ExtArgs>
+      role: Prisma.$RolePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       roleId: string
@@ -6348,30 +6116,6 @@ export namespace Prisma {
     createMany<T extends RolePermissionCreateManyArgs>(args?: SelectSubset<T, RolePermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many RolePermissions and returns the data saved in the database.
-     * @param {RolePermissionCreateManyAndReturnArgs} args - Arguments to create many RolePermissions.
-     * @example
-     * // Create many RolePermissions
-     * const rolePermission = await prisma.rolePermission.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many RolePermissions and only return the `roleId`
-     * const rolePermissionWithRoleIdOnly = await prisma.rolePermission.createManyAndReturn({
-     *   select: { roleId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends RolePermissionCreateManyAndReturnArgs>(args?: SelectSubset<T, RolePermissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a RolePermission.
      * @param {RolePermissionDeleteArgs} args - Arguments to delete one RolePermission.
      * @example
@@ -6434,36 +6178,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends RolePermissionUpdateManyArgs>(args: SelectSubset<T, RolePermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more RolePermissions and returns the data updated in the database.
-     * @param {RolePermissionUpdateManyAndReturnArgs} args - Arguments to update many RolePermissions.
-     * @example
-     * // Update many RolePermissions
-     * const rolePermission = await prisma.rolePermission.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more RolePermissions and only return the `roleId`
-     * const rolePermissionWithRoleIdOnly = await prisma.rolePermission.updateManyAndReturn({
-     *   select: { roleId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends RolePermissionUpdateManyAndReturnArgs>(args: SelectSubset<T, RolePermissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one RolePermission.
@@ -6624,8 +6338,8 @@ export namespace Prisma {
    */
   export interface Prisma__RolePermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     permission<T extends PermissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PermissionDefaultArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6886,28 +6600,7 @@ export namespace Prisma {
      * The data used to create many RolePermissions.
      */
     data: RolePermissionCreateManyInput | RolePermissionCreateManyInput[]
-  }
-
-  /**
-   * RolePermission createManyAndReturn
-   */
-  export type RolePermissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RolePermission
-     */
-    select?: RolePermissionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the RolePermission
-     */
-    omit?: RolePermissionOmit<ExtArgs> | null
-    /**
-     * The data used to create many RolePermissions.
-     */
-    data: RolePermissionCreateManyInput | RolePermissionCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RolePermissionIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -6952,36 +6645,6 @@ export namespace Prisma {
      * Limit how many RolePermissions to update.
      */
     limit?: number
-  }
-
-  /**
-   * RolePermission updateManyAndReturn
-   */
-  export type RolePermissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RolePermission
-     */
-    select?: RolePermissionSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the RolePermission
-     */
-    omit?: RolePermissionOmit<ExtArgs> | null
-    /**
-     * The data used to update RolePermissions.
-     */
-    data: XOR<RolePermissionUpdateManyMutationInput, RolePermissionUncheckedUpdateManyInput>
-    /**
-     * Filter which RolePermissions to update
-     */
-    where?: RolePermissionWhereInput
-    /**
-     * Limit how many RolePermissions to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RolePermissionIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7243,30 +6906,12 @@ export namespace Prisma {
     updatedAt?: boolean
     parent?: boolean | Dataset$parentArgs<ExtArgs>
     children?: boolean | Dataset$childrenArgs<ExtArgs>
-    documents?: boolean | Dataset$documentsArgs<ExtArgs>
     accesses?: boolean | Dataset$accessesArgs<ExtArgs>
+    documents?: boolean | Dataset$documentsArgs<ExtArgs>
     _count?: boolean | DatasetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dataset"]>
 
-  export type DatasetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    dataset_id?: boolean
-    name?: boolean
-    parent_id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    parent?: boolean | Dataset$parentArgs<ExtArgs>
-  }, ExtArgs["result"]["dataset"]>
 
-  export type DatasetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    dataset_id?: boolean
-    name?: boolean
-    parent_id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    parent?: boolean | Dataset$parentArgs<ExtArgs>
-  }, ExtArgs["result"]["dataset"]>
 
   export type DatasetSelectScalar = {
     id?: boolean
@@ -7281,15 +6926,9 @@ export namespace Prisma {
   export type DatasetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parent?: boolean | Dataset$parentArgs<ExtArgs>
     children?: boolean | Dataset$childrenArgs<ExtArgs>
-    documents?: boolean | Dataset$documentsArgs<ExtArgs>
     accesses?: boolean | Dataset$accessesArgs<ExtArgs>
+    documents?: boolean | Dataset$documentsArgs<ExtArgs>
     _count?: boolean | DatasetCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type DatasetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parent?: boolean | Dataset$parentArgs<ExtArgs>
-  }
-  export type DatasetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parent?: boolean | Dataset$parentArgs<ExtArgs>
   }
 
   export type $DatasetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7297,8 +6936,8 @@ export namespace Prisma {
     objects: {
       parent: Prisma.$DatasetPayload<ExtArgs> | null
       children: Prisma.$DatasetPayload<ExtArgs>[]
-      documents: Prisma.$DocumentPayload<ExtArgs>[]
       accesses: Prisma.$DatasetAccessPayload<ExtArgs>[]
+      documents: Prisma.$DocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7425,30 +7064,6 @@ export namespace Prisma {
     createMany<T extends DatasetCreateManyArgs>(args?: SelectSubset<T, DatasetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Datasets and returns the data saved in the database.
-     * @param {DatasetCreateManyAndReturnArgs} args - Arguments to create many Datasets.
-     * @example
-     * // Create many Datasets
-     * const dataset = await prisma.dataset.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Datasets and only return the `id`
-     * const datasetWithIdOnly = await prisma.dataset.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DatasetCreateManyAndReturnArgs>(args?: SelectSubset<T, DatasetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Dataset.
      * @param {DatasetDeleteArgs} args - Arguments to delete one Dataset.
      * @example
@@ -7511,36 +7126,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DatasetUpdateManyArgs>(args: SelectSubset<T, DatasetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Datasets and returns the data updated in the database.
-     * @param {DatasetUpdateManyAndReturnArgs} args - Arguments to update many Datasets.
-     * @example
-     * // Update many Datasets
-     * const dataset = await prisma.dataset.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Datasets and only return the `id`
-     * const datasetWithIdOnly = await prisma.dataset.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DatasetUpdateManyAndReturnArgs>(args: SelectSubset<T, DatasetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Dataset.
@@ -7703,8 +7288,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     parent<T extends Dataset$parentArgs<ExtArgs> = {}>(args?: Subset<T, Dataset$parentArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     children<T extends Dataset$childrenArgs<ExtArgs> = {}>(args?: Subset<T, Dataset$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    documents<T extends Dataset$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Dataset$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accesses<T extends Dataset$accessesArgs<ExtArgs> = {}>(args?: Subset<T, Dataset$accessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    documents<T extends Dataset$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Dataset$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7969,28 +7554,7 @@ export namespace Prisma {
      * The data used to create many Datasets.
      */
     data: DatasetCreateManyInput | DatasetCreateManyInput[]
-  }
-
-  /**
-   * Dataset createManyAndReturn
-   */
-  export type DatasetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Dataset
-     */
-    select?: DatasetSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Dataset
-     */
-    omit?: DatasetOmit<ExtArgs> | null
-    /**
-     * The data used to create many Datasets.
-     */
-    data: DatasetCreateManyInput | DatasetCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DatasetIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -8035,36 +7599,6 @@ export namespace Prisma {
      * Limit how many Datasets to update.
      */
     limit?: number
-  }
-
-  /**
-   * Dataset updateManyAndReturn
-   */
-  export type DatasetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Dataset
-     */
-    select?: DatasetSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Dataset
-     */
-    omit?: DatasetOmit<ExtArgs> | null
-    /**
-     * The data used to update Datasets.
-     */
-    data: XOR<DatasetUpdateManyMutationInput, DatasetUncheckedUpdateManyInput>
-    /**
-     * Filter which Datasets to update
-     */
-    where?: DatasetWhereInput
-    /**
-     * Limit how many Datasets to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DatasetIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8177,30 +7711,6 @@ export namespace Prisma {
   }
 
   /**
-   * Dataset.documents
-   */
-  export type Dataset$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Document
-     */
-    select?: DocumentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Document
-     */
-    omit?: DocumentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentInclude<ExtArgs> | null
-    where?: DocumentWhereInput
-    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
-    cursor?: DocumentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
-  }
-
-  /**
    * Dataset.accesses
    */
   export type Dataset$accessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8222,6 +7732,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DatasetAccessScalarFieldEnum | DatasetAccessScalarFieldEnum[]
+  }
+
+  /**
+   * Dataset.documents
+   */
+  export type Dataset$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    where?: DocumentWhereInput
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    cursor?: DocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
   }
 
   /**
@@ -8470,29 +8004,7 @@ export namespace Prisma {
     _count?: boolean | DocumentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
-  export type DocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    document_id?: boolean
-    name?: boolean
-    type?: boolean
-    size?: boolean
-    datasetId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["document"]>
 
-  export type DocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    document_id?: boolean
-    name?: boolean
-    type?: boolean
-    size?: boolean
-    datasetId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectScalar = {
     id?: boolean
@@ -8510,12 +8022,6 @@ export namespace Prisma {
     dataset?: boolean | DatasetDefaultArgs<ExtArgs>
     accesses?: boolean | Document$accessesArgs<ExtArgs>
     _count?: boolean | DocumentCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type DocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }
-  export type DocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
   }
 
   export type $DocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8651,30 +8157,6 @@ export namespace Prisma {
     createMany<T extends DocumentCreateManyArgs>(args?: SelectSubset<T, DocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Documents and returns the data saved in the database.
-     * @param {DocumentCreateManyAndReturnArgs} args - Arguments to create many Documents.
-     * @example
-     * // Create many Documents
-     * const document = await prisma.document.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Documents and only return the `id`
-     * const documentWithIdOnly = await prisma.document.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Document.
      * @param {DocumentDeleteArgs} args - Arguments to delete one Document.
      * @example
@@ -8737,36 +8219,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DocumentUpdateManyArgs>(args: SelectSubset<T, DocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Documents and returns the data updated in the database.
-     * @param {DocumentUpdateManyAndReturnArgs} args - Arguments to update many Documents.
-     * @example
-     * // Update many Documents
-     * const document = await prisma.document.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Documents and only return the `id`
-     * const documentWithIdOnly = await prisma.document.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Document.
@@ -9195,28 +8647,7 @@ export namespace Prisma {
      * The data used to create many Documents.
      */
     data: DocumentCreateManyInput | DocumentCreateManyInput[]
-  }
-
-  /**
-   * Document createManyAndReturn
-   */
-  export type DocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Document
-     */
-    select?: DocumentSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Document
-     */
-    omit?: DocumentOmit<ExtArgs> | null
-    /**
-     * The data used to create many Documents.
-     */
-    data: DocumentCreateManyInput | DocumentCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -9261,36 +8692,6 @@ export namespace Prisma {
      * Limit how many Documents to update.
      */
     limit?: number
-  }
-
-  /**
-   * Document updateManyAndReturn
-   */
-  export type DocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Document
-     */
-    select?: DocumentSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Document
-     */
-    omit?: DocumentOmit<ExtArgs> | null
-    /**
-     * The data used to update Documents.
-     */
-    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyInput>
-    /**
-     * Filter which Documents to update
-     */
-    where?: DocumentWhereInput
-    /**
-     * Limit how many Documents to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9566,29 +8967,11 @@ export namespace Prisma {
     canView?: boolean
     canEdit?: boolean
     canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     dataset?: boolean | DatasetDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["datasetAccess"]>
 
-  export type DatasetAccessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    datasetId?: boolean
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["datasetAccess"]>
 
-  export type DatasetAccessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    datasetId?: boolean
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["datasetAccess"]>
 
   export type DatasetAccessSelectScalar = {
     userId?: boolean
@@ -9600,23 +8983,15 @@ export namespace Prisma {
 
   export type DatasetAccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "datasetId" | "canView" | "canEdit" | "canDelete", ExtArgs["result"]["datasetAccess"]>
   export type DatasetAccessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }
-  export type DatasetAccessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
-  }
-  export type DatasetAccessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
   }
 
   export type $DatasetAccessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "DatasetAccess"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       dataset: Prisma.$DatasetPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       userId: string
@@ -9742,30 +9117,6 @@ export namespace Prisma {
     createMany<T extends DatasetAccessCreateManyArgs>(args?: SelectSubset<T, DatasetAccessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many DatasetAccesses and returns the data saved in the database.
-     * @param {DatasetAccessCreateManyAndReturnArgs} args - Arguments to create many DatasetAccesses.
-     * @example
-     * // Create many DatasetAccesses
-     * const datasetAccess = await prisma.datasetAccess.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many DatasetAccesses and only return the `userId`
-     * const datasetAccessWithUserIdOnly = await prisma.datasetAccess.createManyAndReturn({
-     *   select: { userId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DatasetAccessCreateManyAndReturnArgs>(args?: SelectSubset<T, DatasetAccessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetAccessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a DatasetAccess.
      * @param {DatasetAccessDeleteArgs} args - Arguments to delete one DatasetAccess.
      * @example
@@ -9828,36 +9179,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DatasetAccessUpdateManyArgs>(args: SelectSubset<T, DatasetAccessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more DatasetAccesses and returns the data updated in the database.
-     * @param {DatasetAccessUpdateManyAndReturnArgs} args - Arguments to update many DatasetAccesses.
-     * @example
-     * // Update many DatasetAccesses
-     * const datasetAccess = await prisma.datasetAccess.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more DatasetAccesses and only return the `userId`
-     * const datasetAccessWithUserIdOnly = await prisma.datasetAccess.updateManyAndReturn({
-     *   select: { userId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DatasetAccessUpdateManyAndReturnArgs>(args: SelectSubset<T, DatasetAccessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetAccessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one DatasetAccess.
@@ -10018,8 +9339,8 @@ export namespace Prisma {
    */
   export interface Prisma__DatasetAccessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     dataset<T extends DatasetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DatasetDefaultArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10283,28 +9604,7 @@ export namespace Prisma {
      * The data used to create many DatasetAccesses.
      */
     data: DatasetAccessCreateManyInput | DatasetAccessCreateManyInput[]
-  }
-
-  /**
-   * DatasetAccess createManyAndReturn
-   */
-  export type DatasetAccessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DatasetAccess
-     */
-    select?: DatasetAccessSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the DatasetAccess
-     */
-    omit?: DatasetAccessOmit<ExtArgs> | null
-    /**
-     * The data used to create many DatasetAccesses.
-     */
-    data: DatasetAccessCreateManyInput | DatasetAccessCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DatasetAccessIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -10349,36 +9649,6 @@ export namespace Prisma {
      * Limit how many DatasetAccesses to update.
      */
     limit?: number
-  }
-
-  /**
-   * DatasetAccess updateManyAndReturn
-   */
-  export type DatasetAccessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DatasetAccess
-     */
-    select?: DatasetAccessSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the DatasetAccess
-     */
-    omit?: DatasetAccessOmit<ExtArgs> | null
-    /**
-     * The data used to update DatasetAccesses.
-     */
-    data: XOR<DatasetAccessUpdateManyMutationInput, DatasetAccessUncheckedUpdateManyInput>
-    /**
-     * Filter which DatasetAccesses to update
-     */
-    where?: DatasetAccessWhereInput
-    /**
-     * Limit how many DatasetAccesses to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DatasetAccessIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10630,29 +9900,11 @@ export namespace Prisma {
     canView?: boolean
     canEdit?: boolean
     canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     document?: boolean | DocumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["documentAccess"]>
 
-  export type DocumentAccessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    documentId?: boolean
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    document?: boolean | DocumentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["documentAccess"]>
 
-  export type DocumentAccessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    documentId?: boolean
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    document?: boolean | DocumentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["documentAccess"]>
 
   export type DocumentAccessSelectScalar = {
     userId?: boolean
@@ -10664,23 +9916,15 @@ export namespace Prisma {
 
   export type DocumentAccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "documentId" | "canView" | "canEdit" | "canDelete", ExtArgs["result"]["documentAccess"]>
   export type DocumentAccessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     document?: boolean | DocumentDefaultArgs<ExtArgs>
-  }
-  export type DocumentAccessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    document?: boolean | DocumentDefaultArgs<ExtArgs>
-  }
-  export type DocumentAccessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    document?: boolean | DocumentDefaultArgs<ExtArgs>
   }
 
   export type $DocumentAccessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "DocumentAccess"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       document: Prisma.$DocumentPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       userId: string
@@ -10806,30 +10050,6 @@ export namespace Prisma {
     createMany<T extends DocumentAccessCreateManyArgs>(args?: SelectSubset<T, DocumentAccessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many DocumentAccesses and returns the data saved in the database.
-     * @param {DocumentAccessCreateManyAndReturnArgs} args - Arguments to create many DocumentAccesses.
-     * @example
-     * // Create many DocumentAccesses
-     * const documentAccess = await prisma.documentAccess.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many DocumentAccesses and only return the `userId`
-     * const documentAccessWithUserIdOnly = await prisma.documentAccess.createManyAndReturn({
-     *   select: { userId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DocumentAccessCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentAccessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a DocumentAccess.
      * @param {DocumentAccessDeleteArgs} args - Arguments to delete one DocumentAccess.
      * @example
@@ -10892,36 +10112,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DocumentAccessUpdateManyArgs>(args: SelectSubset<T, DocumentAccessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more DocumentAccesses and returns the data updated in the database.
-     * @param {DocumentAccessUpdateManyAndReturnArgs} args - Arguments to update many DocumentAccesses.
-     * @example
-     * // Update many DocumentAccesses
-     * const documentAccess = await prisma.documentAccess.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more DocumentAccesses and only return the `userId`
-     * const documentAccessWithUserIdOnly = await prisma.documentAccess.updateManyAndReturn({
-     *   select: { userId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DocumentAccessUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentAccessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one DocumentAccess.
@@ -11082,8 +10272,8 @@ export namespace Prisma {
    */
   export interface Prisma__DocumentAccessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     document<T extends DocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DocumentDefaultArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11347,28 +10537,7 @@ export namespace Prisma {
      * The data used to create many DocumentAccesses.
      */
     data: DocumentAccessCreateManyInput | DocumentAccessCreateManyInput[]
-  }
-
-  /**
-   * DocumentAccess createManyAndReturn
-   */
-  export type DocumentAccessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DocumentAccess
-     */
-    select?: DocumentAccessSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the DocumentAccess
-     */
-    omit?: DocumentAccessOmit<ExtArgs> | null
-    /**
-     * The data used to create many DocumentAccesses.
-     */
-    data: DocumentAccessCreateManyInput | DocumentAccessCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentAccessIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -11413,36 +10582,6 @@ export namespace Prisma {
      * Limit how many DocumentAccesses to update.
      */
     limit?: number
-  }
-
-  /**
-   * DocumentAccess updateManyAndReturn
-   */
-  export type DocumentAccessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DocumentAccess
-     */
-    select?: DocumentAccessSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the DocumentAccess
-     */
-    omit?: DocumentAccessOmit<ExtArgs> | null
-    /**
-     * The data used to update DocumentAccesses.
-     */
-    data: XOR<DocumentAccessUpdateManyMutationInput, DocumentAccessUncheckedUpdateManyInput>
-    /**
-     * Filter which DocumentAccesses to update
-     */
-    where?: DocumentAccessWhereInput
-    /**
-     * Limit how many DocumentAccesses to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentAccessIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -11531,10 +10670,2066 @@ export namespace Prisma {
 
 
   /**
+   * Model Credit
+   */
+
+  export type AggregateCredit = {
+    _count: CreditCountAggregateOutputType | null
+    _avg: CreditAvgAggregateOutputType | null
+    _sum: CreditSumAggregateOutputType | null
+    _min: CreditMinAggregateOutputType | null
+    _max: CreditMaxAggregateOutputType | null
+  }
+
+  export type CreditAvgAggregateOutputType = {
+    month: number | null
+    year: number | null
+    totalCredits: number | null
+    usedCredits: number | null
+    remainingCredits: number | null
+  }
+
+  export type CreditSumAggregateOutputType = {
+    month: number | null
+    year: number | null
+    totalCredits: number | null
+    usedCredits: number | null
+    remainingCredits: number | null
+  }
+
+  export type CreditMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    month: number | null
+    year: number | null
+    totalCredits: number | null
+    usedCredits: number | null
+    remainingCredits: number | null
+    lastChatAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CreditMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    month: number | null
+    year: number | null
+    totalCredits: number | null
+    usedCredits: number | null
+    remainingCredits: number | null
+    lastChatAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CreditCountAggregateOutputType = {
+    id: number
+    userId: number
+    month: number
+    year: number
+    totalCredits: number
+    usedCredits: number
+    remainingCredits: number
+    lastChatAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CreditAvgAggregateInputType = {
+    month?: true
+    year?: true
+    totalCredits?: true
+    usedCredits?: true
+    remainingCredits?: true
+  }
+
+  export type CreditSumAggregateInputType = {
+    month?: true
+    year?: true
+    totalCredits?: true
+    usedCredits?: true
+    remainingCredits?: true
+  }
+
+  export type CreditMinAggregateInputType = {
+    id?: true
+    userId?: true
+    month?: true
+    year?: true
+    totalCredits?: true
+    usedCredits?: true
+    remainingCredits?: true
+    lastChatAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CreditMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    month?: true
+    year?: true
+    totalCredits?: true
+    usedCredits?: true
+    remainingCredits?: true
+    lastChatAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CreditCountAggregateInputType = {
+    id?: true
+    userId?: true
+    month?: true
+    year?: true
+    totalCredits?: true
+    usedCredits?: true
+    remainingCredits?: true
+    lastChatAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CreditAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Credit to aggregate.
+     */
+    where?: CreditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Credits to fetch.
+     */
+    orderBy?: CreditOrderByWithRelationInput | CreditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CreditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Credits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Credits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Credits
+    **/
+    _count?: true | CreditCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CreditAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CreditSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CreditMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CreditMaxAggregateInputType
+  }
+
+  export type GetCreditAggregateType<T extends CreditAggregateArgs> = {
+        [P in keyof T & keyof AggregateCredit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCredit[P]>
+      : GetScalarType<T[P], AggregateCredit[P]>
+  }
+
+
+
+
+  export type CreditGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreditWhereInput
+    orderBy?: CreditOrderByWithAggregationInput | CreditOrderByWithAggregationInput[]
+    by: CreditScalarFieldEnum[] | CreditScalarFieldEnum
+    having?: CreditScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CreditCountAggregateInputType | true
+    _avg?: CreditAvgAggregateInputType
+    _sum?: CreditSumAggregateInputType
+    _min?: CreditMinAggregateInputType
+    _max?: CreditMaxAggregateInputType
+  }
+
+  export type CreditGroupByOutputType = {
+    id: string
+    userId: string
+    month: number
+    year: number
+    totalCredits: number
+    usedCredits: number
+    remainingCredits: number
+    lastChatAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CreditCountAggregateOutputType | null
+    _avg: CreditAvgAggregateOutputType | null
+    _sum: CreditSumAggregateOutputType | null
+    _min: CreditMinAggregateOutputType | null
+    _max: CreditMaxAggregateOutputType | null
+  }
+
+  type GetCreditGroupByPayload<T extends CreditGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CreditGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CreditGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CreditGroupByOutputType[P]>
+            : GetScalarType<T[P], CreditGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CreditSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    month?: boolean
+    year?: boolean
+    totalCredits?: boolean
+    usedCredits?: boolean
+    remainingCredits?: boolean
+    lastChatAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    User?: boolean | UserDefaultArgs<ExtArgs>
+    CreditUsage?: boolean | Credit$CreditUsageArgs<ExtArgs>
+    _count?: boolean | CreditCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["credit"]>
+
+
+
+  export type CreditSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    month?: boolean
+    year?: boolean
+    totalCredits?: boolean
+    usedCredits?: boolean
+    remainingCredits?: boolean
+    lastChatAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CreditOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "month" | "year" | "totalCredits" | "usedCredits" | "remainingCredits" | "lastChatAt" | "createdAt" | "updatedAt", ExtArgs["result"]["credit"]>
+  export type CreditInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | UserDefaultArgs<ExtArgs>
+    CreditUsage?: boolean | Credit$CreditUsageArgs<ExtArgs>
+    _count?: boolean | CreditCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $CreditPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Credit"
+    objects: {
+      User: Prisma.$UserPayload<ExtArgs>
+      CreditUsage: Prisma.$CreditUsagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      month: number
+      year: number
+      totalCredits: number
+      usedCredits: number
+      remainingCredits: number
+      lastChatAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["credit"]>
+    composites: {}
+  }
+
+  type CreditGetPayload<S extends boolean | null | undefined | CreditDefaultArgs> = $Result.GetResult<Prisma.$CreditPayload, S>
+
+  type CreditCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CreditFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CreditCountAggregateInputType | true
+    }
+
+  export interface CreditDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Credit'], meta: { name: 'Credit' } }
+    /**
+     * Find zero or one Credit that matches the filter.
+     * @param {CreditFindUniqueArgs} args - Arguments to find a Credit
+     * @example
+     * // Get one Credit
+     * const credit = await prisma.credit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CreditFindUniqueArgs>(args: SelectSubset<T, CreditFindUniqueArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Credit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CreditFindUniqueOrThrowArgs} args - Arguments to find a Credit
+     * @example
+     * // Get one Credit
+     * const credit = await prisma.credit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CreditFindUniqueOrThrowArgs>(args: SelectSubset<T, CreditFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Credit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditFindFirstArgs} args - Arguments to find a Credit
+     * @example
+     * // Get one Credit
+     * const credit = await prisma.credit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CreditFindFirstArgs>(args?: SelectSubset<T, CreditFindFirstArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Credit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditFindFirstOrThrowArgs} args - Arguments to find a Credit
+     * @example
+     * // Get one Credit
+     * const credit = await prisma.credit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CreditFindFirstOrThrowArgs>(args?: SelectSubset<T, CreditFindFirstOrThrowArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Credits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Credits
+     * const credits = await prisma.credit.findMany()
+     * 
+     * // Get first 10 Credits
+     * const credits = await prisma.credit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const creditWithIdOnly = await prisma.credit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CreditFindManyArgs>(args?: SelectSubset<T, CreditFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Credit.
+     * @param {CreditCreateArgs} args - Arguments to create a Credit.
+     * @example
+     * // Create one Credit
+     * const Credit = await prisma.credit.create({
+     *   data: {
+     *     // ... data to create a Credit
+     *   }
+     * })
+     * 
+     */
+    create<T extends CreditCreateArgs>(args: SelectSubset<T, CreditCreateArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Credits.
+     * @param {CreditCreateManyArgs} args - Arguments to create many Credits.
+     * @example
+     * // Create many Credits
+     * const credit = await prisma.credit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CreditCreateManyArgs>(args?: SelectSubset<T, CreditCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Credit.
+     * @param {CreditDeleteArgs} args - Arguments to delete one Credit.
+     * @example
+     * // Delete one Credit
+     * const Credit = await prisma.credit.delete({
+     *   where: {
+     *     // ... filter to delete one Credit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CreditDeleteArgs>(args: SelectSubset<T, CreditDeleteArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Credit.
+     * @param {CreditUpdateArgs} args - Arguments to update one Credit.
+     * @example
+     * // Update one Credit
+     * const credit = await prisma.credit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CreditUpdateArgs>(args: SelectSubset<T, CreditUpdateArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Credits.
+     * @param {CreditDeleteManyArgs} args - Arguments to filter Credits to delete.
+     * @example
+     * // Delete a few Credits
+     * const { count } = await prisma.credit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CreditDeleteManyArgs>(args?: SelectSubset<T, CreditDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Credits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Credits
+     * const credit = await prisma.credit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CreditUpdateManyArgs>(args: SelectSubset<T, CreditUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Credit.
+     * @param {CreditUpsertArgs} args - Arguments to update or create a Credit.
+     * @example
+     * // Update or create a Credit
+     * const credit = await prisma.credit.upsert({
+     *   create: {
+     *     // ... data to create a Credit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Credit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CreditUpsertArgs>(args: SelectSubset<T, CreditUpsertArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Credits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditCountArgs} args - Arguments to filter Credits to count.
+     * @example
+     * // Count the number of Credits
+     * const count = await prisma.credit.count({
+     *   where: {
+     *     // ... the filter for the Credits we want to count
+     *   }
+     * })
+    **/
+    count<T extends CreditCountArgs>(
+      args?: Subset<T, CreditCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CreditCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Credit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CreditAggregateArgs>(args: Subset<T, CreditAggregateArgs>): Prisma.PrismaPromise<GetCreditAggregateType<T>>
+
+    /**
+     * Group by Credit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CreditGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CreditGroupByArgs['orderBy'] }
+        : { orderBy?: CreditGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CreditGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCreditGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Credit model
+   */
+  readonly fields: CreditFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Credit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CreditClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    CreditUsage<T extends Credit$CreditUsageArgs<ExtArgs> = {}>(args?: Subset<T, Credit$CreditUsageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Credit model
+   */
+  interface CreditFieldRefs {
+    readonly id: FieldRef<"Credit", 'String'>
+    readonly userId: FieldRef<"Credit", 'String'>
+    readonly month: FieldRef<"Credit", 'Int'>
+    readonly year: FieldRef<"Credit", 'Int'>
+    readonly totalCredits: FieldRef<"Credit", 'Int'>
+    readonly usedCredits: FieldRef<"Credit", 'Int'>
+    readonly remainingCredits: FieldRef<"Credit", 'Int'>
+    readonly lastChatAt: FieldRef<"Credit", 'DateTime'>
+    readonly createdAt: FieldRef<"Credit", 'DateTime'>
+    readonly updatedAt: FieldRef<"Credit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Credit findUnique
+   */
+  export type CreditFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * Filter, which Credit to fetch.
+     */
+    where: CreditWhereUniqueInput
+  }
+
+  /**
+   * Credit findUniqueOrThrow
+   */
+  export type CreditFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * Filter, which Credit to fetch.
+     */
+    where: CreditWhereUniqueInput
+  }
+
+  /**
+   * Credit findFirst
+   */
+  export type CreditFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * Filter, which Credit to fetch.
+     */
+    where?: CreditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Credits to fetch.
+     */
+    orderBy?: CreditOrderByWithRelationInput | CreditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Credits.
+     */
+    cursor?: CreditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Credits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Credits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Credits.
+     */
+    distinct?: CreditScalarFieldEnum | CreditScalarFieldEnum[]
+  }
+
+  /**
+   * Credit findFirstOrThrow
+   */
+  export type CreditFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * Filter, which Credit to fetch.
+     */
+    where?: CreditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Credits to fetch.
+     */
+    orderBy?: CreditOrderByWithRelationInput | CreditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Credits.
+     */
+    cursor?: CreditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Credits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Credits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Credits.
+     */
+    distinct?: CreditScalarFieldEnum | CreditScalarFieldEnum[]
+  }
+
+  /**
+   * Credit findMany
+   */
+  export type CreditFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * Filter, which Credits to fetch.
+     */
+    where?: CreditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Credits to fetch.
+     */
+    orderBy?: CreditOrderByWithRelationInput | CreditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Credits.
+     */
+    cursor?: CreditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Credits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Credits.
+     */
+    skip?: number
+    distinct?: CreditScalarFieldEnum | CreditScalarFieldEnum[]
+  }
+
+  /**
+   * Credit create
+   */
+  export type CreditCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Credit.
+     */
+    data: XOR<CreditCreateInput, CreditUncheckedCreateInput>
+  }
+
+  /**
+   * Credit createMany
+   */
+  export type CreditCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Credits.
+     */
+    data: CreditCreateManyInput | CreditCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Credit update
+   */
+  export type CreditUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Credit.
+     */
+    data: XOR<CreditUpdateInput, CreditUncheckedUpdateInput>
+    /**
+     * Choose, which Credit to update.
+     */
+    where: CreditWhereUniqueInput
+  }
+
+  /**
+   * Credit updateMany
+   */
+  export type CreditUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Credits.
+     */
+    data: XOR<CreditUpdateManyMutationInput, CreditUncheckedUpdateManyInput>
+    /**
+     * Filter which Credits to update
+     */
+    where?: CreditWhereInput
+    /**
+     * Limit how many Credits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Credit upsert
+   */
+  export type CreditUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Credit to update in case it exists.
+     */
+    where: CreditWhereUniqueInput
+    /**
+     * In case the Credit found by the `where` argument doesn't exist, create a new Credit with this data.
+     */
+    create: XOR<CreditCreateInput, CreditUncheckedCreateInput>
+    /**
+     * In case the Credit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CreditUpdateInput, CreditUncheckedUpdateInput>
+  }
+
+  /**
+   * Credit delete
+   */
+  export type CreditDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+    /**
+     * Filter which Credit to delete.
+     */
+    where: CreditWhereUniqueInput
+  }
+
+  /**
+   * Credit deleteMany
+   */
+  export type CreditDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Credits to delete
+     */
+    where?: CreditWhereInput
+    /**
+     * Limit how many Credits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Credit.CreditUsage
+   */
+  export type Credit$CreditUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    where?: CreditUsageWhereInput
+    orderBy?: CreditUsageOrderByWithRelationInput | CreditUsageOrderByWithRelationInput[]
+    cursor?: CreditUsageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CreditUsageScalarFieldEnum | CreditUsageScalarFieldEnum[]
+  }
+
+  /**
+   * Credit without action
+   */
+  export type CreditDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Credit
+     */
+    select?: CreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Credit
+     */
+    omit?: CreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CreditUsage
+   */
+
+  export type AggregateCreditUsage = {
+    _count: CreditUsageCountAggregateOutputType | null
+    _avg: CreditUsageAvgAggregateOutputType | null
+    _sum: CreditUsageSumAggregateOutputType | null
+    _min: CreditUsageMinAggregateOutputType | null
+    _max: CreditUsageMaxAggregateOutputType | null
+  }
+
+  export type CreditUsageAvgAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type CreditUsageSumAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type CreditUsageMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    creditId: string | null
+    amount: number | null
+    action: string | null
+    metadata: string | null
+    createdAt: Date | null
+  }
+
+  export type CreditUsageMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    creditId: string | null
+    amount: number | null
+    action: string | null
+    metadata: string | null
+    createdAt: Date | null
+  }
+
+  export type CreditUsageCountAggregateOutputType = {
+    id: number
+    userId: number
+    creditId: number
+    amount: number
+    action: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CreditUsageAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type CreditUsageSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type CreditUsageMinAggregateInputType = {
+    id?: true
+    userId?: true
+    creditId?: true
+    amount?: true
+    action?: true
+    metadata?: true
+    createdAt?: true
+  }
+
+  export type CreditUsageMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    creditId?: true
+    amount?: true
+    action?: true
+    metadata?: true
+    createdAt?: true
+  }
+
+  export type CreditUsageCountAggregateInputType = {
+    id?: true
+    userId?: true
+    creditId?: true
+    amount?: true
+    action?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CreditUsageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreditUsage to aggregate.
+     */
+    where?: CreditUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditUsages to fetch.
+     */
+    orderBy?: CreditUsageOrderByWithRelationInput | CreditUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CreditUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CreditUsages
+    **/
+    _count?: true | CreditUsageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CreditUsageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CreditUsageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CreditUsageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CreditUsageMaxAggregateInputType
+  }
+
+  export type GetCreditUsageAggregateType<T extends CreditUsageAggregateArgs> = {
+        [P in keyof T & keyof AggregateCreditUsage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCreditUsage[P]>
+      : GetScalarType<T[P], AggregateCreditUsage[P]>
+  }
+
+
+
+
+  export type CreditUsageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreditUsageWhereInput
+    orderBy?: CreditUsageOrderByWithAggregationInput | CreditUsageOrderByWithAggregationInput[]
+    by: CreditUsageScalarFieldEnum[] | CreditUsageScalarFieldEnum
+    having?: CreditUsageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CreditUsageCountAggregateInputType | true
+    _avg?: CreditUsageAvgAggregateInputType
+    _sum?: CreditUsageSumAggregateInputType
+    _min?: CreditUsageMinAggregateInputType
+    _max?: CreditUsageMaxAggregateInputType
+  }
+
+  export type CreditUsageGroupByOutputType = {
+    id: string
+    userId: string
+    creditId: string
+    amount: number
+    action: string
+    metadata: string | null
+    createdAt: Date
+    _count: CreditUsageCountAggregateOutputType | null
+    _avg: CreditUsageAvgAggregateOutputType | null
+    _sum: CreditUsageSumAggregateOutputType | null
+    _min: CreditUsageMinAggregateOutputType | null
+    _max: CreditUsageMaxAggregateOutputType | null
+  }
+
+  type GetCreditUsageGroupByPayload<T extends CreditUsageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CreditUsageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CreditUsageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CreditUsageGroupByOutputType[P]>
+            : GetScalarType<T[P], CreditUsageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CreditUsageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    creditId?: boolean
+    amount?: boolean
+    action?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    Credit?: boolean | CreditDefaultArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creditUsage"]>
+
+
+
+  export type CreditUsageSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    creditId?: boolean
+    amount?: boolean
+    action?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type CreditUsageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "creditId" | "amount" | "action" | "metadata" | "createdAt", ExtArgs["result"]["creditUsage"]>
+  export type CreditUsageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Credit?: boolean | CreditDefaultArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CreditUsagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CreditUsage"
+    objects: {
+      Credit: Prisma.$CreditPayload<ExtArgs>
+      User: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      creditId: string
+      amount: number
+      action: string
+      metadata: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["creditUsage"]>
+    composites: {}
+  }
+
+  type CreditUsageGetPayload<S extends boolean | null | undefined | CreditUsageDefaultArgs> = $Result.GetResult<Prisma.$CreditUsagePayload, S>
+
+  type CreditUsageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CreditUsageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CreditUsageCountAggregateInputType | true
+    }
+
+  export interface CreditUsageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CreditUsage'], meta: { name: 'CreditUsage' } }
+    /**
+     * Find zero or one CreditUsage that matches the filter.
+     * @param {CreditUsageFindUniqueArgs} args - Arguments to find a CreditUsage
+     * @example
+     * // Get one CreditUsage
+     * const creditUsage = await prisma.creditUsage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CreditUsageFindUniqueArgs>(args: SelectSubset<T, CreditUsageFindUniqueArgs<ExtArgs>>): Prisma__CreditUsageClient<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CreditUsage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CreditUsageFindUniqueOrThrowArgs} args - Arguments to find a CreditUsage
+     * @example
+     * // Get one CreditUsage
+     * const creditUsage = await prisma.creditUsage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CreditUsageFindUniqueOrThrowArgs>(args: SelectSubset<T, CreditUsageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CreditUsageClient<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CreditUsage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditUsageFindFirstArgs} args - Arguments to find a CreditUsage
+     * @example
+     * // Get one CreditUsage
+     * const creditUsage = await prisma.creditUsage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CreditUsageFindFirstArgs>(args?: SelectSubset<T, CreditUsageFindFirstArgs<ExtArgs>>): Prisma__CreditUsageClient<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CreditUsage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditUsageFindFirstOrThrowArgs} args - Arguments to find a CreditUsage
+     * @example
+     * // Get one CreditUsage
+     * const creditUsage = await prisma.creditUsage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CreditUsageFindFirstOrThrowArgs>(args?: SelectSubset<T, CreditUsageFindFirstOrThrowArgs<ExtArgs>>): Prisma__CreditUsageClient<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CreditUsages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditUsageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CreditUsages
+     * const creditUsages = await prisma.creditUsage.findMany()
+     * 
+     * // Get first 10 CreditUsages
+     * const creditUsages = await prisma.creditUsage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const creditUsageWithIdOnly = await prisma.creditUsage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CreditUsageFindManyArgs>(args?: SelectSubset<T, CreditUsageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CreditUsage.
+     * @param {CreditUsageCreateArgs} args - Arguments to create a CreditUsage.
+     * @example
+     * // Create one CreditUsage
+     * const CreditUsage = await prisma.creditUsage.create({
+     *   data: {
+     *     // ... data to create a CreditUsage
+     *   }
+     * })
+     * 
+     */
+    create<T extends CreditUsageCreateArgs>(args: SelectSubset<T, CreditUsageCreateArgs<ExtArgs>>): Prisma__CreditUsageClient<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CreditUsages.
+     * @param {CreditUsageCreateManyArgs} args - Arguments to create many CreditUsages.
+     * @example
+     * // Create many CreditUsages
+     * const creditUsage = await prisma.creditUsage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CreditUsageCreateManyArgs>(args?: SelectSubset<T, CreditUsageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a CreditUsage.
+     * @param {CreditUsageDeleteArgs} args - Arguments to delete one CreditUsage.
+     * @example
+     * // Delete one CreditUsage
+     * const CreditUsage = await prisma.creditUsage.delete({
+     *   where: {
+     *     // ... filter to delete one CreditUsage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CreditUsageDeleteArgs>(args: SelectSubset<T, CreditUsageDeleteArgs<ExtArgs>>): Prisma__CreditUsageClient<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CreditUsage.
+     * @param {CreditUsageUpdateArgs} args - Arguments to update one CreditUsage.
+     * @example
+     * // Update one CreditUsage
+     * const creditUsage = await prisma.creditUsage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CreditUsageUpdateArgs>(args: SelectSubset<T, CreditUsageUpdateArgs<ExtArgs>>): Prisma__CreditUsageClient<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CreditUsages.
+     * @param {CreditUsageDeleteManyArgs} args - Arguments to filter CreditUsages to delete.
+     * @example
+     * // Delete a few CreditUsages
+     * const { count } = await prisma.creditUsage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CreditUsageDeleteManyArgs>(args?: SelectSubset<T, CreditUsageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreditUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditUsageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CreditUsages
+     * const creditUsage = await prisma.creditUsage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CreditUsageUpdateManyArgs>(args: SelectSubset<T, CreditUsageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CreditUsage.
+     * @param {CreditUsageUpsertArgs} args - Arguments to update or create a CreditUsage.
+     * @example
+     * // Update or create a CreditUsage
+     * const creditUsage = await prisma.creditUsage.upsert({
+     *   create: {
+     *     // ... data to create a CreditUsage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CreditUsage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CreditUsageUpsertArgs>(args: SelectSubset<T, CreditUsageUpsertArgs<ExtArgs>>): Prisma__CreditUsageClient<$Result.GetResult<Prisma.$CreditUsagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CreditUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditUsageCountArgs} args - Arguments to filter CreditUsages to count.
+     * @example
+     * // Count the number of CreditUsages
+     * const count = await prisma.creditUsage.count({
+     *   where: {
+     *     // ... the filter for the CreditUsages we want to count
+     *   }
+     * })
+    **/
+    count<T extends CreditUsageCountArgs>(
+      args?: Subset<T, CreditUsageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CreditUsageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CreditUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditUsageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CreditUsageAggregateArgs>(args: Subset<T, CreditUsageAggregateArgs>): Prisma.PrismaPromise<GetCreditUsageAggregateType<T>>
+
+    /**
+     * Group by CreditUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditUsageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CreditUsageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CreditUsageGroupByArgs['orderBy'] }
+        : { orderBy?: CreditUsageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CreditUsageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCreditUsageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CreditUsage model
+   */
+  readonly fields: CreditUsageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CreditUsage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CreditUsageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Credit<T extends CreditDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CreditDefaultArgs<ExtArgs>>): Prisma__CreditClient<$Result.GetResult<Prisma.$CreditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CreditUsage model
+   */
+  interface CreditUsageFieldRefs {
+    readonly id: FieldRef<"CreditUsage", 'String'>
+    readonly userId: FieldRef<"CreditUsage", 'String'>
+    readonly creditId: FieldRef<"CreditUsage", 'String'>
+    readonly amount: FieldRef<"CreditUsage", 'Int'>
+    readonly action: FieldRef<"CreditUsage", 'String'>
+    readonly metadata: FieldRef<"CreditUsage", 'String'>
+    readonly createdAt: FieldRef<"CreditUsage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CreditUsage findUnique
+   */
+  export type CreditUsageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditUsage to fetch.
+     */
+    where: CreditUsageWhereUniqueInput
+  }
+
+  /**
+   * CreditUsage findUniqueOrThrow
+   */
+  export type CreditUsageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditUsage to fetch.
+     */
+    where: CreditUsageWhereUniqueInput
+  }
+
+  /**
+   * CreditUsage findFirst
+   */
+  export type CreditUsageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditUsage to fetch.
+     */
+    where?: CreditUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditUsages to fetch.
+     */
+    orderBy?: CreditUsageOrderByWithRelationInput | CreditUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreditUsages.
+     */
+    cursor?: CreditUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreditUsages.
+     */
+    distinct?: CreditUsageScalarFieldEnum | CreditUsageScalarFieldEnum[]
+  }
+
+  /**
+   * CreditUsage findFirstOrThrow
+   */
+  export type CreditUsageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditUsage to fetch.
+     */
+    where?: CreditUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditUsages to fetch.
+     */
+    orderBy?: CreditUsageOrderByWithRelationInput | CreditUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreditUsages.
+     */
+    cursor?: CreditUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreditUsages.
+     */
+    distinct?: CreditUsageScalarFieldEnum | CreditUsageScalarFieldEnum[]
+  }
+
+  /**
+   * CreditUsage findMany
+   */
+  export type CreditUsageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditUsages to fetch.
+     */
+    where?: CreditUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditUsages to fetch.
+     */
+    orderBy?: CreditUsageOrderByWithRelationInput | CreditUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CreditUsages.
+     */
+    cursor?: CreditUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditUsages.
+     */
+    skip?: number
+    distinct?: CreditUsageScalarFieldEnum | CreditUsageScalarFieldEnum[]
+  }
+
+  /**
+   * CreditUsage create
+   */
+  export type CreditUsageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CreditUsage.
+     */
+    data: XOR<CreditUsageCreateInput, CreditUsageUncheckedCreateInput>
+  }
+
+  /**
+   * CreditUsage createMany
+   */
+  export type CreditUsageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CreditUsages.
+     */
+    data: CreditUsageCreateManyInput | CreditUsageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CreditUsage update
+   */
+  export type CreditUsageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CreditUsage.
+     */
+    data: XOR<CreditUsageUpdateInput, CreditUsageUncheckedUpdateInput>
+    /**
+     * Choose, which CreditUsage to update.
+     */
+    where: CreditUsageWhereUniqueInput
+  }
+
+  /**
+   * CreditUsage updateMany
+   */
+  export type CreditUsageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CreditUsages.
+     */
+    data: XOR<CreditUsageUpdateManyMutationInput, CreditUsageUncheckedUpdateManyInput>
+    /**
+     * Filter which CreditUsages to update
+     */
+    where?: CreditUsageWhereInput
+    /**
+     * Limit how many CreditUsages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CreditUsage upsert
+   */
+  export type CreditUsageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CreditUsage to update in case it exists.
+     */
+    where: CreditUsageWhereUniqueInput
+    /**
+     * In case the CreditUsage found by the `where` argument doesn't exist, create a new CreditUsage with this data.
+     */
+    create: XOR<CreditUsageCreateInput, CreditUsageUncheckedCreateInput>
+    /**
+     * In case the CreditUsage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CreditUsageUpdateInput, CreditUsageUncheckedUpdateInput>
+  }
+
+  /**
+   * CreditUsage delete
+   */
+  export type CreditUsageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+    /**
+     * Filter which CreditUsage to delete.
+     */
+    where: CreditUsageWhereUniqueInput
+  }
+
+  /**
+   * CreditUsage deleteMany
+   */
+  export type CreditUsageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreditUsages to delete
+     */
+    where?: CreditUsageWhereInput
+    /**
+     * Limit how many CreditUsages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CreditUsage without action
+   */
+  export type CreditUsageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditUsage
+     */
+    select?: CreditUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditUsage
+     */
+    omit?: CreditUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditUsageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
   export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
   };
 
@@ -11547,6 +12742,7 @@ export namespace Prisma {
     asgl_id: 'asgl_id',
     name: 'name',
     password: 'password',
+    tokensUsed: 'tokensUsed',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11634,6 +12830,35 @@ export namespace Prisma {
   export type DocumentAccessScalarFieldEnum = (typeof DocumentAccessScalarFieldEnum)[keyof typeof DocumentAccessScalarFieldEnum]
 
 
+  export const CreditScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    month: 'month',
+    year: 'year',
+    totalCredits: 'totalCredits',
+    usedCredits: 'usedCredits',
+    remainingCredits: 'remainingCredits',
+    lastChatAt: 'lastChatAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CreditScalarFieldEnum = (typeof CreditScalarFieldEnum)[keyof typeof CreditScalarFieldEnum]
+
+
+  export const CreditUsageScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    creditId: 'creditId',
+    amount: 'amount',
+    action: 'action',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type CreditUsageScalarFieldEnum = (typeof CreditUsageScalarFieldEnum)[keyof typeof CreditUsageScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -11642,12 +12867,111 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const UserOrderByRelevanceFieldEnum: {
+    id: 'id',
+    email: 'email',
+    asgl_id: 'asgl_id',
+    name: 'name',
+    password: 'password'
+  };
+
+  export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+  export const RoleOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type RoleOrderByRelevanceFieldEnum = (typeof RoleOrderByRelevanceFieldEnum)[keyof typeof RoleOrderByRelevanceFieldEnum]
+
+
+  export const PermissionOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type PermissionOrderByRelevanceFieldEnum = (typeof PermissionOrderByRelevanceFieldEnum)[keyof typeof PermissionOrderByRelevanceFieldEnum]
+
+
+  export const UserRoleOrderByRelevanceFieldEnum: {
+    userId: 'userId',
+    roleId: 'roleId'
+  };
+
+  export type UserRoleOrderByRelevanceFieldEnum = (typeof UserRoleOrderByRelevanceFieldEnum)[keyof typeof UserRoleOrderByRelevanceFieldEnum]
+
+
+  export const RolePermissionOrderByRelevanceFieldEnum: {
+    roleId: 'roleId',
+    permissionId: 'permissionId'
+  };
+
+  export type RolePermissionOrderByRelevanceFieldEnum = (typeof RolePermissionOrderByRelevanceFieldEnum)[keyof typeof RolePermissionOrderByRelevanceFieldEnum]
+
+
   export const NullsOrder: {
     first: 'first',
     last: 'last'
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const DatasetOrderByRelevanceFieldEnum: {
+    id: 'id',
+    dataset_id: 'dataset_id',
+    name: 'name',
+    parent_id: 'parent_id'
+  };
+
+  export type DatasetOrderByRelevanceFieldEnum = (typeof DatasetOrderByRelevanceFieldEnum)[keyof typeof DatasetOrderByRelevanceFieldEnum]
+
+
+  export const DocumentOrderByRelevanceFieldEnum: {
+    id: 'id',
+    document_id: 'document_id',
+    name: 'name',
+    type: 'type',
+    datasetId: 'datasetId'
+  };
+
+  export type DocumentOrderByRelevanceFieldEnum = (typeof DocumentOrderByRelevanceFieldEnum)[keyof typeof DocumentOrderByRelevanceFieldEnum]
+
+
+  export const DatasetAccessOrderByRelevanceFieldEnum: {
+    userId: 'userId',
+    datasetId: 'datasetId'
+  };
+
+  export type DatasetAccessOrderByRelevanceFieldEnum = (typeof DatasetAccessOrderByRelevanceFieldEnum)[keyof typeof DatasetAccessOrderByRelevanceFieldEnum]
+
+
+  export const DocumentAccessOrderByRelevanceFieldEnum: {
+    userId: 'userId',
+    documentId: 'documentId'
+  };
+
+  export type DocumentAccessOrderByRelevanceFieldEnum = (typeof DocumentAccessOrderByRelevanceFieldEnum)[keyof typeof DocumentAccessOrderByRelevanceFieldEnum]
+
+
+  export const CreditOrderByRelevanceFieldEnum: {
+    id: 'id',
+    userId: 'userId'
+  };
+
+  export type CreditOrderByRelevanceFieldEnum = (typeof CreditOrderByRelevanceFieldEnum)[keyof typeof CreditOrderByRelevanceFieldEnum]
+
+
+  export const CreditUsageOrderByRelevanceFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    creditId: 'creditId',
+    action: 'action',
+    metadata: 'metadata'
+  };
+
+  export type CreditUsageOrderByRelevanceFieldEnum = (typeof CreditUsageOrderByRelevanceFieldEnum)[keyof typeof CreditUsageOrderByRelevanceFieldEnum]
 
 
   /**
@@ -11663,16 +12987,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
+   * Reference to a field of type 'Int'
    */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'DateTime'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
@@ -11702,11 +13026,14 @@ export namespace Prisma {
     asgl_id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    tokensUsed?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    roles?: UserRoleListRelationFilter
+    Credit?: CreditListRelationFilter
+    CreditUsage?: CreditUsageListRelationFilter
     datasets?: DatasetAccessListRelationFilter
     documents?: DocumentAccessListRelationFilter
+    roles?: UserRoleListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11715,11 +13042,15 @@ export namespace Prisma {
     asgl_id?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    tokensUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    roles?: UserRoleOrderByRelationAggregateInput
+    Credit?: CreditOrderByRelationAggregateInput
+    CreditUsage?: CreditUsageOrderByRelationAggregateInput
     datasets?: DatasetAccessOrderByRelationAggregateInput
     documents?: DocumentAccessOrderByRelationAggregateInput
+    roles?: UserRoleOrderByRelationAggregateInput
+    _relevance?: UserOrderByRelevanceInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11731,11 +13062,14 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    tokensUsed?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    roles?: UserRoleListRelationFilter
+    Credit?: CreditListRelationFilter
+    CreditUsage?: CreditUsageListRelationFilter
     datasets?: DatasetAccessListRelationFilter
     documents?: DocumentAccessListRelationFilter
+    roles?: UserRoleListRelationFilter
   }, "id" | "email" | "asgl_id">
 
   export type UserOrderByWithAggregationInput = {
@@ -11744,11 +13078,14 @@ export namespace Prisma {
     asgl_id?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    tokensUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -11760,6 +13097,7 @@ export namespace Prisma {
     asgl_id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    tokensUsed?: IntWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -11779,6 +13117,7 @@ export namespace Prisma {
     name?: SortOrder
     permissions?: RolePermissionOrderByRelationAggregateInput
     users?: UserRoleOrderByRelationAggregateInput
+    _relevance?: RoleOrderByRelevanceInput
   }
 
   export type RoleWhereUniqueInput = Prisma.AtLeast<{
@@ -11820,6 +13159,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     roles?: RolePermissionOrderByRelationAggregateInput
+    _relevance?: PermissionOrderByRelevanceInput
   }
 
   export type PermissionWhereUniqueInput = Prisma.AtLeast<{
@@ -11853,15 +13193,16 @@ export namespace Prisma {
     NOT?: UserRoleWhereInput | UserRoleWhereInput[]
     userId?: StringFilter<"UserRole"> | string
     roleId?: StringFilter<"UserRole"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type UserRoleOrderByWithRelationInput = {
     userId?: SortOrder
     roleId?: SortOrder
-    user?: UserOrderByWithRelationInput
     role?: RoleOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    _relevance?: UserRoleOrderByRelevanceInput
   }
 
   export type UserRoleWhereUniqueInput = Prisma.AtLeast<{
@@ -11871,8 +13212,8 @@ export namespace Prisma {
     NOT?: UserRoleWhereInput | UserRoleWhereInput[]
     userId?: StringFilter<"UserRole"> | string
     roleId?: StringFilter<"UserRole"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "userId_roleId">
 
   export type UserRoleOrderByWithAggregationInput = {
@@ -11897,15 +13238,16 @@ export namespace Prisma {
     NOT?: RolePermissionWhereInput | RolePermissionWhereInput[]
     roleId?: StringFilter<"RolePermission"> | string
     permissionId?: StringFilter<"RolePermission"> | string
-    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     permission?: XOR<PermissionScalarRelationFilter, PermissionWhereInput>
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
   }
 
   export type RolePermissionOrderByWithRelationInput = {
     roleId?: SortOrder
     permissionId?: SortOrder
-    role?: RoleOrderByWithRelationInput
     permission?: PermissionOrderByWithRelationInput
+    role?: RoleOrderByWithRelationInput
+    _relevance?: RolePermissionOrderByRelevanceInput
   }
 
   export type RolePermissionWhereUniqueInput = Prisma.AtLeast<{
@@ -11915,8 +13257,8 @@ export namespace Prisma {
     NOT?: RolePermissionWhereInput | RolePermissionWhereInput[]
     roleId?: StringFilter<"RolePermission"> | string
     permissionId?: StringFilter<"RolePermission"> | string
-    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     permission?: XOR<PermissionScalarRelationFilter, PermissionWhereInput>
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
   }, "roleId_permissionId">
 
   export type RolePermissionOrderByWithAggregationInput = {
@@ -11947,8 +13289,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Dataset"> | Date | string
     parent?: XOR<DatasetNullableScalarRelationFilter, DatasetWhereInput> | null
     children?: DatasetListRelationFilter
-    documents?: DocumentListRelationFilter
     accesses?: DatasetAccessListRelationFilter
+    documents?: DocumentListRelationFilter
   }
 
   export type DatasetOrderByWithRelationInput = {
@@ -11960,8 +13302,9 @@ export namespace Prisma {
     updatedAt?: SortOrder
     parent?: DatasetOrderByWithRelationInput
     children?: DatasetOrderByRelationAggregateInput
-    documents?: DocumentOrderByRelationAggregateInput
     accesses?: DatasetAccessOrderByRelationAggregateInput
+    documents?: DocumentOrderByRelationAggregateInput
+    _relevance?: DatasetOrderByRelevanceInput
   }
 
   export type DatasetWhereUniqueInput = Prisma.AtLeast<{
@@ -11976,8 +13319,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Dataset"> | Date | string
     parent?: XOR<DatasetNullableScalarRelationFilter, DatasetWhereInput> | null
     children?: DatasetListRelationFilter
-    documents?: DocumentListRelationFilter
     accesses?: DatasetAccessListRelationFilter
+    documents?: DocumentListRelationFilter
   }, "id" | "dataset_id" | "name">
 
   export type DatasetOrderByWithAggregationInput = {
@@ -12031,6 +13374,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     dataset?: DatasetOrderByWithRelationInput
     accesses?: DocumentAccessOrderByRelationAggregateInput
+    _relevance?: DocumentOrderByRelevanceInput
   }
 
   export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -12088,8 +13432,8 @@ export namespace Prisma {
     canView?: BoolFilter<"DatasetAccess"> | boolean
     canEdit?: BoolFilter<"DatasetAccess"> | boolean
     canDelete?: BoolFilter<"DatasetAccess"> | boolean
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     dataset?: XOR<DatasetScalarRelationFilter, DatasetWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type DatasetAccessOrderByWithRelationInput = {
@@ -12098,8 +13442,9 @@ export namespace Prisma {
     canView?: SortOrder
     canEdit?: SortOrder
     canDelete?: SortOrder
-    user?: UserOrderByWithRelationInput
     dataset?: DatasetOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    _relevance?: DatasetAccessOrderByRelevanceInput
   }
 
   export type DatasetAccessWhereUniqueInput = Prisma.AtLeast<{
@@ -12112,8 +13457,8 @@ export namespace Prisma {
     canView?: BoolFilter<"DatasetAccess"> | boolean
     canEdit?: BoolFilter<"DatasetAccess"> | boolean
     canDelete?: BoolFilter<"DatasetAccess"> | boolean
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     dataset?: XOR<DatasetScalarRelationFilter, DatasetWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "userId_datasetId">
 
   export type DatasetAccessOrderByWithAggregationInput = {
@@ -12147,8 +13492,8 @@ export namespace Prisma {
     canView?: BoolFilter<"DocumentAccess"> | boolean
     canEdit?: BoolFilter<"DocumentAccess"> | boolean
     canDelete?: BoolFilter<"DocumentAccess"> | boolean
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type DocumentAccessOrderByWithRelationInput = {
@@ -12157,8 +13502,9 @@ export namespace Prisma {
     canView?: SortOrder
     canEdit?: SortOrder
     canDelete?: SortOrder
-    user?: UserOrderByWithRelationInput
     document?: DocumentOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    _relevance?: DocumentAccessOrderByRelevanceInput
   }
 
   export type DocumentAccessWhereUniqueInput = Prisma.AtLeast<{
@@ -12171,8 +13517,8 @@ export namespace Prisma {
     canView?: BoolFilter<"DocumentAccess"> | boolean
     canEdit?: BoolFilter<"DocumentAccess"> | boolean
     canDelete?: BoolFilter<"DocumentAccess"> | boolean
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "userId_documentId">
 
   export type DocumentAccessOrderByWithAggregationInput = {
@@ -12197,17 +13543,178 @@ export namespace Prisma {
     canDelete?: BoolWithAggregatesFilter<"DocumentAccess"> | boolean
   }
 
+  export type CreditWhereInput = {
+    AND?: CreditWhereInput | CreditWhereInput[]
+    OR?: CreditWhereInput[]
+    NOT?: CreditWhereInput | CreditWhereInput[]
+    id?: StringFilter<"Credit"> | string
+    userId?: StringFilter<"Credit"> | string
+    month?: IntFilter<"Credit"> | number
+    year?: IntFilter<"Credit"> | number
+    totalCredits?: IntFilter<"Credit"> | number
+    usedCredits?: IntFilter<"Credit"> | number
+    remainingCredits?: IntFilter<"Credit"> | number
+    lastChatAt?: DateTimeNullableFilter<"Credit"> | Date | string | null
+    createdAt?: DateTimeFilter<"Credit"> | Date | string
+    updatedAt?: DateTimeFilter<"Credit"> | Date | string
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
+    CreditUsage?: CreditUsageListRelationFilter
+  }
+
+  export type CreditOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    month?: SortOrder
+    year?: SortOrder
+    totalCredits?: SortOrder
+    usedCredits?: SortOrder
+    remainingCredits?: SortOrder
+    lastChatAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    User?: UserOrderByWithRelationInput
+    CreditUsage?: CreditUsageOrderByRelationAggregateInput
+    _relevance?: CreditOrderByRelevanceInput
+  }
+
+  export type CreditWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_month_year?: CreditUserIdMonthYearCompoundUniqueInput
+    AND?: CreditWhereInput | CreditWhereInput[]
+    OR?: CreditWhereInput[]
+    NOT?: CreditWhereInput | CreditWhereInput[]
+    userId?: StringFilter<"Credit"> | string
+    month?: IntFilter<"Credit"> | number
+    year?: IntFilter<"Credit"> | number
+    totalCredits?: IntFilter<"Credit"> | number
+    usedCredits?: IntFilter<"Credit"> | number
+    remainingCredits?: IntFilter<"Credit"> | number
+    lastChatAt?: DateTimeNullableFilter<"Credit"> | Date | string | null
+    createdAt?: DateTimeFilter<"Credit"> | Date | string
+    updatedAt?: DateTimeFilter<"Credit"> | Date | string
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
+    CreditUsage?: CreditUsageListRelationFilter
+  }, "id" | "userId_month_year">
+
+  export type CreditOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    month?: SortOrder
+    year?: SortOrder
+    totalCredits?: SortOrder
+    usedCredits?: SortOrder
+    remainingCredits?: SortOrder
+    lastChatAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CreditCountOrderByAggregateInput
+    _avg?: CreditAvgOrderByAggregateInput
+    _max?: CreditMaxOrderByAggregateInput
+    _min?: CreditMinOrderByAggregateInput
+    _sum?: CreditSumOrderByAggregateInput
+  }
+
+  export type CreditScalarWhereWithAggregatesInput = {
+    AND?: CreditScalarWhereWithAggregatesInput | CreditScalarWhereWithAggregatesInput[]
+    OR?: CreditScalarWhereWithAggregatesInput[]
+    NOT?: CreditScalarWhereWithAggregatesInput | CreditScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Credit"> | string
+    userId?: StringWithAggregatesFilter<"Credit"> | string
+    month?: IntWithAggregatesFilter<"Credit"> | number
+    year?: IntWithAggregatesFilter<"Credit"> | number
+    totalCredits?: IntWithAggregatesFilter<"Credit"> | number
+    usedCredits?: IntWithAggregatesFilter<"Credit"> | number
+    remainingCredits?: IntWithAggregatesFilter<"Credit"> | number
+    lastChatAt?: DateTimeNullableWithAggregatesFilter<"Credit"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Credit"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Credit"> | Date | string
+  }
+
+  export type CreditUsageWhereInput = {
+    AND?: CreditUsageWhereInput | CreditUsageWhereInput[]
+    OR?: CreditUsageWhereInput[]
+    NOT?: CreditUsageWhereInput | CreditUsageWhereInput[]
+    id?: StringFilter<"CreditUsage"> | string
+    userId?: StringFilter<"CreditUsage"> | string
+    creditId?: StringFilter<"CreditUsage"> | string
+    amount?: IntFilter<"CreditUsage"> | number
+    action?: StringFilter<"CreditUsage"> | string
+    metadata?: StringNullableFilter<"CreditUsage"> | string | null
+    createdAt?: DateTimeFilter<"CreditUsage"> | Date | string
+    Credit?: XOR<CreditScalarRelationFilter, CreditWhereInput>
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CreditUsageOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creditId?: SortOrder
+    amount?: SortOrder
+    action?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    Credit?: CreditOrderByWithRelationInput
+    User?: UserOrderByWithRelationInput
+    _relevance?: CreditUsageOrderByRelevanceInput
+  }
+
+  export type CreditUsageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CreditUsageWhereInput | CreditUsageWhereInput[]
+    OR?: CreditUsageWhereInput[]
+    NOT?: CreditUsageWhereInput | CreditUsageWhereInput[]
+    userId?: StringFilter<"CreditUsage"> | string
+    creditId?: StringFilter<"CreditUsage"> | string
+    amount?: IntFilter<"CreditUsage"> | number
+    action?: StringFilter<"CreditUsage"> | string
+    metadata?: StringNullableFilter<"CreditUsage"> | string | null
+    createdAt?: DateTimeFilter<"CreditUsage"> | Date | string
+    Credit?: XOR<CreditScalarRelationFilter, CreditWhereInput>
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type CreditUsageOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creditId?: SortOrder
+    amount?: SortOrder
+    action?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: CreditUsageCountOrderByAggregateInput
+    _avg?: CreditUsageAvgOrderByAggregateInput
+    _max?: CreditUsageMaxOrderByAggregateInput
+    _min?: CreditUsageMinOrderByAggregateInput
+    _sum?: CreditUsageSumOrderByAggregateInput
+  }
+
+  export type CreditUsageScalarWhereWithAggregatesInput = {
+    AND?: CreditUsageScalarWhereWithAggregatesInput | CreditUsageScalarWhereWithAggregatesInput[]
+    OR?: CreditUsageScalarWhereWithAggregatesInput[]
+    NOT?: CreditUsageScalarWhereWithAggregatesInput | CreditUsageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CreditUsage"> | string
+    userId?: StringWithAggregatesFilter<"CreditUsage"> | string
+    creditId?: StringWithAggregatesFilter<"CreditUsage"> | string
+    amount?: IntWithAggregatesFilter<"CreditUsage"> | number
+    action?: StringWithAggregatesFilter<"CreditUsage"> | string
+    metadata?: StringNullableWithAggregatesFilter<"CreditUsage"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CreditUsage"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
     asgl_id: string
     name: string
     password: string
+    tokensUsed?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    roles?: UserRoleCreateNestedManyWithoutUserInput
+    Credit?: CreditCreateNestedManyWithoutUserInput
+    CreditUsage?: CreditUsageCreateNestedManyWithoutUserInput
     datasets?: DatasetAccessCreateNestedManyWithoutUserInput
     documents?: DocumentAccessCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -12216,11 +13723,14 @@ export namespace Prisma {
     asgl_id: string
     name: string
     password: string
+    tokensUsed?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    Credit?: CreditUncheckedCreateNestedManyWithoutUserInput
+    CreditUsage?: CreditUsageUncheckedCreateNestedManyWithoutUserInput
     datasets?: DatasetAccessUncheckedCreateNestedManyWithoutUserInput
     documents?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -12229,11 +13739,14 @@ export namespace Prisma {
     asgl_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    Credit?: CreditUpdateManyWithoutUserNestedInput
+    CreditUsage?: CreditUsageUpdateManyWithoutUserNestedInput
     datasets?: DatasetAccessUpdateManyWithoutUserNestedInput
     documents?: DocumentAccessUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -12242,11 +13755,14 @@ export namespace Prisma {
     asgl_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    Credit?: CreditUncheckedUpdateManyWithoutUserNestedInput
+    CreditUsage?: CreditUsageUncheckedUpdateManyWithoutUserNestedInput
     datasets?: DatasetAccessUncheckedUpdateManyWithoutUserNestedInput
     documents?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -12255,6 +13771,7 @@ export namespace Prisma {
     asgl_id: string
     name: string
     password: string
+    tokensUsed?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12265,6 +13782,7 @@ export namespace Prisma {
     asgl_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12275,6 +13793,7 @@ export namespace Prisma {
     asgl_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12362,8 +13881,8 @@ export namespace Prisma {
   }
 
   export type UserRoleCreateInput = {
-    user: UserCreateNestedOneWithoutRolesInput
     role: RoleCreateNestedOneWithoutUsersInput
+    user: UserCreateNestedOneWithoutRolesInput
   }
 
   export type UserRoleUncheckedCreateInput = {
@@ -12372,8 +13891,8 @@ export namespace Prisma {
   }
 
   export type UserRoleUpdateInput = {
-    user?: UserUpdateOneRequiredWithoutRolesNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    user?: UserUpdateOneRequiredWithoutRolesNestedInput
   }
 
   export type UserRoleUncheckedUpdateInput = {
@@ -12396,8 +13915,8 @@ export namespace Prisma {
   }
 
   export type RolePermissionCreateInput = {
-    role: RoleCreateNestedOneWithoutPermissionsInput
     permission: PermissionCreateNestedOneWithoutRolesInput
+    role: RoleCreateNestedOneWithoutPermissionsInput
   }
 
   export type RolePermissionUncheckedCreateInput = {
@@ -12406,8 +13925,8 @@ export namespace Prisma {
   }
 
   export type RolePermissionUpdateInput = {
-    role?: RoleUpdateOneRequiredWithoutPermissionsNestedInput
     permission?: PermissionUpdateOneRequiredWithoutRolesNestedInput
+    role?: RoleUpdateOneRequiredWithoutPermissionsNestedInput
   }
 
   export type RolePermissionUncheckedUpdateInput = {
@@ -12437,8 +13956,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     parent?: DatasetCreateNestedOneWithoutChildrenInput
     children?: DatasetCreateNestedManyWithoutParentInput
-    documents?: DocumentCreateNestedManyWithoutDatasetInput
     accesses?: DatasetAccessCreateNestedManyWithoutDatasetInput
+    documents?: DocumentCreateNestedManyWithoutDatasetInput
   }
 
   export type DatasetUncheckedCreateInput = {
@@ -12449,8 +13968,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     children?: DatasetUncheckedCreateNestedManyWithoutParentInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutDatasetInput
     accesses?: DatasetAccessUncheckedCreateNestedManyWithoutDatasetInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutDatasetInput
   }
 
   export type DatasetUpdateInput = {
@@ -12461,8 +13980,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     parent?: DatasetUpdateOneWithoutChildrenNestedInput
     children?: DatasetUpdateManyWithoutParentNestedInput
-    documents?: DocumentUpdateManyWithoutDatasetNestedInput
     accesses?: DatasetAccessUpdateManyWithoutDatasetNestedInput
+    documents?: DocumentUpdateManyWithoutDatasetNestedInput
   }
 
   export type DatasetUncheckedUpdateInput = {
@@ -12473,8 +13992,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     children?: DatasetUncheckedUpdateManyWithoutParentNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutDatasetNestedInput
     accesses?: DatasetAccessUncheckedUpdateManyWithoutDatasetNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutDatasetNestedInput
   }
 
   export type DatasetCreateManyInput = {
@@ -12587,8 +14106,8 @@ export namespace Prisma {
     canView?: boolean
     canEdit?: boolean
     canDelete?: boolean
-    user: UserCreateNestedOneWithoutDatasetsInput
     dataset: DatasetCreateNestedOneWithoutAccessesInput
+    user: UserCreateNestedOneWithoutDatasetsInput
   }
 
   export type DatasetAccessUncheckedCreateInput = {
@@ -12603,8 +14122,8 @@ export namespace Prisma {
     canView?: BoolFieldUpdateOperationsInput | boolean
     canEdit?: BoolFieldUpdateOperationsInput | boolean
     canDelete?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneRequiredWithoutDatasetsNestedInput
     dataset?: DatasetUpdateOneRequiredWithoutAccessesNestedInput
+    user?: UserUpdateOneRequiredWithoutDatasetsNestedInput
   }
 
   export type DatasetAccessUncheckedUpdateInput = {
@@ -12641,8 +14160,8 @@ export namespace Prisma {
     canView?: boolean
     canEdit?: boolean
     canDelete?: boolean
-    user: UserCreateNestedOneWithoutDocumentsInput
     document: DocumentCreateNestedOneWithoutAccessesInput
+    user: UserCreateNestedOneWithoutDocumentsInput
   }
 
   export type DocumentAccessUncheckedCreateInput = {
@@ -12657,8 +14176,8 @@ export namespace Prisma {
     canView?: BoolFieldUpdateOperationsInput | boolean
     canEdit?: BoolFieldUpdateOperationsInput | boolean
     canDelete?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneRequiredWithoutDocumentsNestedInput
     document?: DocumentUpdateOneRequiredWithoutAccessesNestedInput
+    user?: UserUpdateOneRequiredWithoutDocumentsNestedInput
   }
 
   export type DocumentAccessUncheckedUpdateInput = {
@@ -12691,6 +14210,168 @@ export namespace Prisma {
     canDelete?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type CreditCreateInput = {
+    id: string
+    month: number
+    year: number
+    totalCredits?: number
+    usedCredits?: number
+    remainingCredits?: number
+    lastChatAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt: Date | string
+    User: UserCreateNestedOneWithoutCreditInput
+    CreditUsage?: CreditUsageCreateNestedManyWithoutCreditInput
+  }
+
+  export type CreditUncheckedCreateInput = {
+    id: string
+    userId: string
+    month: number
+    year: number
+    totalCredits?: number
+    usedCredits?: number
+    remainingCredits?: number
+    lastChatAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt: Date | string
+    CreditUsage?: CreditUsageUncheckedCreateNestedManyWithoutCreditInput
+  }
+
+  export type CreditUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUpdateOneRequiredWithoutCreditNestedInput
+    CreditUsage?: CreditUsageUpdateManyWithoutCreditNestedInput
+  }
+
+  export type CreditUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreditUsage?: CreditUsageUncheckedUpdateManyWithoutCreditNestedInput
+  }
+
+  export type CreditCreateManyInput = {
+    id: string
+    userId: string
+    month: number
+    year: number
+    totalCredits?: number
+    usedCredits?: number
+    remainingCredits?: number
+    lastChatAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt: Date | string
+  }
+
+  export type CreditUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditUsageCreateInput = {
+    id: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
+    Credit: CreditCreateNestedOneWithoutCreditUsageInput
+    User: UserCreateNestedOneWithoutCreditUsageInput
+  }
+
+  export type CreditUsageUncheckedCreateInput = {
+    id: string
+    userId: string
+    creditId: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CreditUsageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUpdateOneRequiredWithoutCreditUsageNestedInput
+    User?: UserUpdateOneRequiredWithoutCreditUsageNestedInput
+  }
+
+  export type CreditUsageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    creditId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditUsageCreateManyInput = {
+    id: string
+    userId: string
+    creditId: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CreditUsageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditUsageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    creditId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -12702,7 +14383,19 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -12716,10 +14409,16 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type UserRoleListRelationFilter = {
-    every?: UserRoleWhereInput
-    some?: UserRoleWhereInput
-    none?: UserRoleWhereInput
+  export type CreditListRelationFilter = {
+    every?: CreditWhereInput
+    some?: CreditWhereInput
+    none?: CreditWhereInput
+  }
+
+  export type CreditUsageListRelationFilter = {
+    every?: CreditUsageWhereInput
+    some?: CreditUsageWhereInput
+    none?: CreditUsageWhereInput
   }
 
   export type DatasetAccessListRelationFilter = {
@@ -12734,7 +14433,17 @@ export namespace Prisma {
     none?: DocumentAccessWhereInput
   }
 
-  export type UserRoleOrderByRelationAggregateInput = {
+  export type UserRoleListRelationFilter = {
+    every?: UserRoleWhereInput
+    some?: UserRoleWhereInput
+    none?: UserRoleWhereInput
+  }
+
+  export type CreditOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CreditUsageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12746,14 +14455,29 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type UserRoleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserOrderByRelevanceInput = {
+    fields: UserOrderByRelevanceFieldEnum | UserOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     asgl_id?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    tokensUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    tokensUsed?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -12762,6 +14486,7 @@ export namespace Prisma {
     asgl_id?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    tokensUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12772,8 +14497,13 @@ export namespace Prisma {
     asgl_id?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    tokensUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    tokensUsed?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -12787,10 +14517,27 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12817,6 +14564,12 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type RoleOrderByRelevanceInput = {
+    fields: RoleOrderByRelevanceFieldEnum | RoleOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type RoleCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -12830,6 +14583,12 @@ export namespace Prisma {
   export type RoleMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+  }
+
+  export type PermissionOrderByRelevanceInput = {
+    fields: PermissionOrderByRelevanceFieldEnum | PermissionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type PermissionCountOrderByAggregateInput = {
@@ -12847,14 +14606,20 @@ export namespace Prisma {
     name?: SortOrder
   }
 
+  export type RoleScalarRelationFilter = {
+    is?: RoleWhereInput
+    isNot?: RoleWhereInput
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
 
-  export type RoleScalarRelationFilter = {
-    is?: RoleWhereInput
-    isNot?: RoleWhereInput
+  export type UserRoleOrderByRelevanceInput = {
+    fields: UserRoleOrderByRelevanceFieldEnum | UserRoleOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type UserRoleUserIdRoleIdCompoundUniqueInput = {
@@ -12880,6 +14645,12 @@ export namespace Prisma {
   export type PermissionScalarRelationFilter = {
     is?: PermissionWhereInput
     isNot?: PermissionWhereInput
+  }
+
+  export type RolePermissionOrderByRelevanceInput = {
+    fields: RolePermissionOrderByRelevanceFieldEnum | RolePermissionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type RolePermissionRoleIdPermissionIdCompoundUniqueInput = {
@@ -12913,6 +14684,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
@@ -12944,6 +14716,12 @@ export namespace Prisma {
 
   export type DocumentOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type DatasetOrderByRelevanceInput = {
+    fields: DatasetOrderByRelevanceFieldEnum | DatasetOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type DatasetCountOrderByAggregateInput = {
@@ -12984,26 +14762,22 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type DatasetScalarRelationFilter = {
     is?: DatasetWhereInput
     isNot?: DatasetWhereInput
+  }
+
+  export type DocumentOrderByRelevanceInput = {
+    fields: DocumentOrderByRelevanceFieldEnum | DocumentOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type DocumentCountOrderByAggregateInput = {
@@ -13047,25 +14821,15 @@ export namespace Prisma {
     size?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type DatasetAccessOrderByRelevanceInput = {
+    fields: DatasetAccessOrderByRelevanceFieldEnum | DatasetAccessOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type DatasetAccessUserIdDatasetIdCompoundUniqueInput = {
@@ -13110,6 +14874,12 @@ export namespace Prisma {
     isNot?: DocumentWhereInput
   }
 
+  export type DocumentAccessOrderByRelevanceInput = {
+    fields: DocumentAccessOrderByRelevanceFieldEnum | DocumentAccessOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type DocumentAccessUserIdDocumentIdCompoundUniqueInput = {
     userId: string
     documentId: string
@@ -13139,11 +14909,159 @@ export namespace Prisma {
     canDelete?: SortOrder
   }
 
-  export type UserRoleCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
-    createMany?: UserRoleCreateManyUserInputEnvelope
-    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type CreditOrderByRelevanceInput = {
+    fields: CreditOrderByRelevanceFieldEnum | CreditOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type CreditUserIdMonthYearCompoundUniqueInput = {
+    userId: string
+    month: number
+    year: number
+  }
+
+  export type CreditCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    month?: SortOrder
+    year?: SortOrder
+    totalCredits?: SortOrder
+    usedCredits?: SortOrder
+    remainingCredits?: SortOrder
+    lastChatAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreditAvgOrderByAggregateInput = {
+    month?: SortOrder
+    year?: SortOrder
+    totalCredits?: SortOrder
+    usedCredits?: SortOrder
+    remainingCredits?: SortOrder
+  }
+
+  export type CreditMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    month?: SortOrder
+    year?: SortOrder
+    totalCredits?: SortOrder
+    usedCredits?: SortOrder
+    remainingCredits?: SortOrder
+    lastChatAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreditMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    month?: SortOrder
+    year?: SortOrder
+    totalCredits?: SortOrder
+    usedCredits?: SortOrder
+    remainingCredits?: SortOrder
+    lastChatAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreditSumOrderByAggregateInput = {
+    month?: SortOrder
+    year?: SortOrder
+    totalCredits?: SortOrder
+    usedCredits?: SortOrder
+    remainingCredits?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type CreditScalarRelationFilter = {
+    is?: CreditWhereInput
+    isNot?: CreditWhereInput
+  }
+
+  export type CreditUsageOrderByRelevanceInput = {
+    fields: CreditUsageOrderByRelevanceFieldEnum | CreditUsageOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type CreditUsageCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creditId?: SortOrder
+    amount?: SortOrder
+    action?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreditUsageAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type CreditUsageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creditId?: SortOrder
+    amount?: SortOrder
+    action?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreditUsageMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creditId?: SortOrder
+    amount?: SortOrder
+    action?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreditUsageSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type CreditCreateNestedManyWithoutUserInput = {
+    create?: XOR<CreditCreateWithoutUserInput, CreditUncheckedCreateWithoutUserInput> | CreditCreateWithoutUserInput[] | CreditUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CreditCreateOrConnectWithoutUserInput | CreditCreateOrConnectWithoutUserInput[]
+    createMany?: CreditCreateManyUserInputEnvelope
+    connect?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+  }
+
+  export type CreditUsageCreateNestedManyWithoutUserInput = {
+    create?: XOR<CreditUsageCreateWithoutUserInput, CreditUsageUncheckedCreateWithoutUserInput> | CreditUsageCreateWithoutUserInput[] | CreditUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CreditUsageCreateOrConnectWithoutUserInput | CreditUsageCreateOrConnectWithoutUserInput[]
+    createMany?: CreditUsageCreateManyUserInputEnvelope
+    connect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
   }
 
   export type DatasetAccessCreateNestedManyWithoutUserInput = {
@@ -13160,11 +15078,25 @@ export namespace Prisma {
     connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
   }
 
-  export type UserRoleUncheckedCreateNestedManyWithoutUserInput = {
+  export type UserRoleCreateNestedManyWithoutUserInput = {
     create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
     createMany?: UserRoleCreateManyUserInputEnvelope
     connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+  }
+
+  export type CreditUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CreditCreateWithoutUserInput, CreditUncheckedCreateWithoutUserInput> | CreditCreateWithoutUserInput[] | CreditUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CreditCreateOrConnectWithoutUserInput | CreditCreateOrConnectWithoutUserInput[]
+    createMany?: CreditCreateManyUserInputEnvelope
+    connect?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+  }
+
+  export type CreditUsageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CreditUsageCreateWithoutUserInput, CreditUsageUncheckedCreateWithoutUserInput> | CreditUsageCreateWithoutUserInput[] | CreditUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CreditUsageCreateOrConnectWithoutUserInput | CreditUsageCreateOrConnectWithoutUserInput[]
+    createMany?: CreditUsageCreateManyUserInputEnvelope
+    connect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
   }
 
   export type DatasetAccessUncheckedCreateNestedManyWithoutUserInput = {
@@ -13181,26 +15113,55 @@ export namespace Prisma {
     connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
   }
 
+  export type UserRoleUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
+    createMany?: UserRoleCreateManyUserInputEnvelope
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type UserRoleUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
-    upsert?: UserRoleUpsertWithWhereUniqueWithoutUserInput | UserRoleUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserRoleCreateManyUserInputEnvelope
-    set?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
-    disconnect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
-    delete?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
-    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
-    update?: UserRoleUpdateWithWhereUniqueWithoutUserInput | UserRoleUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserRoleUpdateManyWithWhereWithoutUserInput | UserRoleUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+  export type CreditUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CreditCreateWithoutUserInput, CreditUncheckedCreateWithoutUserInput> | CreditCreateWithoutUserInput[] | CreditUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CreditCreateOrConnectWithoutUserInput | CreditCreateOrConnectWithoutUserInput[]
+    upsert?: CreditUpsertWithWhereUniqueWithoutUserInput | CreditUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CreditCreateManyUserInputEnvelope
+    set?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+    disconnect?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+    delete?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+    connect?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+    update?: CreditUpdateWithWhereUniqueWithoutUserInput | CreditUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CreditUpdateManyWithWhereWithoutUserInput | CreditUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CreditScalarWhereInput | CreditScalarWhereInput[]
+  }
+
+  export type CreditUsageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CreditUsageCreateWithoutUserInput, CreditUsageUncheckedCreateWithoutUserInput> | CreditUsageCreateWithoutUserInput[] | CreditUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CreditUsageCreateOrConnectWithoutUserInput | CreditUsageCreateOrConnectWithoutUserInput[]
+    upsert?: CreditUsageUpsertWithWhereUniqueWithoutUserInput | CreditUsageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CreditUsageCreateManyUserInputEnvelope
+    set?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    disconnect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    delete?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    connect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    update?: CreditUsageUpdateWithWhereUniqueWithoutUserInput | CreditUsageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CreditUsageUpdateManyWithWhereWithoutUserInput | CreditUsageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CreditUsageScalarWhereInput | CreditUsageScalarWhereInput[]
   }
 
   export type DatasetAccessUpdateManyWithoutUserNestedInput = {
@@ -13231,7 +15192,7 @@ export namespace Prisma {
     deleteMany?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
   }
 
-  export type UserRoleUncheckedUpdateManyWithoutUserNestedInput = {
+  export type UserRoleUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
     upsert?: UserRoleUpsertWithWhereUniqueWithoutUserInput | UserRoleUpsertWithWhereUniqueWithoutUserInput[]
@@ -13243,6 +15204,34 @@ export namespace Prisma {
     update?: UserRoleUpdateWithWhereUniqueWithoutUserInput | UserRoleUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserRoleUpdateManyWithWhereWithoutUserInput | UserRoleUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+  }
+
+  export type CreditUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CreditCreateWithoutUserInput, CreditUncheckedCreateWithoutUserInput> | CreditCreateWithoutUserInput[] | CreditUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CreditCreateOrConnectWithoutUserInput | CreditCreateOrConnectWithoutUserInput[]
+    upsert?: CreditUpsertWithWhereUniqueWithoutUserInput | CreditUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CreditCreateManyUserInputEnvelope
+    set?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+    disconnect?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+    delete?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+    connect?: CreditWhereUniqueInput | CreditWhereUniqueInput[]
+    update?: CreditUpdateWithWhereUniqueWithoutUserInput | CreditUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CreditUpdateManyWithWhereWithoutUserInput | CreditUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CreditScalarWhereInput | CreditScalarWhereInput[]
+  }
+
+  export type CreditUsageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CreditUsageCreateWithoutUserInput, CreditUsageUncheckedCreateWithoutUserInput> | CreditUsageCreateWithoutUserInput[] | CreditUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CreditUsageCreateOrConnectWithoutUserInput | CreditUsageCreateOrConnectWithoutUserInput[]
+    upsert?: CreditUsageUpsertWithWhereUniqueWithoutUserInput | CreditUsageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CreditUsageCreateManyUserInputEnvelope
+    set?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    disconnect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    delete?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    connect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    update?: CreditUsageUpdateWithWhereUniqueWithoutUserInput | CreditUsageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CreditUsageUpdateManyWithWhereWithoutUserInput | CreditUsageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CreditUsageScalarWhereInput | CreditUsageScalarWhereInput[]
   }
 
   export type DatasetAccessUncheckedUpdateManyWithoutUserNestedInput = {
@@ -13271,6 +15260,20 @@ export namespace Prisma {
     update?: DocumentAccessUpdateWithWhereUniqueWithoutUserInput | DocumentAccessUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DocumentAccessUpdateManyWithWhereWithoutUserInput | DocumentAccessUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
+  }
+
+  export type UserRoleUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
+    upsert?: UserRoleUpsertWithWhereUniqueWithoutUserInput | UserRoleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserRoleCreateManyUserInputEnvelope
+    set?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    disconnect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    delete?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    update?: UserRoleUpdateWithWhereUniqueWithoutUserInput | UserRoleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserRoleUpdateManyWithWhereWithoutUserInput | UserRoleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
   }
 
   export type RolePermissionCreateNestedManyWithoutRoleInput = {
@@ -13399,24 +15402,16 @@ export namespace Prisma {
     deleteMany?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutRolesInput = {
-    create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutRolesInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type RoleCreateNestedOneWithoutUsersInput = {
     create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
     connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
     connect?: RoleWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutRolesNestedInput = {
+  export type UserCreateNestedOneWithoutRolesInput = {
     create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
     connectOrCreate?: UserCreateOrConnectWithoutRolesInput
-    upsert?: UserUpsertWithoutRolesInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRolesInput, UserUpdateWithoutRolesInput>, UserUncheckedUpdateWithoutRolesInput>
   }
 
   export type RoleUpdateOneRequiredWithoutUsersNestedInput = {
@@ -13427,10 +15422,12 @@ export namespace Prisma {
     update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutUsersInput, RoleUpdateWithoutUsersInput>, RoleUncheckedUpdateWithoutUsersInput>
   }
 
-  export type RoleCreateNestedOneWithoutPermissionsInput = {
-    create?: XOR<RoleCreateWithoutPermissionsInput, RoleUncheckedCreateWithoutPermissionsInput>
-    connectOrCreate?: RoleCreateOrConnectWithoutPermissionsInput
-    connect?: RoleWhereUniqueInput
+  export type UserUpdateOneRequiredWithoutRolesNestedInput = {
+    create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRolesInput
+    upsert?: UserUpsertWithoutRolesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRolesInput, UserUpdateWithoutRolesInput>, UserUncheckedUpdateWithoutRolesInput>
   }
 
   export type PermissionCreateNestedOneWithoutRolesInput = {
@@ -13439,12 +15436,10 @@ export namespace Prisma {
     connect?: PermissionWhereUniqueInput
   }
 
-  export type RoleUpdateOneRequiredWithoutPermissionsNestedInput = {
+  export type RoleCreateNestedOneWithoutPermissionsInput = {
     create?: XOR<RoleCreateWithoutPermissionsInput, RoleUncheckedCreateWithoutPermissionsInput>
     connectOrCreate?: RoleCreateOrConnectWithoutPermissionsInput
-    upsert?: RoleUpsertWithoutPermissionsInput
     connect?: RoleWhereUniqueInput
-    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutPermissionsInput, RoleUpdateWithoutPermissionsInput>, RoleUncheckedUpdateWithoutPermissionsInput>
   }
 
   export type PermissionUpdateOneRequiredWithoutRolesNestedInput = {
@@ -13453,6 +15448,14 @@ export namespace Prisma {
     upsert?: PermissionUpsertWithoutRolesInput
     connect?: PermissionWhereUniqueInput
     update?: XOR<XOR<PermissionUpdateToOneWithWhereWithoutRolesInput, PermissionUpdateWithoutRolesInput>, PermissionUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type RoleUpdateOneRequiredWithoutPermissionsNestedInput = {
+    create?: XOR<RoleCreateWithoutPermissionsInput, RoleUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutPermissionsInput
+    upsert?: RoleUpsertWithoutPermissionsInput
+    connect?: RoleWhereUniqueInput
+    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutPermissionsInput, RoleUpdateWithoutPermissionsInput>, RoleUncheckedUpdateWithoutPermissionsInput>
   }
 
   export type DatasetCreateNestedOneWithoutChildrenInput = {
@@ -13468,18 +15471,18 @@ export namespace Prisma {
     connect?: DatasetWhereUniqueInput | DatasetWhereUniqueInput[]
   }
 
-  export type DocumentCreateNestedManyWithoutDatasetInput = {
-    create?: XOR<DocumentCreateWithoutDatasetInput, DocumentUncheckedCreateWithoutDatasetInput> | DocumentCreateWithoutDatasetInput[] | DocumentUncheckedCreateWithoutDatasetInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutDatasetInput | DocumentCreateOrConnectWithoutDatasetInput[]
-    createMany?: DocumentCreateManyDatasetInputEnvelope
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-  }
-
   export type DatasetAccessCreateNestedManyWithoutDatasetInput = {
     create?: XOR<DatasetAccessCreateWithoutDatasetInput, DatasetAccessUncheckedCreateWithoutDatasetInput> | DatasetAccessCreateWithoutDatasetInput[] | DatasetAccessUncheckedCreateWithoutDatasetInput[]
     connectOrCreate?: DatasetAccessCreateOrConnectWithoutDatasetInput | DatasetAccessCreateOrConnectWithoutDatasetInput[]
     createMany?: DatasetAccessCreateManyDatasetInputEnvelope
     connect?: DatasetAccessWhereUniqueInput | DatasetAccessWhereUniqueInput[]
+  }
+
+  export type DocumentCreateNestedManyWithoutDatasetInput = {
+    create?: XOR<DocumentCreateWithoutDatasetInput, DocumentUncheckedCreateWithoutDatasetInput> | DocumentCreateWithoutDatasetInput[] | DocumentUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutDatasetInput | DocumentCreateOrConnectWithoutDatasetInput[]
+    createMany?: DocumentCreateManyDatasetInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
   }
 
   export type DatasetUncheckedCreateNestedManyWithoutParentInput = {
@@ -13489,18 +15492,18 @@ export namespace Prisma {
     connect?: DatasetWhereUniqueInput | DatasetWhereUniqueInput[]
   }
 
-  export type DocumentUncheckedCreateNestedManyWithoutDatasetInput = {
-    create?: XOR<DocumentCreateWithoutDatasetInput, DocumentUncheckedCreateWithoutDatasetInput> | DocumentCreateWithoutDatasetInput[] | DocumentUncheckedCreateWithoutDatasetInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutDatasetInput | DocumentCreateOrConnectWithoutDatasetInput[]
-    createMany?: DocumentCreateManyDatasetInputEnvelope
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-  }
-
   export type DatasetAccessUncheckedCreateNestedManyWithoutDatasetInput = {
     create?: XOR<DatasetAccessCreateWithoutDatasetInput, DatasetAccessUncheckedCreateWithoutDatasetInput> | DatasetAccessCreateWithoutDatasetInput[] | DatasetAccessUncheckedCreateWithoutDatasetInput[]
     connectOrCreate?: DatasetAccessCreateOrConnectWithoutDatasetInput | DatasetAccessCreateOrConnectWithoutDatasetInput[]
     createMany?: DatasetAccessCreateManyDatasetInputEnvelope
     connect?: DatasetAccessWhereUniqueInput | DatasetAccessWhereUniqueInput[]
+  }
+
+  export type DocumentUncheckedCreateNestedManyWithoutDatasetInput = {
+    create?: XOR<DocumentCreateWithoutDatasetInput, DocumentUncheckedCreateWithoutDatasetInput> | DocumentCreateWithoutDatasetInput[] | DocumentUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutDatasetInput | DocumentCreateOrConnectWithoutDatasetInput[]
+    createMany?: DocumentCreateManyDatasetInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
   }
 
   export type DatasetUpdateOneWithoutChildrenNestedInput = {
@@ -13527,20 +15530,6 @@ export namespace Prisma {
     deleteMany?: DatasetScalarWhereInput | DatasetScalarWhereInput[]
   }
 
-  export type DocumentUpdateManyWithoutDatasetNestedInput = {
-    create?: XOR<DocumentCreateWithoutDatasetInput, DocumentUncheckedCreateWithoutDatasetInput> | DocumentCreateWithoutDatasetInput[] | DocumentUncheckedCreateWithoutDatasetInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutDatasetInput | DocumentCreateOrConnectWithoutDatasetInput[]
-    upsert?: DocumentUpsertWithWhereUniqueWithoutDatasetInput | DocumentUpsertWithWhereUniqueWithoutDatasetInput[]
-    createMany?: DocumentCreateManyDatasetInputEnvelope
-    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    update?: DocumentUpdateWithWhereUniqueWithoutDatasetInput | DocumentUpdateWithWhereUniqueWithoutDatasetInput[]
-    updateMany?: DocumentUpdateManyWithWhereWithoutDatasetInput | DocumentUpdateManyWithWhereWithoutDatasetInput[]
-    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
-  }
-
   export type DatasetAccessUpdateManyWithoutDatasetNestedInput = {
     create?: XOR<DatasetAccessCreateWithoutDatasetInput, DatasetAccessUncheckedCreateWithoutDatasetInput> | DatasetAccessCreateWithoutDatasetInput[] | DatasetAccessUncheckedCreateWithoutDatasetInput[]
     connectOrCreate?: DatasetAccessCreateOrConnectWithoutDatasetInput | DatasetAccessCreateOrConnectWithoutDatasetInput[]
@@ -13553,6 +15542,20 @@ export namespace Prisma {
     update?: DatasetAccessUpdateWithWhereUniqueWithoutDatasetInput | DatasetAccessUpdateWithWhereUniqueWithoutDatasetInput[]
     updateMany?: DatasetAccessUpdateManyWithWhereWithoutDatasetInput | DatasetAccessUpdateManyWithWhereWithoutDatasetInput[]
     deleteMany?: DatasetAccessScalarWhereInput | DatasetAccessScalarWhereInput[]
+  }
+
+  export type DocumentUpdateManyWithoutDatasetNestedInput = {
+    create?: XOR<DocumentCreateWithoutDatasetInput, DocumentUncheckedCreateWithoutDatasetInput> | DocumentCreateWithoutDatasetInput[] | DocumentUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutDatasetInput | DocumentCreateOrConnectWithoutDatasetInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutDatasetInput | DocumentUpsertWithWhereUniqueWithoutDatasetInput[]
+    createMany?: DocumentCreateManyDatasetInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutDatasetInput | DocumentUpdateWithWhereUniqueWithoutDatasetInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutDatasetInput | DocumentUpdateManyWithWhereWithoutDatasetInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -13573,20 +15576,6 @@ export namespace Prisma {
     deleteMany?: DatasetScalarWhereInput | DatasetScalarWhereInput[]
   }
 
-  export type DocumentUncheckedUpdateManyWithoutDatasetNestedInput = {
-    create?: XOR<DocumentCreateWithoutDatasetInput, DocumentUncheckedCreateWithoutDatasetInput> | DocumentCreateWithoutDatasetInput[] | DocumentUncheckedCreateWithoutDatasetInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutDatasetInput | DocumentCreateOrConnectWithoutDatasetInput[]
-    upsert?: DocumentUpsertWithWhereUniqueWithoutDatasetInput | DocumentUpsertWithWhereUniqueWithoutDatasetInput[]
-    createMany?: DocumentCreateManyDatasetInputEnvelope
-    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    update?: DocumentUpdateWithWhereUniqueWithoutDatasetInput | DocumentUpdateWithWhereUniqueWithoutDatasetInput[]
-    updateMany?: DocumentUpdateManyWithWhereWithoutDatasetInput | DocumentUpdateManyWithWhereWithoutDatasetInput[]
-    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
-  }
-
   export type DatasetAccessUncheckedUpdateManyWithoutDatasetNestedInput = {
     create?: XOR<DatasetAccessCreateWithoutDatasetInput, DatasetAccessUncheckedCreateWithoutDatasetInput> | DatasetAccessCreateWithoutDatasetInput[] | DatasetAccessUncheckedCreateWithoutDatasetInput[]
     connectOrCreate?: DatasetAccessCreateOrConnectWithoutDatasetInput | DatasetAccessCreateOrConnectWithoutDatasetInput[]
@@ -13599,6 +15588,20 @@ export namespace Prisma {
     update?: DatasetAccessUpdateWithWhereUniqueWithoutDatasetInput | DatasetAccessUpdateWithWhereUniqueWithoutDatasetInput[]
     updateMany?: DatasetAccessUpdateManyWithWhereWithoutDatasetInput | DatasetAccessUpdateManyWithWhereWithoutDatasetInput[]
     deleteMany?: DatasetAccessScalarWhereInput | DatasetAccessScalarWhereInput[]
+  }
+
+  export type DocumentUncheckedUpdateManyWithoutDatasetNestedInput = {
+    create?: XOR<DocumentCreateWithoutDatasetInput, DocumentUncheckedCreateWithoutDatasetInput> | DocumentCreateWithoutDatasetInput[] | DocumentUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutDatasetInput | DocumentCreateOrConnectWithoutDatasetInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutDatasetInput | DocumentUpsertWithWhereUniqueWithoutDatasetInput[]
+    createMany?: DocumentCreateManyDatasetInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutDatasetInput | DocumentUpdateWithWhereUniqueWithoutDatasetInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutDatasetInput | DocumentUpdateManyWithWhereWithoutDatasetInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
   }
 
   export type DatasetCreateNestedOneWithoutDocumentsInput = {
@@ -13619,14 +15622,6 @@ export namespace Prisma {
     connectOrCreate?: DocumentAccessCreateOrConnectWithoutDocumentInput | DocumentAccessCreateOrConnectWithoutDocumentInput[]
     createMany?: DocumentAccessCreateManyDocumentInputEnvelope
     connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type DatasetUpdateOneRequiredWithoutDocumentsNestedInput = {
@@ -13665,28 +15660,20 @@ export namespace Prisma {
     deleteMany?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutDatasetsInput = {
-    create?: XOR<UserCreateWithoutDatasetsInput, UserUncheckedCreateWithoutDatasetsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDatasetsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type DatasetCreateNestedOneWithoutAccessesInput = {
     create?: XOR<DatasetCreateWithoutAccessesInput, DatasetUncheckedCreateWithoutAccessesInput>
     connectOrCreate?: DatasetCreateOrConnectWithoutAccessesInput
     connect?: DatasetWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type UserUpdateOneRequiredWithoutDatasetsNestedInput = {
+  export type UserCreateNestedOneWithoutDatasetsInput = {
     create?: XOR<UserCreateWithoutDatasetsInput, UserUncheckedCreateWithoutDatasetsInput>
     connectOrCreate?: UserCreateOrConnectWithoutDatasetsInput
-    upsert?: UserUpsertWithoutDatasetsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDatasetsInput, UserUpdateWithoutDatasetsInput>, UserUncheckedUpdateWithoutDatasetsInput>
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type DatasetUpdateOneRequiredWithoutAccessesNestedInput = {
@@ -13697,16 +15684,32 @@ export namespace Prisma {
     update?: XOR<XOR<DatasetUpdateToOneWithWhereWithoutAccessesInput, DatasetUpdateWithoutAccessesInput>, DatasetUncheckedUpdateWithoutAccessesInput>
   }
 
-  export type UserCreateNestedOneWithoutDocumentsInput = {
-    create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
+  export type UserUpdateOneRequiredWithoutDatasetsNestedInput = {
+    create?: XOR<UserCreateWithoutDatasetsInput, UserUncheckedCreateWithoutDatasetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDatasetsInput
+    upsert?: UserUpsertWithoutDatasetsInput
     connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDatasetsInput, UserUpdateWithoutDatasetsInput>, UserUncheckedUpdateWithoutDatasetsInput>
   }
 
   export type DocumentCreateNestedOneWithoutAccessesInput = {
     create?: XOR<DocumentCreateWithoutAccessesInput, DocumentUncheckedCreateWithoutAccessesInput>
     connectOrCreate?: DocumentCreateOrConnectWithoutAccessesInput
     connect?: DocumentWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DocumentUpdateOneRequiredWithoutAccessesNestedInput = {
+    create?: XOR<DocumentCreateWithoutAccessesInput, DocumentUncheckedCreateWithoutAccessesInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutAccessesInput
+    upsert?: DocumentUpsertWithoutAccessesInput
+    connect?: DocumentWhereUniqueInput
+    update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutAccessesInput, DocumentUpdateWithoutAccessesInput>, DocumentUncheckedUpdateWithoutAccessesInput>
   }
 
   export type UserUpdateOneRequiredWithoutDocumentsNestedInput = {
@@ -13717,12 +15720,92 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDocumentsInput, UserUpdateWithoutDocumentsInput>, UserUncheckedUpdateWithoutDocumentsInput>
   }
 
-  export type DocumentUpdateOneRequiredWithoutAccessesNestedInput = {
-    create?: XOR<DocumentCreateWithoutAccessesInput, DocumentUncheckedCreateWithoutAccessesInput>
-    connectOrCreate?: DocumentCreateOrConnectWithoutAccessesInput
-    upsert?: DocumentUpsertWithoutAccessesInput
-    connect?: DocumentWhereUniqueInput
-    update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutAccessesInput, DocumentUpdateWithoutAccessesInput>, DocumentUncheckedUpdateWithoutAccessesInput>
+  export type UserCreateNestedOneWithoutCreditInput = {
+    create?: XOR<UserCreateWithoutCreditInput, UserUncheckedCreateWithoutCreditInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreditInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CreditUsageCreateNestedManyWithoutCreditInput = {
+    create?: XOR<CreditUsageCreateWithoutCreditInput, CreditUsageUncheckedCreateWithoutCreditInput> | CreditUsageCreateWithoutCreditInput[] | CreditUsageUncheckedCreateWithoutCreditInput[]
+    connectOrCreate?: CreditUsageCreateOrConnectWithoutCreditInput | CreditUsageCreateOrConnectWithoutCreditInput[]
+    createMany?: CreditUsageCreateManyCreditInputEnvelope
+    connect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+  }
+
+  export type CreditUsageUncheckedCreateNestedManyWithoutCreditInput = {
+    create?: XOR<CreditUsageCreateWithoutCreditInput, CreditUsageUncheckedCreateWithoutCreditInput> | CreditUsageCreateWithoutCreditInput[] | CreditUsageUncheckedCreateWithoutCreditInput[]
+    connectOrCreate?: CreditUsageCreateOrConnectWithoutCreditInput | CreditUsageCreateOrConnectWithoutCreditInput[]
+    createMany?: CreditUsageCreateManyCreditInputEnvelope
+    connect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutCreditNestedInput = {
+    create?: XOR<UserCreateWithoutCreditInput, UserUncheckedCreateWithoutCreditInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreditInput
+    upsert?: UserUpsertWithoutCreditInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreditInput, UserUpdateWithoutCreditInput>, UserUncheckedUpdateWithoutCreditInput>
+  }
+
+  export type CreditUsageUpdateManyWithoutCreditNestedInput = {
+    create?: XOR<CreditUsageCreateWithoutCreditInput, CreditUsageUncheckedCreateWithoutCreditInput> | CreditUsageCreateWithoutCreditInput[] | CreditUsageUncheckedCreateWithoutCreditInput[]
+    connectOrCreate?: CreditUsageCreateOrConnectWithoutCreditInput | CreditUsageCreateOrConnectWithoutCreditInput[]
+    upsert?: CreditUsageUpsertWithWhereUniqueWithoutCreditInput | CreditUsageUpsertWithWhereUniqueWithoutCreditInput[]
+    createMany?: CreditUsageCreateManyCreditInputEnvelope
+    set?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    disconnect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    delete?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    connect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    update?: CreditUsageUpdateWithWhereUniqueWithoutCreditInput | CreditUsageUpdateWithWhereUniqueWithoutCreditInput[]
+    updateMany?: CreditUsageUpdateManyWithWhereWithoutCreditInput | CreditUsageUpdateManyWithWhereWithoutCreditInput[]
+    deleteMany?: CreditUsageScalarWhereInput | CreditUsageScalarWhereInput[]
+  }
+
+  export type CreditUsageUncheckedUpdateManyWithoutCreditNestedInput = {
+    create?: XOR<CreditUsageCreateWithoutCreditInput, CreditUsageUncheckedCreateWithoutCreditInput> | CreditUsageCreateWithoutCreditInput[] | CreditUsageUncheckedCreateWithoutCreditInput[]
+    connectOrCreate?: CreditUsageCreateOrConnectWithoutCreditInput | CreditUsageCreateOrConnectWithoutCreditInput[]
+    upsert?: CreditUsageUpsertWithWhereUniqueWithoutCreditInput | CreditUsageUpsertWithWhereUniqueWithoutCreditInput[]
+    createMany?: CreditUsageCreateManyCreditInputEnvelope
+    set?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    disconnect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    delete?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    connect?: CreditUsageWhereUniqueInput | CreditUsageWhereUniqueInput[]
+    update?: CreditUsageUpdateWithWhereUniqueWithoutCreditInput | CreditUsageUpdateWithWhereUniqueWithoutCreditInput[]
+    updateMany?: CreditUsageUpdateManyWithWhereWithoutCreditInput | CreditUsageUpdateManyWithWhereWithoutCreditInput[]
+    deleteMany?: CreditUsageScalarWhereInput | CreditUsageScalarWhereInput[]
+  }
+
+  export type CreditCreateNestedOneWithoutCreditUsageInput = {
+    create?: XOR<CreditCreateWithoutCreditUsageInput, CreditUncheckedCreateWithoutCreditUsageInput>
+    connectOrCreate?: CreditCreateOrConnectWithoutCreditUsageInput
+    connect?: CreditWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCreditUsageInput = {
+    create?: XOR<UserCreateWithoutCreditUsageInput, UserUncheckedCreateWithoutCreditUsageInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreditUsageInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CreditUpdateOneRequiredWithoutCreditUsageNestedInput = {
+    create?: XOR<CreditCreateWithoutCreditUsageInput, CreditUncheckedCreateWithoutCreditUsageInput>
+    connectOrCreate?: CreditCreateOrConnectWithoutCreditUsageInput
+    upsert?: CreditUpsertWithoutCreditUsageInput
+    connect?: CreditWhereUniqueInput
+    update?: XOR<XOR<CreditUpdateToOneWithWhereWithoutCreditUsageInput, CreditUpdateWithoutCreditUsageInput>, CreditUncheckedUpdateWithoutCreditUsageInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCreditUsageNestedInput = {
+    create?: XOR<UserCreateWithoutCreditUsageInput, UserUncheckedCreateWithoutCreditUsageInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreditUsageInput
+    upsert?: UserUpsertWithoutCreditUsageInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreditUsageInput, UserUpdateWithoutCreditUsageInput>, UserUncheckedUpdateWithoutCreditUsageInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13736,7 +15819,19 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -13761,77 +15856,11 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -13861,6 +15890,64 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -13874,21 +15961,93 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type UserRoleCreateWithoutUserInput = {
-    role: RoleCreateNestedOneWithoutUsersInput
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type UserRoleUncheckedCreateWithoutUserInput = {
-    roleId: string
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type UserRoleCreateOrConnectWithoutUserInput = {
-    where: UserRoleWhereUniqueInput
-    create: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput>
+  export type CreditCreateWithoutUserInput = {
+    id: string
+    month: number
+    year: number
+    totalCredits?: number
+    usedCredits?: number
+    remainingCredits?: number
+    lastChatAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt: Date | string
+    CreditUsage?: CreditUsageCreateNestedManyWithoutCreditInput
   }
 
-  export type UserRoleCreateManyUserInputEnvelope = {
-    data: UserRoleCreateManyUserInput | UserRoleCreateManyUserInput[]
+  export type CreditUncheckedCreateWithoutUserInput = {
+    id: string
+    month: number
+    year: number
+    totalCredits?: number
+    usedCredits?: number
+    remainingCredits?: number
+    lastChatAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt: Date | string
+    CreditUsage?: CreditUsageUncheckedCreateNestedManyWithoutCreditInput
+  }
+
+  export type CreditCreateOrConnectWithoutUserInput = {
+    where: CreditWhereUniqueInput
+    create: XOR<CreditCreateWithoutUserInput, CreditUncheckedCreateWithoutUserInput>
+  }
+
+  export type CreditCreateManyUserInputEnvelope = {
+    data: CreditCreateManyUserInput | CreditCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CreditUsageCreateWithoutUserInput = {
+    id: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
+    Credit: CreditCreateNestedOneWithoutCreditUsageInput
+  }
+
+  export type CreditUsageUncheckedCreateWithoutUserInput = {
+    id: string
+    creditId: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CreditUsageCreateOrConnectWithoutUserInput = {
+    where: CreditUsageWhereUniqueInput
+    create: XOR<CreditUsageCreateWithoutUserInput, CreditUsageUncheckedCreateWithoutUserInput>
+  }
+
+  export type CreditUsageCreateManyUserInputEnvelope = {
+    data: CreditUsageCreateManyUserInput | CreditUsageCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type DatasetAccessCreateWithoutUserInput = {
@@ -13912,6 +16071,7 @@ export namespace Prisma {
 
   export type DatasetAccessCreateManyUserInputEnvelope = {
     data: DatasetAccessCreateManyUserInput | DatasetAccessCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type DocumentAccessCreateWithoutUserInput = {
@@ -13935,30 +16095,86 @@ export namespace Prisma {
 
   export type DocumentAccessCreateManyUserInputEnvelope = {
     data: DocumentAccessCreateManyUserInput | DocumentAccessCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
-  export type UserRoleUpsertWithWhereUniqueWithoutUserInput = {
+  export type UserRoleCreateWithoutUserInput = {
+    role: RoleCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserRoleUncheckedCreateWithoutUserInput = {
+    roleId: string
+  }
+
+  export type UserRoleCreateOrConnectWithoutUserInput = {
     where: UserRoleWhereUniqueInput
-    update: XOR<UserRoleUpdateWithoutUserInput, UserRoleUncheckedUpdateWithoutUserInput>
     create: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput>
   }
 
-  export type UserRoleUpdateWithWhereUniqueWithoutUserInput = {
-    where: UserRoleWhereUniqueInput
-    data: XOR<UserRoleUpdateWithoutUserInput, UserRoleUncheckedUpdateWithoutUserInput>
+  export type UserRoleCreateManyUserInputEnvelope = {
+    data: UserRoleCreateManyUserInput | UserRoleCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
-  export type UserRoleUpdateManyWithWhereWithoutUserInput = {
-    where: UserRoleScalarWhereInput
-    data: XOR<UserRoleUpdateManyMutationInput, UserRoleUncheckedUpdateManyWithoutUserInput>
+  export type CreditUpsertWithWhereUniqueWithoutUserInput = {
+    where: CreditWhereUniqueInput
+    update: XOR<CreditUpdateWithoutUserInput, CreditUncheckedUpdateWithoutUserInput>
+    create: XOR<CreditCreateWithoutUserInput, CreditUncheckedCreateWithoutUserInput>
   }
 
-  export type UserRoleScalarWhereInput = {
-    AND?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
-    OR?: UserRoleScalarWhereInput[]
-    NOT?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
-    userId?: StringFilter<"UserRole"> | string
-    roleId?: StringFilter<"UserRole"> | string
+  export type CreditUpdateWithWhereUniqueWithoutUserInput = {
+    where: CreditWhereUniqueInput
+    data: XOR<CreditUpdateWithoutUserInput, CreditUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CreditUpdateManyWithWhereWithoutUserInput = {
+    where: CreditScalarWhereInput
+    data: XOR<CreditUpdateManyMutationInput, CreditUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CreditScalarWhereInput = {
+    AND?: CreditScalarWhereInput | CreditScalarWhereInput[]
+    OR?: CreditScalarWhereInput[]
+    NOT?: CreditScalarWhereInput | CreditScalarWhereInput[]
+    id?: StringFilter<"Credit"> | string
+    userId?: StringFilter<"Credit"> | string
+    month?: IntFilter<"Credit"> | number
+    year?: IntFilter<"Credit"> | number
+    totalCredits?: IntFilter<"Credit"> | number
+    usedCredits?: IntFilter<"Credit"> | number
+    remainingCredits?: IntFilter<"Credit"> | number
+    lastChatAt?: DateTimeNullableFilter<"Credit"> | Date | string | null
+    createdAt?: DateTimeFilter<"Credit"> | Date | string
+    updatedAt?: DateTimeFilter<"Credit"> | Date | string
+  }
+
+  export type CreditUsageUpsertWithWhereUniqueWithoutUserInput = {
+    where: CreditUsageWhereUniqueInput
+    update: XOR<CreditUsageUpdateWithoutUserInput, CreditUsageUncheckedUpdateWithoutUserInput>
+    create: XOR<CreditUsageCreateWithoutUserInput, CreditUsageUncheckedCreateWithoutUserInput>
+  }
+
+  export type CreditUsageUpdateWithWhereUniqueWithoutUserInput = {
+    where: CreditUsageWhereUniqueInput
+    data: XOR<CreditUsageUpdateWithoutUserInput, CreditUsageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CreditUsageUpdateManyWithWhereWithoutUserInput = {
+    where: CreditUsageScalarWhereInput
+    data: XOR<CreditUsageUpdateManyMutationInput, CreditUsageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CreditUsageScalarWhereInput = {
+    AND?: CreditUsageScalarWhereInput | CreditUsageScalarWhereInput[]
+    OR?: CreditUsageScalarWhereInput[]
+    NOT?: CreditUsageScalarWhereInput | CreditUsageScalarWhereInput[]
+    id?: StringFilter<"CreditUsage"> | string
+    userId?: StringFilter<"CreditUsage"> | string
+    creditId?: StringFilter<"CreditUsage"> | string
+    amount?: IntFilter<"CreditUsage"> | number
+    action?: StringFilter<"CreditUsage"> | string
+    metadata?: StringNullableFilter<"CreditUsage"> | string | null
+    createdAt?: DateTimeFilter<"CreditUsage"> | Date | string
   }
 
   export type DatasetAccessUpsertWithWhereUniqueWithoutUserInput = {
@@ -14015,6 +16231,30 @@ export namespace Prisma {
     canDelete?: BoolFilter<"DocumentAccess"> | boolean
   }
 
+  export type UserRoleUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserRoleWhereUniqueInput
+    update: XOR<UserRoleUpdateWithoutUserInput, UserRoleUncheckedUpdateWithoutUserInput>
+    create: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserRoleUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserRoleWhereUniqueInput
+    data: XOR<UserRoleUpdateWithoutUserInput, UserRoleUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserRoleUpdateManyWithWhereWithoutUserInput = {
+    where: UserRoleScalarWhereInput
+    data: XOR<UserRoleUpdateManyMutationInput, UserRoleUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserRoleScalarWhereInput = {
+    AND?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+    OR?: UserRoleScalarWhereInput[]
+    NOT?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+    userId?: StringFilter<"UserRole"> | string
+    roleId?: StringFilter<"UserRole"> | string
+  }
+
   export type RolePermissionCreateWithoutRoleInput = {
     permission: PermissionCreateNestedOneWithoutRolesInput
   }
@@ -14030,6 +16270,7 @@ export namespace Prisma {
 
   export type RolePermissionCreateManyRoleInputEnvelope = {
     data: RolePermissionCreateManyRoleInput | RolePermissionCreateManyRoleInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserRoleCreateWithoutRoleInput = {
@@ -14047,6 +16288,7 @@ export namespace Prisma {
 
   export type UserRoleCreateManyRoleInputEnvelope = {
     data: UserRoleCreateManyRoleInput | UserRoleCreateManyRoleInput[]
+    skipDuplicates?: boolean
   }
 
   export type RolePermissionUpsertWithWhereUniqueWithoutRoleInput = {
@@ -14104,6 +16346,7 @@ export namespace Prisma {
 
   export type RolePermissionCreateManyPermissionInputEnvelope = {
     data: RolePermissionCreateManyPermissionInput | RolePermissionCreateManyPermissionInput[]
+    skipDuplicates?: boolean
   }
 
   export type RolePermissionUpsertWithWhereUniqueWithoutPermissionInput = {
@@ -14120,35 +16363,6 @@ export namespace Prisma {
   export type RolePermissionUpdateManyWithWhereWithoutPermissionInput = {
     where: RolePermissionScalarWhereInput
     data: XOR<RolePermissionUpdateManyMutationInput, RolePermissionUncheckedUpdateManyWithoutPermissionInput>
-  }
-
-  export type UserCreateWithoutRolesInput = {
-    id?: string
-    email: string
-    asgl_id: string
-    name: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    datasets?: DatasetAccessCreateNestedManyWithoutUserInput
-    documents?: DocumentAccessCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutRolesInput = {
-    id?: string
-    email: string
-    asgl_id: string
-    name: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    datasets?: DatasetAccessUncheckedCreateNestedManyWithoutUserInput
-    documents?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutRolesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
   }
 
   export type RoleCreateWithoutUsersInput = {
@@ -14168,39 +16382,39 @@ export namespace Prisma {
     create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
   }
 
-  export type UserUpsertWithoutRolesInput = {
-    update: XOR<UserUpdateWithoutRolesInput, UserUncheckedUpdateWithoutRolesInput>
+  export type UserCreateWithoutRolesInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Credit?: CreditCreateNestedManyWithoutUserInput
+    CreditUsage?: CreditUsageCreateNestedManyWithoutUserInput
+    datasets?: DatasetAccessCreateNestedManyWithoutUserInput
+    documents?: DocumentAccessCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRolesInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Credit?: CreditUncheckedCreateNestedManyWithoutUserInput
+    CreditUsage?: CreditUsageUncheckedCreateNestedManyWithoutUserInput
+    datasets?: DatasetAccessUncheckedCreateNestedManyWithoutUserInput
+    documents?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRolesInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutRolesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutRolesInput, UserUncheckedUpdateWithoutRolesInput>
-  }
-
-  export type UserUpdateWithoutRolesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    asgl_id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    datasets?: DatasetAccessUpdateManyWithoutUserNestedInput
-    documents?: DocumentAccessUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutRolesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    asgl_id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    datasets?: DatasetAccessUncheckedUpdateManyWithoutUserNestedInput
-    documents?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RoleUpsertWithoutUsersInput = {
@@ -14226,6 +16440,62 @@ export namespace Prisma {
     permissions?: RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
   }
 
+  export type UserUpsertWithoutRolesInput = {
+    update: XOR<UserUpdateWithoutRolesInput, UserUncheckedUpdateWithoutRolesInput>
+    create: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRolesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRolesInput, UserUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type UserUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUpdateManyWithoutUserNestedInput
+    CreditUsage?: CreditUsageUpdateManyWithoutUserNestedInput
+    datasets?: DatasetAccessUpdateManyWithoutUserNestedInput
+    documents?: DocumentAccessUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUncheckedUpdateManyWithoutUserNestedInput
+    CreditUsage?: CreditUsageUncheckedUpdateManyWithoutUserNestedInput
+    datasets?: DatasetAccessUncheckedUpdateManyWithoutUserNestedInput
+    documents?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PermissionCreateWithoutRolesInput = {
+    id?: string
+    name: string
+  }
+
+  export type PermissionUncheckedCreateWithoutRolesInput = {
+    id?: string
+    name: string
+  }
+
+  export type PermissionCreateOrConnectWithoutRolesInput = {
+    where: PermissionWhereUniqueInput
+    create: XOR<PermissionCreateWithoutRolesInput, PermissionUncheckedCreateWithoutRolesInput>
+  }
+
   export type RoleCreateWithoutPermissionsInput = {
     id?: string
     name: string
@@ -14243,19 +16513,25 @@ export namespace Prisma {
     create: XOR<RoleCreateWithoutPermissionsInput, RoleUncheckedCreateWithoutPermissionsInput>
   }
 
-  export type PermissionCreateWithoutRolesInput = {
-    id?: string
-    name: string
-  }
-
-  export type PermissionUncheckedCreateWithoutRolesInput = {
-    id?: string
-    name: string
-  }
-
-  export type PermissionCreateOrConnectWithoutRolesInput = {
-    where: PermissionWhereUniqueInput
+  export type PermissionUpsertWithoutRolesInput = {
+    update: XOR<PermissionUpdateWithoutRolesInput, PermissionUncheckedUpdateWithoutRolesInput>
     create: XOR<PermissionCreateWithoutRolesInput, PermissionUncheckedCreateWithoutRolesInput>
+    where?: PermissionWhereInput
+  }
+
+  export type PermissionUpdateToOneWithWhereWithoutRolesInput = {
+    where?: PermissionWhereInput
+    data: XOR<PermissionUpdateWithoutRolesInput, PermissionUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type PermissionUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PermissionUncheckedUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type RoleUpsertWithoutPermissionsInput = {
@@ -14281,27 +16557,6 @@ export namespace Prisma {
     users?: UserRoleUncheckedUpdateManyWithoutRoleNestedInput
   }
 
-  export type PermissionUpsertWithoutRolesInput = {
-    update: XOR<PermissionUpdateWithoutRolesInput, PermissionUncheckedUpdateWithoutRolesInput>
-    create: XOR<PermissionCreateWithoutRolesInput, PermissionUncheckedCreateWithoutRolesInput>
-    where?: PermissionWhereInput
-  }
-
-  export type PermissionUpdateToOneWithWhereWithoutRolesInput = {
-    where?: PermissionWhereInput
-    data: XOR<PermissionUpdateWithoutRolesInput, PermissionUncheckedUpdateWithoutRolesInput>
-  }
-
-  export type PermissionUpdateWithoutRolesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type PermissionUncheckedUpdateWithoutRolesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
   export type DatasetCreateWithoutChildrenInput = {
     id?: string
     dataset_id: string
@@ -14309,8 +16564,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     parent?: DatasetCreateNestedOneWithoutChildrenInput
-    documents?: DocumentCreateNestedManyWithoutDatasetInput
     accesses?: DatasetAccessCreateNestedManyWithoutDatasetInput
+    documents?: DocumentCreateNestedManyWithoutDatasetInput
   }
 
   export type DatasetUncheckedCreateWithoutChildrenInput = {
@@ -14320,8 +16575,8 @@ export namespace Prisma {
     parent_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    documents?: DocumentUncheckedCreateNestedManyWithoutDatasetInput
     accesses?: DatasetAccessUncheckedCreateNestedManyWithoutDatasetInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutDatasetInput
   }
 
   export type DatasetCreateOrConnectWithoutChildrenInput = {
@@ -14336,8 +16591,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     children?: DatasetCreateNestedManyWithoutParentInput
-    documents?: DocumentCreateNestedManyWithoutDatasetInput
     accesses?: DatasetAccessCreateNestedManyWithoutDatasetInput
+    documents?: DocumentCreateNestedManyWithoutDatasetInput
   }
 
   export type DatasetUncheckedCreateWithoutParentInput = {
@@ -14347,8 +16602,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     children?: DatasetUncheckedCreateNestedManyWithoutParentInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutDatasetInput
     accesses?: DatasetAccessUncheckedCreateNestedManyWithoutDatasetInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutDatasetInput
   }
 
   export type DatasetCreateOrConnectWithoutParentInput = {
@@ -14358,6 +16613,31 @@ export namespace Prisma {
 
   export type DatasetCreateManyParentInputEnvelope = {
     data: DatasetCreateManyParentInput | DatasetCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DatasetAccessCreateWithoutDatasetInput = {
+    canView?: boolean
+    canEdit?: boolean
+    canDelete?: boolean
+    user: UserCreateNestedOneWithoutDatasetsInput
+  }
+
+  export type DatasetAccessUncheckedCreateWithoutDatasetInput = {
+    userId: string
+    canView?: boolean
+    canEdit?: boolean
+    canDelete?: boolean
+  }
+
+  export type DatasetAccessCreateOrConnectWithoutDatasetInput = {
+    where: DatasetAccessWhereUniqueInput
+    create: XOR<DatasetAccessCreateWithoutDatasetInput, DatasetAccessUncheckedCreateWithoutDatasetInput>
+  }
+
+  export type DatasetAccessCreateManyDatasetInputEnvelope = {
+    data: DatasetAccessCreateManyDatasetInput | DatasetAccessCreateManyDatasetInput[]
+    skipDuplicates?: boolean
   }
 
   export type DocumentCreateWithoutDatasetInput = {
@@ -14389,29 +16669,7 @@ export namespace Prisma {
 
   export type DocumentCreateManyDatasetInputEnvelope = {
     data: DocumentCreateManyDatasetInput | DocumentCreateManyDatasetInput[]
-  }
-
-  export type DatasetAccessCreateWithoutDatasetInput = {
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-    user: UserCreateNestedOneWithoutDatasetsInput
-  }
-
-  export type DatasetAccessUncheckedCreateWithoutDatasetInput = {
-    userId: string
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-  }
-
-  export type DatasetAccessCreateOrConnectWithoutDatasetInput = {
-    where: DatasetAccessWhereUniqueInput
-    create: XOR<DatasetAccessCreateWithoutDatasetInput, DatasetAccessUncheckedCreateWithoutDatasetInput>
-  }
-
-  export type DatasetAccessCreateManyDatasetInputEnvelope = {
-    data: DatasetAccessCreateManyDatasetInput | DatasetAccessCreateManyDatasetInput[]
+    skipDuplicates?: boolean
   }
 
   export type DatasetUpsertWithoutChildrenInput = {
@@ -14432,8 +16690,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     parent?: DatasetUpdateOneWithoutChildrenNestedInput
-    documents?: DocumentUpdateManyWithoutDatasetNestedInput
     accesses?: DatasetAccessUpdateManyWithoutDatasetNestedInput
+    documents?: DocumentUpdateManyWithoutDatasetNestedInput
   }
 
   export type DatasetUncheckedUpdateWithoutChildrenInput = {
@@ -14443,8 +16701,8 @@ export namespace Prisma {
     parent_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    documents?: DocumentUncheckedUpdateManyWithoutDatasetNestedInput
     accesses?: DatasetAccessUncheckedUpdateManyWithoutDatasetNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutDatasetNestedInput
   }
 
   export type DatasetUpsertWithWhereUniqueWithoutParentInput = {
@@ -14475,6 +16733,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Dataset"> | Date | string
   }
 
+  export type DatasetAccessUpsertWithWhereUniqueWithoutDatasetInput = {
+    where: DatasetAccessWhereUniqueInput
+    update: XOR<DatasetAccessUpdateWithoutDatasetInput, DatasetAccessUncheckedUpdateWithoutDatasetInput>
+    create: XOR<DatasetAccessCreateWithoutDatasetInput, DatasetAccessUncheckedCreateWithoutDatasetInput>
+  }
+
+  export type DatasetAccessUpdateWithWhereUniqueWithoutDatasetInput = {
+    where: DatasetAccessWhereUniqueInput
+    data: XOR<DatasetAccessUpdateWithoutDatasetInput, DatasetAccessUncheckedUpdateWithoutDatasetInput>
+  }
+
+  export type DatasetAccessUpdateManyWithWhereWithoutDatasetInput = {
+    where: DatasetAccessScalarWhereInput
+    data: XOR<DatasetAccessUpdateManyMutationInput, DatasetAccessUncheckedUpdateManyWithoutDatasetInput>
+  }
+
   export type DocumentUpsertWithWhereUniqueWithoutDatasetInput = {
     where: DocumentWhereUniqueInput
     update: XOR<DocumentUpdateWithoutDatasetInput, DocumentUncheckedUpdateWithoutDatasetInput>
@@ -14503,22 +16777,6 @@ export namespace Prisma {
     datasetId?: StringFilter<"Document"> | string
     createdAt?: DateTimeFilter<"Document"> | Date | string
     updatedAt?: DateTimeFilter<"Document"> | Date | string
-  }
-
-  export type DatasetAccessUpsertWithWhereUniqueWithoutDatasetInput = {
-    where: DatasetAccessWhereUniqueInput
-    update: XOR<DatasetAccessUpdateWithoutDatasetInput, DatasetAccessUncheckedUpdateWithoutDatasetInput>
-    create: XOR<DatasetAccessCreateWithoutDatasetInput, DatasetAccessUncheckedCreateWithoutDatasetInput>
-  }
-
-  export type DatasetAccessUpdateWithWhereUniqueWithoutDatasetInput = {
-    where: DatasetAccessWhereUniqueInput
-    data: XOR<DatasetAccessUpdateWithoutDatasetInput, DatasetAccessUncheckedUpdateWithoutDatasetInput>
-  }
-
-  export type DatasetAccessUpdateManyWithWhereWithoutDatasetInput = {
-    where: DatasetAccessScalarWhereInput
-    data: XOR<DatasetAccessUpdateManyMutationInput, DatasetAccessUncheckedUpdateManyWithoutDatasetInput>
   }
 
   export type DatasetCreateWithoutDocumentsInput = {
@@ -14569,6 +16827,7 @@ export namespace Prisma {
 
   export type DocumentAccessCreateManyDocumentInputEnvelope = {
     data: DocumentAccessCreateManyDocumentInput | DocumentAccessCreateManyDocumentInput[]
+    skipDuplicates?: boolean
   }
 
   export type DatasetUpsertWithoutDocumentsInput = {
@@ -14620,35 +16879,6 @@ export namespace Prisma {
     data: XOR<DocumentAccessUpdateManyMutationInput, DocumentAccessUncheckedUpdateManyWithoutDocumentInput>
   }
 
-  export type UserCreateWithoutDatasetsInput = {
-    id?: string
-    email: string
-    asgl_id: string
-    name: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    roles?: UserRoleCreateNestedManyWithoutUserInput
-    documents?: DocumentAccessCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutDatasetsInput = {
-    id?: string
-    email: string
-    asgl_id: string
-    name: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
-    documents?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutDatasetsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutDatasetsInput, UserUncheckedCreateWithoutDatasetsInput>
-  }
-
   export type DatasetCreateWithoutAccessesInput = {
     id?: string
     dataset_id: string
@@ -14676,39 +16906,39 @@ export namespace Prisma {
     create: XOR<DatasetCreateWithoutAccessesInput, DatasetUncheckedCreateWithoutAccessesInput>
   }
 
-  export type UserUpsertWithoutDatasetsInput = {
-    update: XOR<UserUpdateWithoutDatasetsInput, UserUncheckedUpdateWithoutDatasetsInput>
+  export type UserCreateWithoutDatasetsInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Credit?: CreditCreateNestedManyWithoutUserInput
+    CreditUsage?: CreditUsageCreateNestedManyWithoutUserInput
+    documents?: DocumentAccessCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDatasetsInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Credit?: CreditUncheckedCreateNestedManyWithoutUserInput
+    CreditUsage?: CreditUsageUncheckedCreateNestedManyWithoutUserInput
+    documents?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDatasetsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutDatasetsInput, UserUncheckedCreateWithoutDatasetsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutDatasetsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutDatasetsInput, UserUncheckedUpdateWithoutDatasetsInput>
-  }
-
-  export type UserUpdateWithoutDatasetsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    asgl_id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    roles?: UserRoleUpdateManyWithoutUserNestedInput
-    documents?: DocumentAccessUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutDatasetsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    asgl_id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
-    documents?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DatasetUpsertWithoutAccessesInput = {
@@ -14744,33 +16974,45 @@ export namespace Prisma {
     documents?: DocumentUncheckedUpdateManyWithoutDatasetNestedInput
   }
 
-  export type UserCreateWithoutDocumentsInput = {
-    id?: string
-    email: string
-    asgl_id: string
-    name: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    roles?: UserRoleCreateNestedManyWithoutUserInput
-    datasets?: DatasetAccessCreateNestedManyWithoutUserInput
+  export type UserUpsertWithoutDatasetsInput = {
+    update: XOR<UserUpdateWithoutDatasetsInput, UserUncheckedUpdateWithoutDatasetsInput>
+    create: XOR<UserCreateWithoutDatasetsInput, UserUncheckedCreateWithoutDatasetsInput>
+    where?: UserWhereInput
   }
 
-  export type UserUncheckedCreateWithoutDocumentsInput = {
-    id?: string
-    email: string
-    asgl_id: string
-    name: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
-    datasets?: DatasetAccessUncheckedCreateNestedManyWithoutUserInput
+  export type UserUpdateToOneWithWhereWithoutDatasetsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDatasetsInput, UserUncheckedUpdateWithoutDatasetsInput>
   }
 
-  export type UserCreateOrConnectWithoutDocumentsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+  export type UserUpdateWithoutDatasetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUpdateManyWithoutUserNestedInput
+    CreditUsage?: CreditUsageUpdateManyWithoutUserNestedInput
+    documents?: DocumentAccessUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDatasetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUncheckedUpdateManyWithoutUserNestedInput
+    CreditUsage?: CreditUsageUncheckedUpdateManyWithoutUserNestedInput
+    documents?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DocumentCreateWithoutAccessesInput = {
@@ -14800,39 +17042,39 @@ export namespace Prisma {
     create: XOR<DocumentCreateWithoutAccessesInput, DocumentUncheckedCreateWithoutAccessesInput>
   }
 
-  export type UserUpsertWithoutDocumentsInput = {
-    update: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+  export type UserCreateWithoutDocumentsInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Credit?: CreditCreateNestedManyWithoutUserInput
+    CreditUsage?: CreditUsageCreateNestedManyWithoutUserInput
+    datasets?: DatasetAccessCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Credit?: CreditUncheckedCreateNestedManyWithoutUserInput
+    CreditUsage?: CreditUsageUncheckedCreateNestedManyWithoutUserInput
+    datasets?: DatasetAccessUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDocumentsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutDocumentsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
-  }
-
-  export type UserUpdateWithoutDocumentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    asgl_id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    roles?: UserRoleUpdateManyWithoutUserNestedInput
-    datasets?: DatasetAccessUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutDocumentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    asgl_id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
-    datasets?: DatasetAccessUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DocumentUpsertWithoutAccessesInput = {
@@ -14868,8 +17110,330 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserRoleCreateManyUserInput = {
-    roleId: string
+  export type UserUpsertWithoutDocumentsInput = {
+    update: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type UserUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUpdateManyWithoutUserNestedInput
+    CreditUsage?: CreditUsageUpdateManyWithoutUserNestedInput
+    datasets?: DatasetAccessUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUncheckedUpdateManyWithoutUserNestedInput
+    CreditUsage?: CreditUsageUncheckedUpdateManyWithoutUserNestedInput
+    datasets?: DatasetAccessUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutCreditInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreditUsage?: CreditUsageCreateNestedManyWithoutUserInput
+    datasets?: DatasetAccessCreateNestedManyWithoutUserInput
+    documents?: DocumentAccessCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCreditInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreditUsage?: CreditUsageUncheckedCreateNestedManyWithoutUserInput
+    datasets?: DatasetAccessUncheckedCreateNestedManyWithoutUserInput
+    documents?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCreditInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreditInput, UserUncheckedCreateWithoutCreditInput>
+  }
+
+  export type CreditUsageCreateWithoutCreditInput = {
+    id: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
+    User: UserCreateNestedOneWithoutCreditUsageInput
+  }
+
+  export type CreditUsageUncheckedCreateWithoutCreditInput = {
+    id: string
+    userId: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CreditUsageCreateOrConnectWithoutCreditInput = {
+    where: CreditUsageWhereUniqueInput
+    create: XOR<CreditUsageCreateWithoutCreditInput, CreditUsageUncheckedCreateWithoutCreditInput>
+  }
+
+  export type CreditUsageCreateManyCreditInputEnvelope = {
+    data: CreditUsageCreateManyCreditInput | CreditUsageCreateManyCreditInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutCreditInput = {
+    update: XOR<UserUpdateWithoutCreditInput, UserUncheckedUpdateWithoutCreditInput>
+    create: XOR<UserCreateWithoutCreditInput, UserUncheckedCreateWithoutCreditInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreditInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreditInput, UserUncheckedUpdateWithoutCreditInput>
+  }
+
+  export type UserUpdateWithoutCreditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreditUsage?: CreditUsageUpdateManyWithoutUserNestedInput
+    datasets?: DatasetAccessUpdateManyWithoutUserNestedInput
+    documents?: DocumentAccessUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreditUsage?: CreditUsageUncheckedUpdateManyWithoutUserNestedInput
+    datasets?: DatasetAccessUncheckedUpdateManyWithoutUserNestedInput
+    documents?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CreditUsageUpsertWithWhereUniqueWithoutCreditInput = {
+    where: CreditUsageWhereUniqueInput
+    update: XOR<CreditUsageUpdateWithoutCreditInput, CreditUsageUncheckedUpdateWithoutCreditInput>
+    create: XOR<CreditUsageCreateWithoutCreditInput, CreditUsageUncheckedCreateWithoutCreditInput>
+  }
+
+  export type CreditUsageUpdateWithWhereUniqueWithoutCreditInput = {
+    where: CreditUsageWhereUniqueInput
+    data: XOR<CreditUsageUpdateWithoutCreditInput, CreditUsageUncheckedUpdateWithoutCreditInput>
+  }
+
+  export type CreditUsageUpdateManyWithWhereWithoutCreditInput = {
+    where: CreditUsageScalarWhereInput
+    data: XOR<CreditUsageUpdateManyMutationInput, CreditUsageUncheckedUpdateManyWithoutCreditInput>
+  }
+
+  export type CreditCreateWithoutCreditUsageInput = {
+    id: string
+    month: number
+    year: number
+    totalCredits?: number
+    usedCredits?: number
+    remainingCredits?: number
+    lastChatAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt: Date | string
+    User: UserCreateNestedOneWithoutCreditInput
+  }
+
+  export type CreditUncheckedCreateWithoutCreditUsageInput = {
+    id: string
+    userId: string
+    month: number
+    year: number
+    totalCredits?: number
+    usedCredits?: number
+    remainingCredits?: number
+    lastChatAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt: Date | string
+  }
+
+  export type CreditCreateOrConnectWithoutCreditUsageInput = {
+    where: CreditWhereUniqueInput
+    create: XOR<CreditCreateWithoutCreditUsageInput, CreditUncheckedCreateWithoutCreditUsageInput>
+  }
+
+  export type UserCreateWithoutCreditUsageInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Credit?: CreditCreateNestedManyWithoutUserInput
+    datasets?: DatasetAccessCreateNestedManyWithoutUserInput
+    documents?: DocumentAccessCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCreditUsageInput = {
+    id?: string
+    email: string
+    asgl_id: string
+    name: string
+    password: string
+    tokensUsed?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Credit?: CreditUncheckedCreateNestedManyWithoutUserInput
+    datasets?: DatasetAccessUncheckedCreateNestedManyWithoutUserInput
+    documents?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCreditUsageInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreditUsageInput, UserUncheckedCreateWithoutCreditUsageInput>
+  }
+
+  export type CreditUpsertWithoutCreditUsageInput = {
+    update: XOR<CreditUpdateWithoutCreditUsageInput, CreditUncheckedUpdateWithoutCreditUsageInput>
+    create: XOR<CreditCreateWithoutCreditUsageInput, CreditUncheckedCreateWithoutCreditUsageInput>
+    where?: CreditWhereInput
+  }
+
+  export type CreditUpdateToOneWithWhereWithoutCreditUsageInput = {
+    where?: CreditWhereInput
+    data: XOR<CreditUpdateWithoutCreditUsageInput, CreditUncheckedUpdateWithoutCreditUsageInput>
+  }
+
+  export type CreditUpdateWithoutCreditUsageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUpdateOneRequiredWithoutCreditNestedInput
+  }
+
+  export type CreditUncheckedUpdateWithoutCreditUsageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutCreditUsageInput = {
+    update: XOR<UserUpdateWithoutCreditUsageInput, UserUncheckedUpdateWithoutCreditUsageInput>
+    create: XOR<UserCreateWithoutCreditUsageInput, UserUncheckedCreateWithoutCreditUsageInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreditUsageInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreditUsageInput, UserUncheckedUpdateWithoutCreditUsageInput>
+  }
+
+  export type UserUpdateWithoutCreditUsageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUpdateManyWithoutUserNestedInput
+    datasets?: DatasetAccessUpdateManyWithoutUserNestedInput
+    documents?: DocumentAccessUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreditUsageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    asgl_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUncheckedUpdateManyWithoutUserNestedInput
+    datasets?: DatasetAccessUncheckedUpdateManyWithoutUserNestedInput
+    documents?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CreditCreateManyUserInput = {
+    id: string
+    month: number
+    year: number
+    totalCredits?: number
+    usedCredits?: number
+    remainingCredits?: number
+    lastChatAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt: Date | string
+  }
+
+  export type CreditUsageCreateManyUserInput = {
+    id: string
+    creditId: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
   }
 
   export type DatasetAccessCreateManyUserInput = {
@@ -14886,16 +17450,73 @@ export namespace Prisma {
     canDelete?: boolean
   }
 
-  export type UserRoleUpdateWithoutUserInput = {
-    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+  export type UserRoleCreateManyUserInput = {
+    roleId: string
   }
 
-  export type UserRoleUncheckedUpdateWithoutUserInput = {
-    roleId?: StringFieldUpdateOperationsInput | string
+  export type CreditUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreditUsage?: CreditUsageUpdateManyWithoutCreditNestedInput
   }
 
-  export type UserRoleUncheckedUpdateManyWithoutUserInput = {
-    roleId?: StringFieldUpdateOperationsInput | string
+  export type CreditUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreditUsage?: CreditUsageUncheckedUpdateManyWithoutCreditNestedInput
+  }
+
+  export type CreditUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    totalCredits?: IntFieldUpdateOperationsInput | number
+    usedCredits?: IntFieldUpdateOperationsInput | number
+    remainingCredits?: IntFieldUpdateOperationsInput | number
+    lastChatAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditUsageUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Credit?: CreditUpdateOneRequiredWithoutCreditUsageNestedInput
+  }
+
+  export type CreditUsageUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creditId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditUsageUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creditId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DatasetAccessUpdateWithoutUserInput = {
@@ -14938,6 +17559,18 @@ export namespace Prisma {
     canView?: BoolFieldUpdateOperationsInput | boolean
     canEdit?: BoolFieldUpdateOperationsInput | boolean
     canDelete?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserRoleUpdateWithoutUserInput = {
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+  }
+
+  export type UserRoleUncheckedUpdateWithoutUserInput = {
+    roleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserRoleUncheckedUpdateManyWithoutUserInput = {
+    roleId?: StringFieldUpdateOperationsInput | string
   }
 
   export type RolePermissionCreateManyRoleInput = {
@@ -14996,6 +17629,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DatasetAccessCreateManyDatasetInput = {
+    userId: string
+    canView?: boolean
+    canEdit?: boolean
+    canDelete?: boolean
+  }
+
   export type DocumentCreateManyDatasetInput = {
     id?: string
     document_id: string
@@ -15006,13 +17646,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type DatasetAccessCreateManyDatasetInput = {
-    userId: string
-    canView?: boolean
-    canEdit?: boolean
-    canDelete?: boolean
-  }
-
   export type DatasetUpdateWithoutParentInput = {
     id?: StringFieldUpdateOperationsInput | string
     dataset_id?: StringFieldUpdateOperationsInput | string
@@ -15020,8 +17653,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     children?: DatasetUpdateManyWithoutParentNestedInput
-    documents?: DocumentUpdateManyWithoutDatasetNestedInput
     accesses?: DatasetAccessUpdateManyWithoutDatasetNestedInput
+    documents?: DocumentUpdateManyWithoutDatasetNestedInput
   }
 
   export type DatasetUncheckedUpdateWithoutParentInput = {
@@ -15031,8 +17664,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     children?: DatasetUncheckedUpdateManyWithoutParentNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutDatasetNestedInput
     accesses?: DatasetAccessUncheckedUpdateManyWithoutDatasetNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutDatasetNestedInput
   }
 
   export type DatasetUncheckedUpdateManyWithoutParentInput = {
@@ -15041,6 +17674,27 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DatasetAccessUpdateWithoutDatasetInput = {
+    canView?: BoolFieldUpdateOperationsInput | boolean
+    canEdit?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneRequiredWithoutDatasetsNestedInput
+  }
+
+  export type DatasetAccessUncheckedUpdateWithoutDatasetInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    canView?: BoolFieldUpdateOperationsInput | boolean
+    canEdit?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DatasetAccessUncheckedUpdateManyWithoutDatasetInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    canView?: BoolFieldUpdateOperationsInput | boolean
+    canEdit?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type DocumentUpdateWithoutDatasetInput = {
@@ -15075,27 +17729,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DatasetAccessUpdateWithoutDatasetInput = {
-    canView?: BoolFieldUpdateOperationsInput | boolean
-    canEdit?: BoolFieldUpdateOperationsInput | boolean
-    canDelete?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneRequiredWithoutDatasetsNestedInput
-  }
-
-  export type DatasetAccessUncheckedUpdateWithoutDatasetInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    canView?: BoolFieldUpdateOperationsInput | boolean
-    canEdit?: BoolFieldUpdateOperationsInput | boolean
-    canDelete?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type DatasetAccessUncheckedUpdateManyWithoutDatasetInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    canView?: BoolFieldUpdateOperationsInput | boolean
-    canEdit?: BoolFieldUpdateOperationsInput | boolean
-    canDelete?: BoolFieldUpdateOperationsInput | boolean
-  }
-
   export type DocumentAccessCreateManyDocumentInput = {
     userId: string
     canView?: boolean
@@ -15122,6 +17755,42 @@ export namespace Prisma {
     canView?: BoolFieldUpdateOperationsInput | boolean
     canEdit?: BoolFieldUpdateOperationsInput | boolean
     canDelete?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CreditUsageCreateManyCreditInput = {
+    id: string
+    userId: string
+    amount?: number
+    action?: string
+    metadata?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CreditUsageUpdateWithoutCreditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUpdateOneRequiredWithoutCreditUsageNestedInput
+  }
+
+  export type CreditUsageUncheckedUpdateWithoutCreditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditUsageUncheckedUpdateManyWithoutCreditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

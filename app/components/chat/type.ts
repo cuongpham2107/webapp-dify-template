@@ -115,6 +115,20 @@ export type MessageEnd = {
         name: string
       }
     }
+    usage?: {
+      completion_price: string
+      completion_price_unit: string
+      completion_tokens: number
+      completion_unit_price: string
+      currency: string
+      latency: number
+      prompt_price: string
+      prompt_price_unit: string
+      prompt_tokens: number
+      prompt_unit_price: string
+      total_price: string
+      total_tokens: number
+    }
   }
 }
 

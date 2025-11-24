@@ -607,6 +607,26 @@ const Main: FC<IMainProps> = () => {
         })
       },
       onMessageEnd: async (messageEnd) => {
+
+        // Update user tokens usage
+        if (messageEnd.metadata?.usage?.total_tokens) {
+          try {
+            const response = await fetch('/api/user/update-tokens', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                totalTokens: messageEnd.metadata.usage.total_tokens,
+              }),
+            })
+            const result = await response.json()
+          } catch (error) {
+            console.error('❌ Error updating user tokens:', error)
+          }
+        } else {
+        }
+
         if (messageEnd.metadata?.annotation_reply) {
           responseItem.id = messageEnd.id
           responseItem.annotation = ({

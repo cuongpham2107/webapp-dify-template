@@ -1,34 +1,28 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-3.0.x"]
   output        = "../prisma/generated/prisma"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-// ======================
-// USER & AUTH
-// ======================
 model User {
-  id        String           @id @default(cuid())
-  email     String           @unique
-  asgl_id   String           @unique
-  name      String
-  password  String
-  roles     UserRole[]
-  datasets  DatasetAccess[]
-  documents DocumentAccess[]
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
+  id          String           @id @default(cuid())
+  email       String           @unique
+  asgl_id     String           @unique
+  name        String
+  password    String
+  tokensUsed  Int              @default(0)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  Credit      Credit[]
+  CreditUsage CreditUsage[]
+  datasets    DatasetAccess[]
+  documents   DocumentAccess[]
+  roles       UserRole[]
 }
 
 model Role {
@@ -44,43 +38,39 @@ model Permission {
   roles RolePermission[]
 }
 
-// ======================
-// RELATION TABLES
-// ======================
 model UserRole {
   userId String
   roleId String
-
-  user User @relation(fields: [userId], references: [id])
-  role Role @relation(fields: [roleId], references: [id])
+  role   Role   @relation(fields: [roleId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
   @@id([userId, roleId])
+  @@index([roleId], map: "UserRole_roleId_fkey")
 }
 
 model RolePermission {
   roleId       String
   permissionId String
-
-  role       Role       @relation(fields: [roleId], references: [id])
-  permission Permission @relation(fields: [permissionId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  role         Role       @relation(fields: [roleId], references: [id])
 
   @@id([roleId, permissionId])
+  @@index([permissionId], map: "RolePermission_permissionId_fkey")
 }
 
-// ======================
-// DATASET & DOCUMENT
-// ======================
 model Dataset {
   id         String          @id @default(cuid())
   dataset_id String          @unique
   name       String          @unique
   parent_id  String?
-  parent     Dataset?        @relation("DatasetToParent", fields: [parent_id], references: [id])
-  children   Dataset[]       @relation("DatasetToParent")
-  documents  Document[]
-  accesses   DatasetAccess[]
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
+  parent     Dataset?        @relation("DatasetToParent", fields: [parent_id], references: [id])
+  children   Dataset[]       @relation("DatasetToParent")
+  accesses   DatasetAccess[]
+  documents  Document[]
+
+  @@index([parent_id], map: "Dataset_parent_id_fkey")
 }
 
 model Document {
@@ -90,39 +80,68 @@ model Document {
   type        String
   size        Int
   datasetId   String
-  dataset     Dataset          @relation(fields: [datasetId], references: [id])
-  accesses    DocumentAccess[]
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+  dataset     Dataset          @relation(fields: [datasetId], references: [id])
+  accesses    DocumentAccess[]
+
+  @@index([datasetId], map: "Document_datasetId_fkey")
 }
 
-// ======================
-// ACCESS CONTROL
-// ======================
-// Xác định quyền cụ thể cho từng user trên dataset
 model DatasetAccess {
   userId    String
   datasetId String
   canView   Boolean @default(false)
   canEdit   Boolean @default(false)
   canDelete Boolean @default(false)
-
-  user    User    @relation(fields: [userId], references: [id])
-  dataset Dataset @relation(fields: [datasetId], references: [id])
+  dataset   Dataset @relation(fields: [datasetId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
 
   @@id([userId, datasetId])
+  @@index([datasetId], map: "DatasetAccess_datasetId_fkey")
 }
 
-// Xác định quyền cụ thể cho từng user trên document
 model DocumentAccess {
   userId     String
   documentId String
-  canView    Boolean @default(false)
-  canEdit    Boolean @default(false)
-  canDelete  Boolean @default(false)
-
-  user     User     @relation(fields: [userId], references: [id])
-  document Document @relation(fields: [documentId], references: [id])
+  canView    Boolean  @default(false)
+  canEdit    Boolean  @default(false)
+  canDelete  Boolean  @default(false)
+  document   Document @relation(fields: [documentId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 
   @@id([userId, documentId])
+  @@index([documentId], map: "DocumentAccess_documentId_fkey")
+}
+
+model Credit {
+  id               String        @id
+  userId           String
+  month            Int
+  year             Int
+  totalCredits     Int           @default(200)
+  usedCredits      Int           @default(0)
+  remainingCredits Int           @default(200)
+  lastChatAt       DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime
+  User             User          @relation(fields: [userId], references: [id])
+  CreditUsage      CreditUsage[]
+
+  @@unique([userId, month, year])
+}
+
+model CreditUsage {
+  id        String   @id
+  userId    String
+  creditId  String
+  amount    Int      @default(1)
+  action    String   @default("chat")
+  metadata  String?
+  createdAt DateTime @default(now())
+  Credit    Credit   @relation(fields: [creditId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
+
+  @@index([creditId], map: "CreditUsage_creditId_fkey")
+  @@index([userId], map: "CreditUsage_userId_fkey")
 }
